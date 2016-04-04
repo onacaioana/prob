@@ -21,6 +21,47 @@ namespace ProbatiuneApp
                 BindGrid();
         }
 
+        protected void GridView1_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+           
+     
+        }
+
+        protected void SearchTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void SearchButton_Click(object sender, ImageClickEventArgs e)
+        {
+            GridView1.DataSource = GridDataSource_Search(SearchTextBox.Text.ToString());
+            GridView1.DataBind();
+        }
+
+        /// <summary>
+        /// Search refresh the gridview
+        /// </summary>
+        private DataSet GridDataSource_Search(string text)
+        {
+            BAL.BusinessLayer pBAL = new BAL.BusinessLayer();
+            DataSet dset = new DataSet();
+            try
+            {
+                dset = pBAL.SearchQuery(text.ToString());
+            }
+            catch (Exception ee)
+            {
+                lblMessage.Text = ee.Message.ToString();
+            }
+            finally
+            {
+                pBAL = null;
+            }
+
+            return dset;
+        }
+
+
         /// <summary>
         /// Bind the gridview
         /// </summary>
@@ -53,10 +94,5 @@ namespace ProbatiuneApp
             return dset;
         }
 
-        protected void GridView1_SelectedIndexChanged1(object sender, EventArgs e)
-        {
-           
-     
-        }
     }
 }

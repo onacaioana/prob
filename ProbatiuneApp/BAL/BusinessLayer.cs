@@ -100,5 +100,22 @@ namespace ProbatiuneApp.BAL
 
         }
 
+        public DataSet SearchQuery(string text)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            try
+            {
+                return pDAL.SearchQuery(text);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                pDAL = null;
+            }
+        }
+
     }
 }
