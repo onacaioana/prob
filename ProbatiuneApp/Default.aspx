@@ -16,7 +16,11 @@
     <div class="searchDiv">
           <asp:Label ID="lblMessage" runat="Server" ForeColor="red" EnableViewState="False"></asp:Label>
     </div>
-        <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Angajati"  BackColor="#DEBA84" BorderColor="#DEBA84" HorizontalAlign="Left" VerticalAlign =" 50px"  BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting"  AutoGenerateColumns="False" >
+    <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Cazuri"  BackColor="#DEBA84" BorderColor="#DEBA84" HorizontalAlign="Left" 
+        VerticalAlign =" 50px"  BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2"  OnSelectedIndexChanged="GridView1_SelectedIndexChanged"
+         OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing"
+         OnRowUpdating="GridView1_RowUpdating"  AutoGenerateColumns="False" >
+
             <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
             <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
             <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
@@ -26,18 +30,92 @@
             <SortedAscendingHeaderStyle BackColor="#B95C30" />
             <SortedDescendingCellStyle BackColor="#F1E5CE" />
             <SortedDescendingHeaderStyle BackColor="#93451F" />
-            <Columns>
-                <asp:BoundField DataField="IDCazz" HeaderText="ID"   />
-                <asp:BoundField DataField="Nume" HeaderText="Nume "   />
-                <asp:BoundField DataField="Prenume" HeaderText="Prenume"  />
-                <asp:BoundField DataField="NrDosar" HeaderText="Nr.Dosar " />
-                <asp:BoundField DataField="Start" HeaderText="StartDate"  />
-                <asp:BoundField DataField="TheEnd" HeaderText="StopDate" />
-                <asp:BoundField DataField="Observatii" HeaderText="Observatii"  />
-                <asp:BoundField DataField="Nume" HeaderText="Nume Angajat"  />
-                <asp:BoundField DataField="Prenume" HeaderText="Prenume Angajat"  />
+            <Columns> 
+                <asp:TemplateField HeaderText="ID">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lbl_ID" runat="server" Text='<%#Eval("IDCazz") %>'></asp:Label>  
+                    </ItemTemplate>  
+                </asp:TemplateField>  
+                <asp:TemplateField HeaderText="Nume">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lbl_Nume" runat="server" Text='<%#Eval("Nume") %>'></asp:Label>  
+                    </ItemTemplate>  
+                    <EditItemTemplate>  
+                        <asp:TextBox ID="txt_Nume" Width="90%" runat="server" Text='<%#Eval("Nume") %>'></asp:TextBox>  
+                    </EditItemTemplate>  
+                </asp:TemplateField>  
+                 <asp:TemplateField HeaderText="Prenume">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lbl_Prenume" runat="server" Text='<%#Eval("Prenume") %>'></asp:Label>  
+                    </ItemTemplate>  
+                    <EditItemTemplate>  
+                        <asp:TextBox ID="txt_Prenume" Width="90%" runat="server" Text='<%#Eval("Prenume") %>'></asp:TextBox>  
+                    </EditItemTemplate>  
+                </asp:TemplateField> 
+               
+                <asp:TemplateField HeaderText="NrDosar">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lbl_NrDosar" runat="server" Text='<%#Eval("NrDosar") %>'></asp:Label>  
+                    </ItemTemplate>  
+                    <EditItemTemplate>  
+                        <asp:TextBox ID="txt_NrDosar" Width="90%" runat="server" Text='<%#Eval("NrDosar") %>'></asp:TextBox>  
+                    </EditItemTemplate>  
+                </asp:TemplateField>  
+
+                <asp:TemplateField HeaderText="StartDate">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lbl_Start" runat="server" Text='<%#Eval("Start") %>'></asp:Label>  
+                    </ItemTemplate>  
+                    <EditItemTemplate>  
+                        <asp:TextBox ID="txt_Start" Width="90%" runat="server" Text='<%#Eval("Start") %>'></asp:TextBox>  
+                    </EditItemTemplate>  
+                </asp:TemplateField> 
+                  <asp:TemplateField HeaderText="StopDate">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lbl_TheEnd" runat="server" Text='<%#Eval("TheEnd") %>'></asp:Label>  
+                    </ItemTemplate>  
+                    <EditItemTemplate>  
+                        <asp:TextBox ID="txt_TheEnd" Width="90%" runat="server" Text='<%#Eval("TheEnd") %>'></asp:TextBox>  
+                    </EditItemTemplate>  
+                </asp:TemplateField>  
+
+                  <asp:TemplateField HeaderText="Observatii">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lbl_Observatii" runat="server" Text='<%#Eval("Observatii") %>'></asp:Label>  
+                    </ItemTemplate>  
+                    <EditItemTemplate>  
+                        <asp:TextBox ID="txt_Observatii" Width="90%" runat="server" Text='<%#Eval("Observatii") %>'></asp:TextBox>  
+                    </EditItemTemplate>  
+                </asp:TemplateField> 
+
+                
+                  <asp:TemplateField HeaderText="Nume Angajat">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lbl_angNume" runat="server" Text='<%#Eval("NumeAng") %>'></asp:Label>  
+                    </ItemTemplate>  
+                    <EditItemTemplate>  
+                        <asp:TextBox ID="txt_angNume" Width="90%" runat="server" Text='<%#Eval("NumeAng") %>'></asp:TextBox>  
+                    </EditItemTemplate>  
+                </asp:TemplateField>
+
+                  <asp:TemplateField HeaderText="Prenume Angajat">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lbl_angPrenume" runat="server" Text='<%#Eval("PrenumeAng") %>'></asp:Label>  
+                    </ItemTemplate>  
+                    <EditItemTemplate>  
+                        <asp:TextBox ID="txt_angPrenume" Width="90%" runat="server" Text='<%#Eval("PrenumeAng") %>'></asp:TextBox>  
+                    </EditItemTemplate>  
+                </asp:TemplateField>
+                <asp:TemplateField>  
+                    <ItemTemplate>  
+                        <asp:Button ID="btn_Edit" runat="server" Text="Edit" CommandName="Edit" />  
+                    </ItemTemplate>  
+                    <EditItemTemplate>  
+                        <asp:Button ID="btn_Update" runat="server" Text="Update" CommandName="Update"/>  
+                        <asp:Button ID="btn_Cancel" runat="server" Text="Cancel" CommandName="Cancel"/>  
+                    </EditItemTemplate>  
+                </asp:TemplateField>
                 <asp:ButtonField CommandName="Delete" HeaderText="Delete" Text="Sterge" />
-                <asp:ButtonField CommandName="Edit" HeaderText="Edit" Text="Madifica" />
             </Columns>
         </asp:GridView>
 
