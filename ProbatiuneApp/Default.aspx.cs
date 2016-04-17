@@ -24,8 +24,12 @@ namespace ProbatiuneApp
         {
             if (!IsPostBack)
                 BindGrid();
-        }
 
+             }
+        protected void Panel_Load(object sender, EventArgs e)
+        {
+            panel.Controls.Add(new LiteralControl("<div style='color: gray; height: 20px; width: 300px;'>I was created using Code Behind</div>"));
+        }
         protected void SearchTextBox_TextChanged(object sender, EventArgs e)
         {
 
@@ -113,7 +117,13 @@ namespace ProbatiuneApp
     {  
         //NewEditIndex property used to determine the index of the row being edited.  
         GridView1.EditIndex = e.NewEditIndex;
-        BindGrid();  
+       
+        if (SearchTextBox.Text.ToString() != "")
+        {
+            GridView1.DataSource = GridDataSource_Search(SearchTextBox.Text.ToString());
+            GridView1.DataBind();
+        }
+        else BindGrid();
     }  
     protected void GridView1_RowUpdating(object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)  
     {  
@@ -134,12 +144,24 @@ namespace ProbatiuneApp
         //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
         GridView1.EditIndex = -1;  
         //Call ShowData method for displaying updated data  */
-        BindGrid();
+        if (SearchTextBox.Text.ToString() != "")
+        {
+            GridView1.DataSource = GridDataSource_Search(SearchTextBox.Text.ToString());
+            GridView1.DataBind();
+            SearchTextBox.Text = "";
+        }
+        else BindGrid();
     }
     protected void GridView1_RowCancelingEdit(object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
     {
         //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
         GridView1.EditIndex = -1;
+        BindGrid();
+    }
+
+    protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
+    {
+        GridView1.PageIndex = e.NewPageIndex;
         BindGrid();
     }
 

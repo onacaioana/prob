@@ -3,23 +3,32 @@
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
     <section class="featured">
         <div class="content-wrapper">
-          
-           
             <asp:ImageButton ID="SearchButton" runat="server" Height="24px" ImageUrl="~/Images/images.jpg" Width="24px" OnClick="SearchButton_Click" />
             <asp:TextBox ID="SearchTextBox" runat="server" Height="18px" Width="157px" OnTextChanged="SearchTextBox_TextChanged"></asp:TextBox>
- 
          </div>
     </section>
 </asp:Content>
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
-    <h3>TABEL CAZURI</h3>
     <div class="searchDiv">
           <asp:Label ID="lblMessage" runat="Server" ForeColor="red" EnableViewState="False"></asp:Label>
+        <asp:Panel ID="panel" runat="server" OnLoad="Panel_Load">
+            <asp:TextBox ID="TextBox1" runat="server" placeholder="Nume Caz" ></asp:TextBox>
+            <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+            <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
+            <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
+            <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
+            <asp:TextBox ID="TextBox6" runat="server"></asp:TextBox>
+            <asp:TextBox ID="TextBox7" runat="server"></asp:TextBox>
+            <asp:TextBox ID="TextBox8" runat="server"></asp:TextBox>
+
+            <asp:Button ID="AddButon" runat="server" Height="41px" Text="Adauga" Width="85px" />
+
+        </asp:Panel>
     </div>
     <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Cazuri"  BackColor="#DEBA84" BorderColor="#DEBA84" HorizontalAlign="Left" 
         VerticalAlign =" 50px"  BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2"  OnSelectedIndexChanged="GridView1_SelectedIndexChanged"
          OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing"
-         OnRowUpdating="GridView1_RowUpdating"  AutoGenerateColumns="False" >
+         OnRowUpdating="GridView1_RowUpdating"  AutoGenerateColumns="False" AllowPaging="true" PageSize="8" OnPageIndexChanging="OnPageIndexChanging" >
 
             <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
             <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
@@ -104,7 +113,8 @@
                     </ItemTemplate>  
                     <EditItemTemplate>  
                         <asp:TextBox ID="txt_angPrenume" Width="90%" runat="server" Text='<%#Eval("PrenumeAng") %>'></asp:TextBox>  
-                    </EditItemTemplate>  
+                    </EditItemTemplate> 
+                       
                 </asp:TemplateField>
                 <asp:TemplateField>  
                     <ItemTemplate>  
@@ -113,12 +123,12 @@
                     <EditItemTemplate>  
                         <asp:Button ID="btn_Update" runat="server" Text="Update" CommandName="Update"/>  
                         <asp:Button ID="btn_Cancel" runat="server" Text="Cancel" CommandName="Cancel"/>  
-                    </EditItemTemplate>  
+                    </EditItemTemplate> 
+                     
                 </asp:TemplateField>
                 <asp:ButtonField CommandName="Delete" HeaderText="Delete" Text="Sterge" />
             </Columns>
         </asp:GridView>
-
-  
+     
 
 </asp:Content>
