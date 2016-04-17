@@ -38,7 +38,7 @@ namespace ProbatiuneApp
                 s.CompareTo("1");
         }
         public void GridView1_Deleting(object sender, GridViewDeleteEventArgs e) {
-            TextBox tb = GridView1.Rows[e.RowIndex].FindControl("lbl_ID") as TextBox;
+            Label tb = GridView1.Rows[e.RowIndex].FindControl("lbl_ID") as Label;
             int id = Int32.Parse(tb.Text.ToString());
             pBAL.Delete(id);
             BindGrid();
