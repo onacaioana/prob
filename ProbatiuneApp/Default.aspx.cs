@@ -118,10 +118,9 @@ namespace ProbatiuneApp
     protected void GridView1_RowUpdating(object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)  
     {  
         //Finding the controls from Gridview for the row which is going to update  
-        Label id=GridView1.Rows[e.RowIndex].FindControl("lbl_IDCazz") as Label;  
+        Label id=GridView1.Rows[e.RowIndex].FindControl("lbl_ID") as Label;  
         TextBox Nume = GridView1.Rows[e.RowIndex].FindControl("txt_Nume") as TextBox;  
         TextBox Prenume = GridView1.Rows[e.RowIndex].FindControl("txt_Prenume") as TextBox;
-        TextBox Prenume2 = GridView1.Rows[e.RowIndex].FindControl("txt_Prenume2") as TextBox;
         TextBox NrDosar = GridView1.Rows[e.RowIndex].FindControl("txt_NrDosar") as TextBox;
         TextBox StartDate = GridView1.Rows[e.RowIndex].FindControl("txt_Start") as TextBox;
         TextBox TheEnd = GridView1.Rows[e.RowIndex].FindControl("txt_TheEnd") as TextBox;
@@ -130,7 +129,8 @@ namespace ProbatiuneApp
         TextBox PrenumeAng = GridView1.Rows[e.RowIndex].FindControl("txt_PrenumeAng") as TextBox;
       
         //updating the record  
-       
+        pBAL.Update(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text);
+
         //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
         GridView1.EditIndex = -1;  
         //Call ShowData method for displaying updated data  */

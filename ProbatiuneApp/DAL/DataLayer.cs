@@ -178,6 +178,48 @@ namespace ProbatiuneApp.DAL
             }
         }
 
+        public int Update(int CazID,string Nume,string Prenume, int nrDosar, string Start, string TheEnd,string Observatii)
+        {
+
+            SqlConnection conn = new SqlConnection(connStr);
+
+            conn.Open();
+
+            SqlCommand dCmd = new SqlCommand("UPDATE Cazuri SET Nume=@Nume, Prenume=@Prenume, NrDosar = @NrDosar, Start=@Start, TheEnd=@TheEnd, Observatii=@Observatii WHERE IDCazz=@IDCaz;", conn);
+
+            try
+            {
+
+                dCmd.Parameters.AddWithValue("@IDCaz", CazID);
+                dCmd.Parameters.AddWithValue("@Nume", Nume);
+                dCmd.Parameters.AddWithValue("@Prenume", Prenume);
+                dCmd.Parameters.AddWithValue("@NrDosar", nrDosar);
+                dCmd.Parameters.AddWithValue("@Start", Start);
+                dCmd.Parameters.AddWithValue("@TheEnd",TheEnd);
+                dCmd.Parameters.AddWithValue("@Observatii", Observatii);
+                return dCmd.ExecuteNonQuery();
+
+            }
+
+            catch
+            {
+
+                throw;
+
+            }
+
+            finally
+            {
+
+                dCmd.Dispose();
+
+                conn.Close();
+
+                conn.Dispose();
+
+            }
+
+        }
 
     }
 
