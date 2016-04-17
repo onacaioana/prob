@@ -36,7 +36,8 @@
                 <asp:BoundField DataField="Observatii" HeaderText="Observatii"  />
                 <asp:BoundField DataField="Nume" HeaderText="Nume Angajat"  />
                 <asp:BoundField DataField="Prenume" HeaderText="Prenume Angajat"  />
-                <asp:ButtonField CommandName="Delete" HeaderText="Delete" Text="[Remove]" />
+                <asp:ButtonField CommandName="Delete" HeaderText="Delete" Text="Sterge" />
+                <asp:ButtonField CommandName="Edit" HeaderText="Edit" Text="Madifica" />
             </Columns>
         </asp:GridView>
 

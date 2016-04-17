@@ -20,6 +20,7 @@ namespace ProbatiuneApp
 {
     public partial class _Default : Page
     {
+        private BAL.BusinessLayer pBAL = new BAL.BusinessLayer();
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -33,7 +34,11 @@ namespace ProbatiuneApp
         protected void GridView1_Delete(object sender, System.Web.UI.WebControls.GridViewDeletedEventArgs e)
         {
         }
-        public void GridView1_Deleting(object sender, GridViewDeleteEventArgs e) { }
+        public void GridView1_Deleting(object sender, GridViewDeleteEventArgs e) {
+            int id = Int32.Parse(e.Values[0].ToString());
+            pBAL.Delete(id);
+            BindGrid();
+        }
         protected void SearchButton_Click(object sender, ImageClickEventArgs e)
         {
             GridView1.DataSource = GridDataSource_Search(SearchTextBox.Text.ToString());
@@ -45,7 +50,7 @@ namespace ProbatiuneApp
         /// </summary>
         private DataSet GridDataSource_Search(string text)
         {
-            BAL.BusinessLayer pBAL = new BAL.BusinessLayer();
+            
             DataSet dset = new DataSet();
             try
             {
