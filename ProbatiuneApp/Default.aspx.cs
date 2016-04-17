@@ -10,6 +10,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using System.Collections;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Security.Permissions;
+
 
 namespace ProbatiuneApp
 {
@@ -21,17 +26,14 @@ namespace ProbatiuneApp
                 BindGrid();
         }
 
-        protected void GridView1_SelectedIndexChanged1(object sender, EventArgs e)
-        {
-           
-     
-        }
-
         protected void SearchTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
-
+        protected void GridView1_Delete(object sender, System.Web.UI.WebControls.GridViewDeletedEventArgs e)
+        {
+        }
+        public void GridView1_Deleting(object sender, GridViewDeleteEventArgs e) { }
         protected void SearchButton_Click(object sender, ImageClickEventArgs e)
         {
             GridView1.DataSource = GridDataSource_Search(SearchTextBox.Text.ToString());
@@ -92,6 +94,11 @@ namespace ProbatiuneApp
             }
 
             return dset;
+        }
+
+        protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
     }

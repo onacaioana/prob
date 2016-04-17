@@ -16,7 +16,7 @@
     <div class="searchDiv">
           <asp:Label ID="lblMessage" runat="Server" ForeColor="red" EnableViewState="False"></asp:Label>
     </div>
-        <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Angajati"  BackColor="#DEBA84" BorderColor="#DEBA84" HorizontalAlign="Left" VerticalAlign =" 50px"  BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" OnSelectedIndexChanged="GridView1_SelectedIndexChanged1" AutoGenerateColumns="False" >
+        <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Angajati"  BackColor="#DEBA84" BorderColor="#DEBA84" HorizontalAlign="Left" VerticalAlign =" 50px"  BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting"  AutoGenerateColumns="False" >
             <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
             <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
             <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
@@ -36,8 +36,7 @@
                 <asp:BoundField DataField="Observatii" HeaderText="Observatii"  />
                 <asp:BoundField DataField="Nume" HeaderText="Nume Angajat"  />
                 <asp:BoundField DataField="Prenume" HeaderText="Prenume Angajat"  />
-                <asp:HyperLinkField DataNavigateUrlFields="Nume" DataNavigateUrlFormatString="edit.aspx?Nume={0}" Text="Edit" />
-                <asp:ButtonField   ButtonType="Link"  Text="Delete" />
+                <asp:ButtonField CommandName="Delete" HeaderText="Delete" Text="[Remove]" />
             </Columns>
         </asp:GridView>
 

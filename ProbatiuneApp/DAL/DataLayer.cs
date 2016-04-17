@@ -16,7 +16,7 @@ namespace ProbatiuneApp.DAL
 {
     public class DataLayer
     {
-        string connStr = ConfigurationManager.ConnectionStrings["connString"].ToString();
+        string connStr = ConfigurationManager.ConnectionStrings["connString"].ConnectionString;
     
         public DataLayer()
         {
