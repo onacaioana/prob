@@ -5,8 +5,11 @@
         <div class="content-wrapper">
           
            
-            <asp:ImageButton ID="SearchButton" runat="server" Height="24px" ImageUrl="~/Images/images.jpg" Width="24px" OnClick="SearchButton_Click" />
-            <asp:TextBox ID="SearchTextBox" runat="server" Height="18px" Width="157px" OnTextChanged="SearchTextBox_TextChanged"></asp:TextBox>
+            Search
+            <asp:TextBox ID="SearchTextBox" runat="server" Height="16px" Width="157px" OnTextChanged="SearchTextBox_TextChanged"></asp:TextBox>
+ 
+           
+            <asp:ImageButton ID="SearchButton" runat="server" Height="19px" ImageUrl="~/Images/images.jpg" Width="18px" OnClick="SearchButton_Click" />
  
          </div>
     </section>
