@@ -34,14 +34,21 @@ namespace ProbatiuneApp.DAL
         /// <param name="StopDate"></param>
         /// <param name="Angajat"></param>
         /// <returns></returns>
-        public int Insert(string Nume, string Prenume, int NrDosar, string StartDate, string StopDate, string Observatii, string Angajat)
+        public int Insert(string Nume, string Prenume, int NrDosar, string StartDate, string StopDate, string Observatii, string AngajatName,string PrenumeAng)
         {
             DateTime start = Convert.ToDateTime(StartDate);
             DateTime stop = Convert.ToDateTime(StopDate); 
 
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            SqlCommand dCmd = new SqlCommand("InsertData", conn);
+            string sql =  "INSERT INTO Angajati(Nume,Prenume,Nr.Dosar,naam,voornaam) VALUES(@param1,@param2,@param3)";
+        
+     /*   cmd.Parameters.Add("@param1", SqlDbType.Int).value = klantId  
+        cmd.Parameters.Add("@param2", SqlDbType.Varchar, 50).value = klantNaam;
+        cmd.Parameters.Add("@param3", SqlDbType.Varchar, 50).value = klantVoornaam;
+        cmd.CommandType = CommandType.Text;
+        cmd.ExecuteNonQuery();
+         */   SqlCommand dCmd = new SqlCommand(sql, conn);
             dCmd.CommandType = CommandType.StoredProcedure;
             try
             {
@@ -50,7 +57,8 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.AddWithValue("@NrDosar", NrDosar);
                 dCmd.Parameters.AddWithValue("@StartDate", start);
                 dCmd.Parameters.AddWithValue("@StopDate", stop);
-                dCmd.Parameters.AddWithValue("@Angajat", Angajat);
+                dCmd.Parameters.AddWithValue("@Angajat", AngajatName);
+                dCmd.Parameters.AddWithValue("@AngajatPre", PrenumeAng);
                 return dCmd.ExecuteNonQuery();
             }
             catch

@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ProbatiuneApp._Default" %>
 
+
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
     <section class="featured">
         <div class="content-wrapper">
@@ -12,16 +13,15 @@
     <div class="searchDiv">
           <asp:Label ID="lblMessage" runat="Server" ForeColor="red" EnableViewState="False"></asp:Label>
         <asp:Panel ID="panel" runat="server" OnLoad="Panel_Load">
-            <asp:TextBox ID="TextBox1" runat="server" placeholder="Nume Caz" ></asp:TextBox>
-            <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
-            <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
-            <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
-            <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
-            <asp:TextBox ID="TextBox6" runat="server"></asp:TextBox>
-            <asp:TextBox ID="TextBox7" runat="server"></asp:TextBox>
-            <asp:TextBox ID="TextBox8" runat="server"></asp:TextBox>
-
-            <asp:Button ID="AddButon" runat="server" Height="41px" Text="Adauga" Width="85px" />
+            <asp:TextBox ID="TextBox1" runat="server" placeholder="Nume Caz" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBox2" runat="server" placeholder="Prenume Caz" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBox3" runat="server" placeholder="Nr. Dosar" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBox4" runat="server" placeholder="Data inceperii" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBox5" runat="server" placeholder="Data final" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBox6" runat="server" placeholder="Observatii" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBox7" runat="server" placeholder="Nume Angajat" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBox8" runat="server" placeholder="Prenume Angajat" Width="10%" ></asp:TextBox>
+            <asp:Button ID="AddButon" runat="server" Height="41px" Text="Adauga" Width="85px" OnClick="AddButon_Click" />
 
         </asp:Panel>
     </div>

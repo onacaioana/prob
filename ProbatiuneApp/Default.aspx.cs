@@ -28,7 +28,7 @@ namespace ProbatiuneApp
              }
         protected void Panel_Load(object sender, EventArgs e)
         {
-            panel.Controls.Add(new LiteralControl("<div style='color: gray; height: 20px; width: 300px;'>I was created using Code Behind</div>"));
+           
         }
         protected void SearchTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -162,6 +162,12 @@ namespace ProbatiuneApp
     protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         GridView1.PageIndex = e.NewPageIndex;
+        BindGrid();
+    }
+
+    protected void AddButon_Click(object sender, EventArgs e)
+    {
+        pBAL.Insert(TextBox1.Text.ToString(), TextBox2.Text.ToString(),Int32.Parse(TextBox3.Text.ToString()), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), TextBox7.Text.ToString(), TextBox8.Text.ToString());
         BindGrid();
     }
 

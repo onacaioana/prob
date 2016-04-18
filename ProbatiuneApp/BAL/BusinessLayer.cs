@@ -28,13 +28,13 @@ namespace ProbatiuneApp.BAL
         /// <param name="lastName"></param>
         /// <param name="age"></param>
         /// <returns></returns>
-        public int Insert(string Nume, string Prenume, int NrDosar, string startDate,string stopDate, string Observatii, string AngajatName)
+        public int Insert(string Nume, string Prenume, int NrDosar, string startDate,string stopDate, string Observatii, string AngajatName,string PrenumeAng)
         {
              DAL.DataLayer pDAL = new DAL.DataLayer();
            
             try
             {
-                return pDAL.Insert(Nume, Prenume, NrDosar,startDate,stopDate,Observatii,AngajatName);
+                return pDAL.Insert(Nume, Prenume, NrDosar, startDate, stopDate, Observatii, AngajatName, PrenumeAng);
             }
             catch
             {
