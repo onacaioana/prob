@@ -14,6 +14,7 @@ namespace ProbatiuneApp.BAL
 {
     public class BusinessLayer
     {
+       
         public BusinessLayer()
         { 
         
@@ -29,7 +30,8 @@ namespace ProbatiuneApp.BAL
         /// <returns></returns>
         public int Insert(string Nume, string Prenume, int NrDosar, string startDate,string stopDate, string Observatii, string AngajatName)
         {
-            DAL.DataLayer pDAL = new DAL.DataLayer();
+             DAL.DataLayer pDAL = new DAL.DataLayer();
+           
             try
             {
                 return pDAL.Insert(Nume, Prenume, NrDosar,startDate,stopDate,Observatii,AngajatName);
@@ -74,9 +76,7 @@ namespace ProbatiuneApp.BAL
 
         public int Delete(int IDCaz)
         {
-
-            DAL.DataLayer pDAL = new DAL.DataLayer();
-
+           DAL.DataLayer pDAL = new DAL.DataLayer();
             try
             {
 
@@ -100,6 +100,21 @@ namespace ProbatiuneApp.BAL
 
         }
 
+        public int Update(int IDCaz,string nume, string prenume,int nrDosar,string start,string stop,string obs)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            try{
+                return pDAL.Update(IDCaz, nume, prenume, nrDosar, start, stop, obs);
+            }
+            catch
+            { throw; }
+
+            finally
+            { pDAL = null; }
+
+        }
+
+
         public DataSet SearchQuery(string text)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
@@ -116,6 +131,8 @@ namespace ProbatiuneApp.BAL
                 pDAL = null;
             }
         }
+
+
 
     }
 }

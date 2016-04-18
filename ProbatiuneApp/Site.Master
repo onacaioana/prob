@@ -65,7 +65,7 @@
                 <nav>
                     <ul id="menu">
                         <li><a runat="server" href="~/">Vizualizare</a></li>
-                        <li><a runat="server" href="~/Adaugare.aspx">Agaugare</a></li>
+                        <li><a runat="server" href="~/Adaugare.aspx">Adaugare</a></li>
                         <li><a runat="server" href="~/Contact.aspx">Export</a></li>
                     </ul>
                 </nav>

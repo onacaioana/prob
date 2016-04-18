@@ -16,7 +16,7 @@ namespace ProbatiuneApp.DAL
 {
     public class DataLayer
     {
-        string connStr = ConfigurationManager.ConnectionStrings["connString"].ToString();
+        string connStr = ConfigurationManager.ConnectionStrings["connString"].ConnectionString;
     
         public DataLayer()
         {
@@ -103,7 +103,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCazz,c.Nume,c.Prenume,c.Prenume2,c.NrDosar,c.Start,c.TheEnd,c.Observatii,a.Nume,a.Prenume from Cazuri as c inner join Angajati as a on a.IdAngajat = c.IDAngajat order by c.Nume,c.Prenume;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCazz,c.Nume,c.Prenume+' ' +c.Prenume2 as Prenume,c.NrDosar,c.Start,c.TheEnd,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from Cazuri as c inner join Angajati as a on a.IdAngajat = c.IDAngajat order by c.Nume,c.Prenume;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -169,7 +169,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCazz,c.Nume,c.Prenume,c.Prenume2,c.NrDosar,c.Start,c.TheEnd,c.Observatii,a.Nume,a.Prenume from Cazuri as c inner join Angajati as a on a.IdAngajat = c.IDAngajat where c.Nume like '" + text + "%' OR c.Prenume like '" + text + "%' order by c.Nume,c.Prenume;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCazz,c.Nume,c.Prenume+' '+c.Prenume2 as Prenume,c.NrDosar,c.Start,c.TheEnd,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from Cazuri as c inner join Angajati as a on a.IdAngajat = c.IDAngajat where c.Nume like '" + text + "%' OR c.Prenume like '" + text + "%' order by c.Nume,c.Prenume;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -178,6 +178,48 @@ namespace ProbatiuneApp.DAL
             }
         }
 
+        public int Update(int CazID,string Nume,string Prenume, int nrDosar, string Start, string TheEnd,string Observatii)
+        {
+
+            SqlConnection conn = new SqlConnection(connStr);
+
+            conn.Open();
+
+            SqlCommand dCmd = new SqlCommand("UPDATE Cazuri SET Nume=@Nume, Prenume=@Prenume, NrDosar = @NrDosar, Start=@Start, TheEnd=@TheEnd, Observatii=@Observatii WHERE IDCazz=@IDCaz;", conn);
+
+            try
+            {
+
+                dCmd.Parameters.AddWithValue("@IDCaz", CazID);
+                dCmd.Parameters.AddWithValue("@Nume", Nume);
+                dCmd.Parameters.AddWithValue("@Prenume", Prenume);
+                dCmd.Parameters.AddWithValue("@NrDosar", nrDosar);
+                dCmd.Parameters.AddWithValue("@Start", Start);
+                dCmd.Parameters.AddWithValue("@TheEnd",TheEnd);
+                dCmd.Parameters.AddWithValue("@Observatii", Observatii);
+                return dCmd.ExecuteNonQuery();
+
+            }
+
+            catch
+            {
+
+                throw;
+
+            }
+
+            finally
+            {
+
+                dCmd.Dispose();
+
+                conn.Close();
+
+                conn.Dispose();
+
+            }
+
+        }
 
     }
 
