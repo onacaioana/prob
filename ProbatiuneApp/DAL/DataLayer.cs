@@ -36,29 +36,22 @@ namespace ProbatiuneApp.DAL
         /// <returns></returns>
         public int Insert(string Nume, string Prenume, int NrDosar, string StartDate, string StopDate, string Observatii, string AngajatName,string PrenumeAng)
         {
-            DateTime start = Convert.ToDateTime(StartDate);
-            DateTime stop = Convert.ToDateTime(StopDate); 
-
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            string sql =  "INSERT INTO Angajati(Nume,Prenume,Nr.Dosar,naam,voornaam) VALUES(@param1,@param2,@param3)";
-        
-     /*   cmd.Parameters.Add("@param1", SqlDbType.Int).value = klantId  
-        cmd.Parameters.Add("@param2", SqlDbType.Varchar, 50).value = klantNaam;
-        cmd.Parameters.Add("@param3", SqlDbType.Varchar, 50).value = klantVoornaam;
-        cmd.CommandType = CommandType.Text;
-        cmd.ExecuteNonQuery();
-         */   SqlCommand dCmd = new SqlCommand(sql, conn);
-            dCmd.CommandType = CommandType.StoredProcedure;
+            string sql =  "Insert INTO Cazuri(Nume,Prenume,Prenume2,NrDosar,Start,TheEnd,Observatii,IDAngajat) VALUES(@Nume,@Prenume,'',@NrDosar,@StartDate,@StopDate,@Observatii,(SELECT Angajati.IdAngajat from Angajati where Nume  = @Angajat AND Prenume=@AngajatPre))";
+            SqlCommand dCmd = new SqlCommand(sql, conn);
+           
             try
             {
-                dCmd.Parameters.AddWithValue("@Nume", Nume);
-                dCmd.Parameters.AddWithValue("@Prenume", Prenume);
-                dCmd.Parameters.AddWithValue("@NrDosar", NrDosar);
-                dCmd.Parameters.AddWithValue("@StartDate", start);
-                dCmd.Parameters.AddWithValue("@StopDate", stop);
-                dCmd.Parameters.AddWithValue("@Angajat", AngajatName);
-                dCmd.Parameters.AddWithValue("@AngajatPre", PrenumeAng);
+                dCmd.Parameters.Add("@Nume", SqlDbType.NVarChar, 255).Value = Nume;
+                dCmd.Parameters.Add("@Prenume", SqlDbType.NVarChar, 255).Value = Prenume;
+                dCmd.Parameters.Add("@NrDosar", SqlDbType.Int).Value = NrDosar;
+                dCmd.Parameters.Add("@StartDate", SqlDbType.NVarChar, 255).Value = StartDate;
+                dCmd.Parameters.Add("@StopDate", SqlDbType.NVarChar, 255).Value = StopDate;
+                dCmd.Parameters.Add("@Observatii", SqlDbType.NVarChar, 255).Value = Observatii;
+                dCmd.Parameters.Add("@Angajat", SqlDbType.NVarChar, 255).Value= AngajatName;
+                dCmd.Parameters.Add("@AngajatPre", SqlDbType.NVarChar, 255).Value = PrenumeAng;
+                dCmd.CommandType = CommandType.Text;
                 return dCmd.ExecuteNonQuery();
             }
             catch

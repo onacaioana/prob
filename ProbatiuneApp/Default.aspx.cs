@@ -168,6 +168,15 @@ namespace ProbatiuneApp
     protected void AddButon_Click(object sender, EventArgs e)
     {
         pBAL.Insert(TextBox1.Text.ToString(), TextBox2.Text.ToString(),Int32.Parse(TextBox3.Text.ToString()), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), TextBox7.Text.ToString(), TextBox8.Text.ToString());
+        TextBox8.Text = "";
+        TextBox7.Text = "";
+        TextBox6.Text = "";
+        TextBox5.Text = "";
+        TextBox4.Text = "";
+        TextBox3.Text = "";
+        TextBox2.Text = "";
+        TextBox1.Text = "";
+
         BindGrid();
     }
 
