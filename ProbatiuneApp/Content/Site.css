@@ -202,10 +202,27 @@ ul#menu {
 
         ul#menu li a {
             background: none;
-            color: #999;
+            color: cornflowerblue;
             text-decoration: none;
+            margin:10px;
+             font-size:1.1em;
+            font-family:'Comic Sans MS';
+        }
+          ul#menu li button {
+              text-shadow:inherit;
+              font-family:'Comic Sans MS';
+              font-size:1.1em;
+              margin:auto;
+            background: none;
+            color: cornflowerblue;
+            text-decoration: none;
+            border-color:transparent;
         }
 
+           ul#menu li button:hover {
+            color: #333;
+            text-decoration: none;
+        }
         ul#menu li a:hover {
             color: #333;
             text-decoration: none;

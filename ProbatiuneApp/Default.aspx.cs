@@ -13,6 +13,7 @@ using System.Web.UI.HtmlControls;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Security.Permissions;
+using System.IO;
 
 
 namespace ProbatiuneApp
@@ -108,6 +109,29 @@ namespace ProbatiuneApp
             return dset;
         }
 
+        private void Export_OnClick(object sender, EventArgs e) {
+            ExportGridToExcel();
+        }
+        private void ExportGridToExcel()
+        {
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            Response.Charset = "";
+            string FileName = "Cazuri" + DateTime.Now + ".xls";
+            StringWriter strwritter = new StringWriter();
+            HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
+            GridView1.GridLines = GridLines.Both;
+            GridView1.HeaderStyle.Font.Bold = true;
+            GridView1.RenderControl(htmltextwrtter);
+            Response.Write(strwritter.ToString());
+            Response.End();
+
+        }  
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -178,6 +202,11 @@ namespace ProbatiuneApp
         TextBox1.Text = "";
 
         BindGrid();
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        ExportGridToExcel();
     }
 
     }

@@ -1,12 +1,21 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ProbatiuneApp._Default" %>
 
-
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
     <section class="featured">
-        <div class="content-wrapper" >
-            <asp:ImageButton ID="SearchButton" runat="server" Height="24px" ImageUrl="~/Images/images.jpg" Width="24px" OnClick="SearchButton_Click" />
-            <asp:TextBox ID="SearchTextBox" runat="server"  Height="23px" Width="514px" BorderColor="Maroon" BackColor="#ffcccc" OnTextChanged="SearchTextBox_TextChanged"></asp:TextBox>
-         </div>
+        <nav>
+            <ul id="menu">
+                <li><a id="A1" runat="server" href="~/">Vizualizare</a></li>
+                <li><a id="A2" runat="server" href="~/Adaugare.aspx">Adaugare</a></li>
+                <li><button id="exportButton" onclick="Export_OnClick">Export</button></li>
+            </ul>
+        </nav>
+        <div class="content-wrapper" style="padding-left:30px" >
+            <asp:TextBox ID="SearchTextBox" runat="server" placeholder="Cautare Nume/Prenume" Height="23px" Width="409px" BorderColor="Maroon" style="margin:auto 15px 15px 300px;position:static;" BackColor="#ffcccc" OnTextChanged="SearchTextBox_TextChanged"></asp:TextBox>
+            <asp:ImageButton ID="SearchButton" runat="server" Height="26px" ImageUrl="~/Images/images.jpg" OnClick="SearchButton_Click" Width="32px" />
+            <asp:TextBox ID="TextBox9" runat="server" placeholder="Cautare Numar dosar" Height="23px" Width="409px" BorderColor="Maroon" style="margin:auto 15px auto 300px;position:static;" BackColor="#ffcccc" OnTextChanged="SearchTextBox_TextChanged"></asp:TextBox>
+            <asp:ImageButton ID="ImageButton1" runat="server" Height="26px" ImageUrl="~/Images/images.jpg" OnClick="SearchButton_Click" Width="32px" />
+            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+        </div>
     </section>
 </asp:Content>
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
@@ -25,7 +34,8 @@
 
         </asp:Panel>
     </div>
-    <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Cazuri" HorizontalAlign="Left" 
+
+        <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Cazuri" HorizontalAlign="Left" 
         VerticalAlign =" 50px" CellPadding="4"  OnSelectedIndexChanged="GridView1_SelectedIndexChanged"
          OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing"
          OnRowUpdating="GridView1_RowUpdating"  AutoGenerateColumns="False" AllowPaging="True" PageSize="8" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" >
@@ -135,6 +145,5 @@
                 </asp:ButtonField>
             </Columns>
         </asp:GridView>
-     
 
 </asp:Content>
