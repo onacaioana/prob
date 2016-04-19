@@ -3,9 +3,9 @@
 
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
     <section class="featured">
-        <div class="content-wrapper">
+        <div class="content-wrapper" >
             <asp:ImageButton ID="SearchButton" runat="server" Height="24px" ImageUrl="~/Images/images.jpg" Width="24px" OnClick="SearchButton_Click" />
-            <asp:TextBox ID="SearchTextBox" runat="server" Height="18px" Width="157px" OnTextChanged="SearchTextBox_TextChanged"></asp:TextBox>
+            <asp:TextBox ID="SearchTextBox" runat="server"  Height="23px" Width="514px" BorderColor="Maroon" BackColor="#ffcccc" OnTextChanged="SearchTextBox_TextChanged"></asp:TextBox>
          </div>
     </section>
 </asp:Content>
