@@ -121,13 +121,13 @@ namespace ProbatiuneApp {
         protected global::System.Web.UI.WebControls.TextBox TextBox8;
         
         /// <summary>
-        /// AddButon control.
+        /// BTN_aDD control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button AddButon;
+        protected global::System.Web.UI.WebControls.ImageButton BTN_aDD;
         
         /// <summary>
         /// GridView1 control.

@@ -21,24 +21,27 @@
             <asp:TextBox ID="TextBox6" runat="server" placeholder="Observatii" Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox7" runat="server" placeholder="Nume Angajat" Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox8" runat="server" placeholder="Prenume Angajat" Width="10%" ></asp:TextBox>
-            <asp:Button ID="AddButon" runat="server" Height="41px" Text="Adauga" Width="85px" OnClick="AddButon_Click" />
+            <asp:ImageButton  ID="BTN_aDD" ImageUrl="~/Images/add.png" Height="50px" runat="server" OnClick="AddButon_Click" /> 
 
         </asp:Panel>
     </div>
-    <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Cazuri"  BackColor="#DEBA84" BorderColor="#DEBA84" HorizontalAlign="Left" 
-        VerticalAlign =" 50px"  BorderStyle="None" BorderWidth="1px" CellPadding="3" CellSpacing="2"  OnSelectedIndexChanged="GridView1_SelectedIndexChanged"
+    <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Cazuri" HorizontalAlign="Left" 
+        VerticalAlign =" 50px" CellPadding="4"  OnSelectedIndexChanged="GridView1_SelectedIndexChanged"
          OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing"
-         OnRowUpdating="GridView1_RowUpdating"  AutoGenerateColumns="False" AllowPaging="true" PageSize="8" OnPageIndexChanging="OnPageIndexChanging" >
+         OnRowUpdating="GridView1_RowUpdating"  AutoGenerateColumns="False" AllowPaging="True" PageSize="8" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" >
 
-            <FooterStyle BackColor="#F7DFB5" ForeColor="#8C4510" />
-            <HeaderStyle BackColor="#A55129" Font-Bold="True" ForeColor="White" />
-            <PagerStyle ForeColor="#8C4510" HorizontalAlign="Center" />
-            <RowStyle BackColor="#FFF7E7" ForeColor="#8C4510" />
-            <SelectedRowStyle BackColor="#738A9C" Font-Bold="True" ForeColor="White" />
-            <SortedAscendingCellStyle BackColor="#FFF1D4" />
-            <SortedAscendingHeaderStyle BackColor="#B95C30" />
-            <SortedDescendingCellStyle BackColor="#F1E5CE" />
-            <SortedDescendingHeaderStyle BackColor="#93451F" />
+            <EditRowStyle BackColor="#999999" />
+
+            <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
+            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
+            <PagerStyle ForeColor="White" HorizontalAlign="Center" BackColor="#284775" />
+            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
+            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
+            <SortedAscendingCellStyle BackColor="#E9E7E2" />
+            <SortedAscendingHeaderStyle BackColor="#506C8C" />
+            <SortedDescendingCellStyle BackColor="#FFFDF8" />
+            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns> 
                 <asp:TemplateField HeaderText="ID">  
                     <ItemTemplate>  
@@ -118,7 +121,8 @@
                 </asp:TemplateField>
                 <asp:TemplateField>  
                     <ItemTemplate>  
-                        <asp:Button ID="btn_Edit" runat="server" Text="Edit" CommandName="Edit" />  
+                        <asp:ImageButton  ID="btn_Edit" ImageUrl="~/Images/edit.png" Height="20px" runat="server" CommandName="Edit" />  
+
                     </ItemTemplate>  
                     <EditItemTemplate>  
                         <asp:Button ID="btn_Update" runat="server" Text="Update" CommandName="Update"/>  
@@ -126,7 +130,9 @@
                     </EditItemTemplate> 
                      
                 </asp:TemplateField>
-                <asp:ButtonField CommandName="Delete" HeaderText="Delete" Text="Sterge" />
+                <asp:ButtonField ButtonType="Image" ImageUrl="~/Images/delete.png" CommandName="Delete"  >
+                    <ControlStyle Height="20px"></ControlStyle>
+                </asp:ButtonField>
             </Columns>
         </asp:GridView>
      
