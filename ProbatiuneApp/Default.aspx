@@ -12,7 +12,6 @@
 </asp:Content>
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
     <div class="searchDiv">
-          <asp:Label ID="lblMessage" runat="Server" ForeColor="red" EnableViewState="False"></asp:Label>
         <asp:Panel ID="panel" runat="server" OnLoad="Panel_Load">
             <asp:TextBox ID="TextBox1" runat="server" placeholder="Nume Caz" Width="10%" style="margin-left:65px;margin-bottom:10px"  ></asp:TextBox>
             <asp:TextBox ID="TextBox2" runat="server" placeholder="Prenume Caz" Width="10%" style="margin-bottom:10px"></asp:TextBox>

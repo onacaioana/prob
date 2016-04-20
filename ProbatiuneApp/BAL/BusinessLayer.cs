@@ -63,7 +63,10 @@ namespace ProbatiuneApp.BAL
             }
         }
 
-
+        public DataSet LoadAngajati() {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            return pDAL.LoadAngajati();
+        }
         /// <summary>
 
         /// Delete record from database

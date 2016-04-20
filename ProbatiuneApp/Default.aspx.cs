@@ -29,6 +29,7 @@ namespace ProbatiuneApp
                 BindGrid();
 
              }
+        
         protected void Panel_Load(object sender, EventArgs e)
         {
            
@@ -60,22 +61,9 @@ namespace ProbatiuneApp
         /// Search refresh the gridview
         /// </summary>
         private DataSet GridDataSource_Search(string text)
-        {
-            
+        { 
             DataSet dset = new DataSet();
-            try
-            {
-                dset = pBAL.SearchQuery(text.ToString());
-            }
-            catch (Exception ee)
-            {
-                lblMessage.Text = ee.Message.ToString();
-            }
-            finally
-            {
-                pBAL = null;
-            }
-
+            dset = pBAL.SearchQuery(text.ToString());
             return dset;
         }
 
@@ -95,19 +83,7 @@ namespace ProbatiuneApp
         public DataSet GridDataSource()
         {
             DataSet dset = new DataSet();
-            try
-            {
                 dset = pBAL.Load();
-            }
-            catch (Exception ee)
-            {
-                lblMessage.Text = ee.Message.ToString();
-            }
-            finally
-            {
-                pBAL = null;
-            }
-
             return dset;
         }
  

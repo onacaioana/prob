@@ -113,8 +113,26 @@ namespace ProbatiuneApp.DAL
             }
         }
 
-        /// <summary>
 
+
+        /// <summary>
+        /// Load records from CAZURI ---2----
+        /// </summary>
+        /// <returns></returns>
+        public DataSet LoadAngajati()
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select [IdAngajat],Nume,Prenume from Angajati order by ID", conn))
+                {
+                    DataSet dset = new DataSet();
+                    dAd.Fill(dset);
+                    return dset;
+                }
+            }
+        }
+        /// <summary>
+        
         /// Delete record from database
 
         /// </summary>

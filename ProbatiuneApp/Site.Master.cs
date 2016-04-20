@@ -16,7 +16,7 @@ namespace ProbatiuneApp
         private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
         private string _antiXsrfTokenValue;
         private _Default def = new _Default();
-
+        private BAL.BusinessLayer pBAL = new BAL.BusinessLayer();
         protected void Page_Init(object sender, EventArgs e)
         {
             // The code below helps to protect against XSRF attacks
@@ -78,11 +78,19 @@ namespace ProbatiuneApp
 
         }
 
-        protected void ExportOnClick(object sender, EventArgs e) {
+        protected void ExportCazuri(object sender, EventArgs e) {
             DataTable tbl = new DataTable();
             tbl = def.GridDataSource().Tables[0];
             ExportToExcel(tbl, "export");
         }
+
+        protected void ExportAngajati(object sender, EventArgs e)
+        {
+            DataTable tbl = new DataTable();
+            tbl = pBAL.LoadAngajati().Tables[0];
+            ExportToExcel(tbl, "export");
+        }
+
         void ExportToExcel(DataTable dt, string FileName)
         {
             if (dt.Rows.Count > 0)
