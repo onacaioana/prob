@@ -113,14 +113,10 @@ h5, h6 {
 }
 
     .main-content {
-        background: url("../Images/accent.png") no-repeat;
         padding-left: 10px;
         padding-top: 30px;
     }
 
-    .featured + .main-content {
-        background: url("../Images/heroAccent.png") no-repeat;
-    }
 
 header .content-wrapper {
     padding-top: 20px; 
@@ -252,7 +248,7 @@ ul#menu {
 
 
 /* page titles */
-hgroup.title {
+hgroup.title{
     margin-bottom: 10px;
     width: 99px;
 }
@@ -366,17 +362,7 @@ fieldset {
             padding-bottom: 5px;
         }
 
-    label {
-        display: b
 
-    input, textarea {
-        border: 1px solid #e2e2e2;
-        background: #fff;
-        color: #333;
-        font-size: 1.2em;
-        margin: 2px 0 6px 2px;
-        padding: 5px;
-        }
 
     textarea {
         font-family: inherit;
