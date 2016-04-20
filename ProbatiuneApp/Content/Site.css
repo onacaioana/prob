@@ -237,9 +237,11 @@ ul#menu {
 }
 
     .featured .content-wrapper {
-        background-image: url('../Images/back.jpg');
+        /*background-image: url('../Images/back.jpg');*/
+        background-color: royalblue;
         padding: 20px 40px 30px 40px;
-    }
+    width: 802px;
+}
 
         .featured hgroup.title h1, .featured hgroup.title h2 {
             color: #fff;
@@ -255,8 +257,7 @@ hgroup.title {
     width: 99px;
 }
 
-px;
-}
+
 
 hgroup.title h1, hgroup.title h2 {
     display: inline;

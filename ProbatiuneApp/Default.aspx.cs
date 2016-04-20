@@ -14,6 +14,8 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Security.Permissions;
 using System.IO;
+using System.Xml.Xsl;
+using System.Xml;
 
 
 namespace ProbatiuneApp
@@ -90,7 +92,7 @@ namespace ProbatiuneApp
         /// <summary>
         /// Get GridView DataSource
         /// </summary>
-        private DataSet GridDataSource()
+        public DataSet GridDataSource()
         {
             DataSet dset = new DataSet();
             try
@@ -108,30 +110,11 @@ namespace ProbatiuneApp
 
             return dset;
         }
-
-        private void Export_OnClick(object sender, EventArgs e) {
-            ExportGridToExcel();
-        }
-        private void ExportGridToExcel()
+ 
+        public override void VerifyRenderingInServerForm(Control control)
         {
-            Response.Clear();
-            Response.Buffer = true;
-            Response.ClearContent();
-            Response.ClearHeaders();
-            Response.Charset = "";
-            string FileName = "Cazuri" + DateTime.Now + ".xls";
-            StringWriter strwritter = new StringWriter();
-            HtmlTextWriter htmltextwrtter = new HtmlTextWriter(strwritter);
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            Response.ContentType = "application/vnd.ms-excel";
-            Response.AddHeader("Content-Disposition", "attachment;filename=" + FileName);
-            GridView1.GridLines = GridLines.Both;
-            GridView1.HeaderStyle.Font.Bold = true;
-            GridView1.RenderControl(htmltextwrtter);
-            Response.Write(strwritter.ToString());
-            Response.End();
 
-        }  
+        }
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -203,11 +186,9 @@ namespace ProbatiuneApp
 
         BindGrid();
     }
+     
 
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        ExportGridToExcel();
-    }
+   
 
     }
 }

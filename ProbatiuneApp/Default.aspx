@@ -1,20 +1,12 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ProbatiuneApp._Default" %>
+﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" EnableEventValidation="false"  CodeBehind="Default.aspx.cs" Inherits="ProbatiuneApp._Default" %>
 
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
     <section class="featured">
-        <nav>
-            <ul id="menu">
-                <li><a id="A1" runat="server" href="~/">Vizualizare</a></li>
-                <li><a id="A2" runat="server" href="~/Adaugare.aspx">Adaugare</a></li>
-                <li><button id="exportButton" onclick="Export_OnClick">Export</button></li>
-            </ul>
-        </nav>
-        <div class="content-wrapper" style="padding-left:30px" >
-            <asp:TextBox ID="SearchTextBox" runat="server" placeholder="Cautare Nume/Prenume" Height="23px" Width="409px" BorderColor="Maroon" style="margin:auto 15px 15px 300px;position:static;" BackColor="#ffcccc" OnTextChanged="SearchTextBox_TextChanged"></asp:TextBox>
-            <asp:ImageButton ID="SearchButton" runat="server" Height="26px" ImageUrl="~/Images/images.jpg" OnClick="SearchButton_Click" Width="32px" />
-            <asp:TextBox ID="TextBox9" runat="server" placeholder="Cautare Numar dosar" Height="23px" Width="409px" BorderColor="Maroon" style="margin:auto 15px auto 300px;position:static;" BackColor="#ffcccc" OnTextChanged="SearchTextBox_TextChanged"></asp:TextBox>
-            <asp:ImageButton ID="ImageButton1" runat="server" Height="26px" ImageUrl="~/Images/images.jpg" OnClick="SearchButton_Click" Width="32px" />
-            <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />
+        <div class="content-wrapper"  >
+            <asp:TextBox ID="SearchTextBox" runat="server" placeholder="Cautare Nume/Prenume" Height="23px" Width="272px" BorderColor="#264d73" style="margin:10px 15px 15px 15px;position:static;" BackColor="#D8D8D8 " OnTextChanged="SearchTextBox_TextChanged"></asp:TextBox>
+            <asp:ImageButton ID="SearchButton" runat="server" Height="30px" ImageUrl="~/Images/search.png" OnClick="SearchButton_Click" Width="30px" style="margin:10px 15px -10px 0px;position:static;" />
+            <asp:TextBox ID="TextBox9" runat="server" placeholder="Cautare Numar dosar" Height="23px" Width="305px" BorderColor="#264d73" style="margin:10px 15px 15px 50px;position:static;" BackColor="#D8D8D8" OnTextChanged="SearchTextBox_TextChanged"></asp:TextBox>
+            <asp:ImageButton ID="ImageButton1" runat="server" Height="30px" ImageUrl="~/Images/search.png" OnClick="SearchButton_Click" Width="30px" style="margin:15px 15px -10px 0px;position:static;" />
         </div>
     </section>
 </asp:Content>
@@ -22,21 +14,21 @@
     <div class="searchDiv">
           <asp:Label ID="lblMessage" runat="Server" ForeColor="red" EnableViewState="False"></asp:Label>
         <asp:Panel ID="panel" runat="server" OnLoad="Panel_Load">
-            <asp:TextBox ID="TextBox1" runat="server" placeholder="Nume Caz" Width="10%" ></asp:TextBox>
-            <asp:TextBox ID="TextBox2" runat="server" placeholder="Prenume Caz" Width="10%" ></asp:TextBox>
-            <asp:TextBox ID="TextBox3" runat="server" placeholder="Nr. Dosar" Width="10%" ></asp:TextBox>
-            <asp:TextBox ID="TextBox4" runat="server" placeholder="Data inceperii" Width="10%" ></asp:TextBox>
-            <asp:TextBox ID="TextBox5" runat="server" placeholder="Data final" Width="10%" ></asp:TextBox>
-            <asp:TextBox ID="TextBox6" runat="server" placeholder="Observatii" Width="10%" ></asp:TextBox>
-            <asp:TextBox ID="TextBox7" runat="server" placeholder="Nume Angajat" Width="10%" ></asp:TextBox>
-            <asp:TextBox ID="TextBox8" runat="server" placeholder="Prenume Angajat" Width="10%" ></asp:TextBox>
-            <asp:ImageButton  ID="BTN_aDD" ImageUrl="~/Images/add.png" Height="50px" runat="server" OnClick="AddButon_Click" /> 
+            <asp:TextBox ID="TextBox1" runat="server" placeholder="Nume Caz" Width="10%" style="margin-left:65px;margin-bottom:10px"  ></asp:TextBox>
+            <asp:TextBox ID="TextBox2" runat="server" placeholder="Prenume Caz" Width="10%" style="margin-bottom:10px"></asp:TextBox>
+            <asp:TextBox ID="TextBox3" runat="server" placeholder="Nr. Dosar" Width="10%" style="margin-bottom:10px"></asp:TextBox>
+            <asp:TextBox ID="TextBox4" runat="server" placeholder="Data inceperii" Width="10%" style="margin-bottom:10px"></asp:TextBox>
+            <asp:TextBox ID="TextBox5" runat="server" placeholder="Data final" Width="10%" style="margin-bottom:10px"></asp:TextBox>
+            <asp:TextBox ID="TextBox6" runat="server" placeholder="Observatii" Width="10%" style="margin-bottom:10px"></asp:TextBox>
+            <asp:TextBox ID="TextBox7" runat="server" placeholder="Nume Angajat" Width="10%" style="margin-bottom:10px"></asp:TextBox>
+            <asp:TextBox ID="TextBox8" runat="server" placeholder="Prenume Angajat" Width="10%" style="margin-bottom:10px"></asp:TextBox>
+            <asp:ImageButton  ID="BTN_aDD" ImageUrl="~/Images/add.png" Height="50px" runat="server" OnClick="AddButon_Click"   /> 
 
         </asp:Panel>
     </div>
 
-        <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Cazuri" HorizontalAlign="Left" 
-        VerticalAlign =" 50px" CellPadding="4"  OnSelectedIndexChanged="GridView1_SelectedIndexChanged"
+        <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Cazuri" HorizontalAlign="Center" 
+        VerticalAlign =" 50px" CellPadding="4"  OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AlternatingRowStyle-BackColor=""
          OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing"
          OnRowUpdating="GridView1_RowUpdating"  AutoGenerateColumns="False" AllowPaging="True" PageSize="8" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" >
 
