@@ -129,8 +129,6 @@ namespace ProbatiuneApp
         TextBox StartDate = GridView1.Rows[e.RowIndex].FindControl("txt_Start") as TextBox;
         TextBox TheEnd = GridView1.Rows[e.RowIndex].FindControl("txt_TheEnd") as TextBox;
         TextBox Observatii = GridView1.Rows[e.RowIndex].FindControl("txt_Observatii") as TextBox;
-        TextBox NumeAng = GridView1.Rows[e.RowIndex].FindControl("txt_NumeAng") as TextBox;
-        TextBox PrenumeAng = GridView1.Rows[e.RowIndex].FindControl("txt_PrenumeAng") as TextBox;
       
         //updating the record  
         pBAL.Update(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text);

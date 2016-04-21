@@ -105,19 +105,13 @@
                   <asp:TemplateField HeaderText="Nume Angajat">  
                     <ItemTemplate>  
                         <asp:Label ID="lbl_angNume" runat="server" Text='<%#Eval("NumeAng") %>'></asp:Label>  
-                    </ItemTemplate>  
-                    <EditItemTemplate>  
-                        <asp:TextBox ID="txt_angNume" Width="90%" runat="server" Text='<%#Eval("NumeAng") %>'></asp:TextBox>  
-                    </EditItemTemplate>  
+                    </ItemTemplate>   
                 </asp:TemplateField>
 
                   <asp:TemplateField HeaderText="Prenume Angajat">  
                     <ItemTemplate>  
                         <asp:Label ID="lbl_angPrenume" runat="server" Text='<%#Eval("PrenumeAng") %>'></asp:Label>  
                     </ItemTemplate>  
-                    <EditItemTemplate>  
-                        <asp:TextBox ID="txt_angPrenume" Width="90%" runat="server" Text='<%#Eval("PrenumeAng") %>'></asp:TextBox>  
-                    </EditItemTemplate> 
                        
                 </asp:TemplateField>
                 <asp:TemplateField>  
