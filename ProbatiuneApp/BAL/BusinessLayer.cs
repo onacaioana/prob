@@ -46,6 +46,31 @@ namespace ProbatiuneApp.BAL
             }
         }
 
+        /// <summary>
+        /// insert records into database
+        /// </summary>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="age"></param>
+        /// <returns></returns>
+        public int InsertAngajat(string Nume, string Prenume)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+
+            try
+            {
+                return pDAL.InsertAngajat(Nume, Prenume);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                pDAL = null;
+            }
+        }
+ 
         public DataSet Load()
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
@@ -67,16 +92,8 @@ namespace ProbatiuneApp.BAL
             DAL.DataLayer pDAL = new DAL.DataLayer();
             return pDAL.LoadAngajati();
         }
-        /// <summary>
 
         /// Delete record from database
-
-        /// </summary>
-
-        /// <param name="personID"></param>
-
-        /// <returns></returns>
-
         public int Delete(int IDCaz)
         {
            DAL.DataLayer pDAL = new DAL.DataLayer();
@@ -103,6 +120,23 @@ namespace ProbatiuneApp.BAL
 
         }
 
+        public int DeleteAngajat(int IdAngajat) {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            try
+            {
+                return pDAL.DeleteAngajat(IdAngajat);
+            }
+
+            catch
+            {
+                throw;
+            }
+
+            finally
+            {
+                pDAL = null;
+            }
+        }
         public int Update(int IDCaz,string nume, string prenume,int nrDosar,string start,string stop,string obs)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
@@ -117,7 +151,20 @@ namespace ProbatiuneApp.BAL
 
         }
 
+        public int UpdateAngajat(int AngID, string nume, string prenume)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            try
+            {
+                return pDAL.UpdateAngajat(AngID, nume, prenume);
+            }
+            catch
+            { throw; }
 
+            finally
+            { pDAL = null; }
+
+        }
         public DataSet SearchQuery(string text)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
@@ -135,7 +182,39 @@ namespace ProbatiuneApp.BAL
             }
         }
 
+        public DataSet SearchAngajat(string text) {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            try
+            {
+                return pDAL.SearchAngajat(text);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                pDAL = null;
+            }
+        }
 
+        public DataSet Search_NrDosar(string text)
+        {
+            int nr = Int32.Parse(text);
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            try
+            {
+                return pDAL.SearchDosar(nr);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                pDAL = null;
+            }
+        }
 
     }
 }

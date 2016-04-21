@@ -66,6 +66,31 @@ namespace ProbatiuneApp.DAL
             }
         }
 
+        public int InsertAngajat(string Nume, string Prenume)
+        {
+            SqlConnection conn = new SqlConnection(connStr);
+            conn.Open();
+            string sql = "Insert INTO Angajati(Nume,Prenume) VALUES(@Nume,@Prenume)";
+            SqlCommand dCmd = new SqlCommand(sql, conn);
+
+            try
+            {
+                dCmd.Parameters.Add("@Nume", SqlDbType.NVarChar, 255).Value = Nume;
+                dCmd.Parameters.Add("@Prenume", SqlDbType.NVarChar, 255).Value = Prenume;
+                dCmd.CommandType = CommandType.Text;
+                return dCmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                dCmd.Dispose();
+                conn.Close();
+                conn.Dispose();
+            }
+        }
 
         /// <summary>
         /// Load all records from database ----1----
@@ -123,7 +148,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select [IdAngajat],Nume,Prenume from Angajati order by ID", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select IdAngajat,Nume,Prenume from Angajati order by IdAngajat", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -131,6 +156,7 @@ namespace ProbatiuneApp.DAL
                 }
             }
         }
+
         /// <summary>
         
         /// Delete record from database
@@ -140,7 +166,6 @@ namespace ProbatiuneApp.DAL
         /// <param name="personID"></param>
 
         /// <returns></returns>
-
         public int Delete(int CazID)
         {
 
@@ -179,7 +204,30 @@ namespace ProbatiuneApp.DAL
 
         }
 
+        public int DeleteAngajat(int IdAngajat) {
+            SqlConnection conn = new SqlConnection(connStr);
 
+            conn.Open();
+
+            SqlCommand dCmd = new SqlCommand("DELETE FROM Angajati WHERE IdAngajat=@ID ;", conn);
+
+            try
+            {
+                dCmd.Parameters.AddWithValue("@ID", IdAngajat);
+
+                return dCmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                dCmd.Dispose();
+                conn.Close();
+                conn.Dispose();
+            }
+        }
         /// <summary>
         /// Folosit pentru modulul de search dupa Nume sau Prenume
         /// </summary>
@@ -189,6 +237,32 @@ namespace ProbatiuneApp.DAL
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCazz,c.Nume,c.Prenume+' '+c.Prenume2 as Prenume,c.NrDosar,c.Start,c.TheEnd,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from Cazuri as c inner join Angajati as a on a.IdAngajat = c.IDAngajat where c.Nume like '" + text + "%' OR c.Prenume like '" + text + "%' order by c.Nume,c.Prenume;", conn))
+                {
+                    DataSet dset = new DataSet();
+                    dAd.Fill(dset);
+                    return dset;
+                }
+            }
+        }
+
+        public DataSet SearchAngajat(string text) {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select * from Angajati where Nume like '%" + text + "%' OR Prenume like '%" + text + "%' order by IdAngajat;", conn))
+                {
+                    DataSet dset = new DataSet();
+                    dAd.Fill(dset);
+                    return dset;
+                }
+            }
+        }
+
+        
+        public DataSet SearchDosar(int nr) {
+         
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCazz,c.Nume,c.Prenume+' '+c.Prenume2 as Prenume,c.NrDosar,c.Start,c.TheEnd,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from Cazuri as c inner join Angajati as a on a.IdAngajat = c.IDAngajat where c.NrDosar = " + nr + "  order by c.IDCazz;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -240,6 +314,38 @@ namespace ProbatiuneApp.DAL
 
         }
 
+        public int UpdateAngajat(int AngID, string Nume, string Prenume)
+        {
+
+            SqlConnection conn = new SqlConnection(connStr);
+
+            conn.Open();
+
+            SqlCommand dCmd = new SqlCommand("UPDATE Angajati SET Nume=@Nume, Prenume=@Prenume WHERE IdAngajat=@AngID", conn);
+
+            try
+            {
+                dCmd.Parameters.AddWithValue("@AngID", AngID);
+                dCmd.Parameters.AddWithValue("@Nume", Nume);
+                dCmd.Parameters.AddWithValue("@Prenume", Prenume);
+                return dCmd.ExecuteNonQuery();
+            }
+
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                dCmd.Dispose();
+
+                conn.Close();
+
+                conn.Dispose();
+
+            }
+
+        }
     }
 
 

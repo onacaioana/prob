@@ -51,12 +51,17 @@ namespace ProbatiuneApp
             pBAL.Delete(id);
             BindGrid();
         }
+        protected void SearchNrDosar_Click(object sender, ImageClickEventArgs e)
+        {
+            GridView1.DataSource = GDSSearch_NrDosar(SearchTextBox2.Text.ToString());
+            GridView1.DataBind();
+        }
         protected void SearchButton_Click(object sender, ImageClickEventArgs e)
         {
             GridView1.DataSource = GridDataSource_Search(SearchTextBox.Text.ToString());
             GridView1.DataBind();
         }
-
+        
         /// <summary>
         /// Search refresh the gridview
         /// </summary>
@@ -67,6 +72,12 @@ namespace ProbatiuneApp
             return dset;
         }
 
+        private DataSet GDSSearch_NrDosar(string text)
+        {
+            DataSet dset = new DataSet();
+            dset = pBAL.Search_NrDosar(text.ToString());
+            return dset;
+        }
 
         /// <summary>
         /// Bind the gridview
