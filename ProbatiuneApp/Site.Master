@@ -31,7 +31,8 @@
                             <li class='has-sub'><asp:LinkButton runat="server" OnClick="ExportAngajati" ><span>Export Anajati</span></asp:LinkButton>
                         </ul>
                     </li>
-                    <li class='last'><a href='#'><span>Help</span></a></li>
+                    <li class='last'><a href='#'><span>Audit</span></a></li>
+                    <li class='last'><a href='#'><span>Documentatie</span></a></li>
                 </ul>
             </div>
         </div>
