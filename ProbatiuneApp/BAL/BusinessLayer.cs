@@ -14,10 +14,10 @@ namespace ProbatiuneApp.BAL
 {
     public class BusinessLayer
     {
-       
+
         public BusinessLayer()
-        { 
-        
+        {
+
         }
 
 
@@ -28,10 +28,10 @@ namespace ProbatiuneApp.BAL
         /// <param name="lastName"></param>
         /// <param name="age"></param>
         /// <returns></returns>
-        public int Insert(string Nume, string Prenume, int NrDosar, string startDate,string stopDate, string Observatii, string AngajatName,string PrenumeAng)
+        public int Insert(string Nume, string Prenume, int NrDosar, string startDate, string stopDate, string Observatii, string AngajatName, string PrenumeAng)
         {
-             DAL.DataLayer pDAL = new DAL.DataLayer();
-           
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+
             try
             {
                 return pDAL.Insert(Nume, Prenume, NrDosar, startDate, stopDate, Observatii, AngajatName, PrenumeAng);
@@ -70,7 +70,7 @@ namespace ProbatiuneApp.BAL
                 pDAL = null;
             }
         }
- 
+
         public DataSet Load()
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
@@ -88,7 +88,8 @@ namespace ProbatiuneApp.BAL
             }
         }
 
-        public DataSet LoadAngajati() {
+        public DataSet LoadAngajati()
+        {
             DAL.DataLayer pDAL = new DAL.DataLayer();
             return pDAL.LoadAngajati();
         }
@@ -96,7 +97,7 @@ namespace ProbatiuneApp.BAL
         /// Delete record from database
         public int Delete(int IDCaz)
         {
-           DAL.DataLayer pDAL = new DAL.DataLayer();
+            DAL.DataLayer pDAL = new DAL.DataLayer();
             try
             {
 
@@ -120,7 +121,8 @@ namespace ProbatiuneApp.BAL
 
         }
 
-        public int DeleteAngajat(int IdAngajat) {
+        public int DeleteAngajat(int IdAngajat)
+        {
             DAL.DataLayer pDAL = new DAL.DataLayer();
             try
             {
@@ -137,10 +139,11 @@ namespace ProbatiuneApp.BAL
                 pDAL = null;
             }
         }
-        public int Update(int IDCaz,string nume, string prenume,int nrDosar,string start,string stop,string obs)
+        public int Update(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            try{
+            try
+            {
                 return pDAL.Update(IDCaz, nume, prenume, nrDosar, start, stop, obs);
             }
             catch
@@ -182,7 +185,8 @@ namespace ProbatiuneApp.BAL
             }
         }
 
-        public DataSet SearchAngajat(string text) {
+        public DataSet SearchAngajat(string text)
+        {
             DAL.DataLayer pDAL = new DAL.DataLayer();
             try
             {
@@ -214,6 +218,12 @@ namespace ProbatiuneApp.BAL
             {
                 pDAL = null;
             }
+        }
+
+        public DataTable Audit_Tabel()
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            return pDAL.ReturnAudit();
         }
 
     }

@@ -17,10 +17,10 @@ namespace ProbatiuneApp.DAL
     public class DataLayer
     {
         string connStr = ConfigurationManager.ConnectionStrings["connString"].ConnectionString;
-    
+
         public DataLayer()
         {
-            
+
         }
 
 
@@ -34,13 +34,13 @@ namespace ProbatiuneApp.DAL
         /// <param name="StopDate"></param>
         /// <param name="Angajat"></param>
         /// <returns></returns>
-        public int Insert(string Nume, string Prenume, int NrDosar, string StartDate, string StopDate, string Observatii, string AngajatName,string PrenumeAng)
+        public int Insert(string Nume, string Prenume, int NrDosar, string StartDate, string StopDate, string Observatii, string AngajatName, string PrenumeAng)
         {
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            string sql =  "Insert INTO Cazuri(Nume,Prenume,Prenume2,NrDosar,Start,TheEnd,Observatii,IDAngajat) VALUES(@Nume,@Prenume,'',@NrDosar,@StartDate,@StopDate,@Observatii,(SELECT Angajati.IdAngajat from Angajati where Nume  = @Angajat AND Prenume=@AngajatPre))";
+            string sql = "Insert INTO Cazuri(Nume,Prenume,Prenume2,NrDosar,Start,TheEnd,Observatii,IDAngajat) VALUES(@Nume,@Prenume,'',@NrDosar,@StartDate,@StopDate,@Observatii,(SELECT Angajati.IdAngajat from Angajati where Nume  = @Angajat AND Prenume=@AngajatPre))";
             SqlCommand dCmd = new SqlCommand(sql, conn);
-           
+
             try
             {
                 dCmd.Parameters.Add("@Nume", SqlDbType.NVarChar, 255).Value = Nume;
@@ -49,7 +49,7 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.Add("@StartDate", SqlDbType.NVarChar, 255).Value = StartDate;
                 dCmd.Parameters.Add("@StopDate", SqlDbType.NVarChar, 255).Value = StopDate;
                 dCmd.Parameters.Add("@Observatii", SqlDbType.NVarChar, 255).Value = Observatii;
-                dCmd.Parameters.Add("@Angajat", SqlDbType.NVarChar, 255).Value= AngajatName;
+                dCmd.Parameters.Add("@Angajat", SqlDbType.NVarChar, 255).Value = AngajatName;
                 dCmd.Parameters.Add("@AngajatPre", SqlDbType.NVarChar, 255).Value = PrenumeAng;
                 dCmd.CommandType = CommandType.Text;
                 return dCmd.ExecuteNonQuery();
@@ -158,7 +158,7 @@ namespace ProbatiuneApp.DAL
         }
 
         /// <summary>
-        
+
         /// Delete record from database
 
         /// </summary>
@@ -204,7 +204,8 @@ namespace ProbatiuneApp.DAL
 
         }
 
-        public int DeleteAngajat(int IdAngajat) {
+        public int DeleteAngajat(int IdAngajat)
+        {
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
@@ -245,7 +246,8 @@ namespace ProbatiuneApp.DAL
             }
         }
 
-        public DataSet SearchAngajat(string text) {
+        public DataSet SearchAngajat(string text)
+        {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 using (SqlDataAdapter dAd = new SqlDataAdapter("select * from Angajati where Nume like '%" + text + "%' OR Prenume like '%" + text + "%' order by IdAngajat;", conn))
@@ -257,9 +259,10 @@ namespace ProbatiuneApp.DAL
             }
         }
 
-        
-        public DataSet SearchDosar(int nr) {
-         
+
+        public DataSet SearchDosar(int nr)
+        {
+
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCazz,c.Nume,c.Prenume+' '+c.Prenume2 as Prenume,c.NrDosar,c.Start,c.TheEnd,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from Cazuri as c inner join Angajati as a on a.IdAngajat = c.IDAngajat where c.NrDosar = " + nr + "  order by c.IDCazz;", conn))
@@ -271,7 +274,7 @@ namespace ProbatiuneApp.DAL
             }
         }
 
-        public int Update(int CazID,string Nume,string Prenume, int nrDosar, string Start, string TheEnd,string Observatii)
+        public int Update(int CazID, string Nume, string Prenume, int nrDosar, string Start, string TheEnd, string Observatii)
         {
 
             SqlConnection conn = new SqlConnection(connStr);
@@ -288,7 +291,7 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.AddWithValue("@Prenume", Prenume);
                 dCmd.Parameters.AddWithValue("@NrDosar", nrDosar);
                 dCmd.Parameters.AddWithValue("@Start", Start);
-                dCmd.Parameters.AddWithValue("@TheEnd",TheEnd);
+                dCmd.Parameters.AddWithValue("@TheEnd", TheEnd);
                 dCmd.Parameters.AddWithValue("@Observatii", Observatii);
                 return dCmd.ExecuteNonQuery();
 
@@ -346,6 +349,46 @@ namespace ProbatiuneApp.DAL
             }
 
         }
+        public DataTable ReturnAudit()
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("SELECT * FROM Audit ORDER BY UpdateDate DESC", conn))
+                {
+                    DataSet dset = new DataSet();
+                    dAd.Fill(dset);
+                    return dset.Tables[0];
+                }
+            }
+        }
+
+        public DataTable ReturnAudit(string dtt)
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("SELECT TYPE,TableName,PK,FieldName,OldValue,NewValue,UserName FROM  Audit WHERE (UpdateDate ='" + dtt + "') ORDER BY TableName DESC", conn))
+                {
+                    DataSet dset = new DataSet();
+                    dAd.Fill(dset);
+                    return dset.Tables[0];
+                }
+            }
+        }
+
+        public DataTable ReturnTimeAudit()
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("SELECT MAX(UpdateDate) FROM  Audit ", conn))
+                {
+                    DataSet dset = new DataSet();
+                    dAd.Fill(dset);
+                    return dset.Tables[0];
+                }
+            }
+
+        }
+
     }
 
 

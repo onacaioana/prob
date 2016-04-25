@@ -141,6 +141,7 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="Account\RegisterExternalLogin.aspx" />
     <Content Include="Angajati.aspx" />
+    <Content Include="Audit.aspx" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -288,6 +289,13 @@
     </Compile>
     <Compile Include="Account\RegisterExternalLogin.aspx.designer.cs">
       <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Audit.aspx.cs">
+      <DependentUpon>Audit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Audit.aspx.designer.cs">
+      <DependentUpon>Audit.aspx</DependentUpon>
     </Compile>
     <Compile Include="BAL\BusinessLayer.cs" />
     <Compile Include="BAL\InterfaceBAL.cs" />
