@@ -15,12 +15,6 @@
 <body>
     <form runat="server">
     <header>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p class="site-title">
-                    <a runat="server" href="~/"> Cazuri Supraveghere </a>
-                </p>
-            </div>
             <div id='cssmenu'>
                 <ul>
                     <li><a href='Default.aspx'><span>Cazuri</span></a></li>
@@ -33,14 +27,17 @@
                     </li>
                     <li class='last'><a href='Audit.aspx'><span>Audit</span></a></li>
                     <li class='last'><a href='#'><span>Documentatie</span></a></li>
+                      <asp:Label ID="Label1" runat="server" Text="<% User.Identity.Name %>"></asp:Label>
                 </ul>
             </div>
-        </div>
+         
     </header>
 
     <div id="body">
+         
         <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
         <section class="content-wrapper main-content clear-fix">
+             
             <asp:ContentPlaceHolder runat="server" ID="MainContent" >
                  <asp:GridView runat="server" ID ="Grid_Angajati">
                  </asp:GridView>
