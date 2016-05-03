@@ -2,7 +2,23 @@
 
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
     <section class="featured">
-        <div class="content-wrapper"  >
+       <!-- <div class="searchbox">
+            <input class="search" type="text" placeholder="Cauta nr. dosar ...">
+            <input class="submit" type="submit" value="Search">
+        </div>
+
+        <div class="searchbox">
+            <input class="search" type="text" placeholder="Cauta nume caz ...">
+            <input class="submit" type="submit" value="Search">
+        </div>
+           -->
+        <div class="form-wrapper cf">
+                    	<input type="text" placeholder="Search here..." required>
+	  <button type="submit">Search</button>
+
+        </div>
+
+                 <div class="content-wrapper"  >
             <asp:TextBox ID="SearchTextBox" runat="server" placeholder="Cautare Nume/Prenume" Height="23px" Width="272px" BorderColor="#264d73" style="margin:10px 15px 15px 15px;position:static;" BackColor="#D8D8D8 " ></asp:TextBox>
             <asp:ImageButton ID="SearchButton" runat="server" Height="30px" ImageUrl="~/Images/search.png" OnClick="SearchButton_Click" Width="30px" style="margin:10px 15px -10px 0px;position:static;" />
             <asp:TextBox ID="SearchTextBox2" runat="server" placeholder="Cautare numar dosar" Height="23px" Width="305px" BorderColor="#264d73" style="margin:10px 15px 15px 50px;position:static;" BackColor="#D8D8D8"></asp:TextBox>

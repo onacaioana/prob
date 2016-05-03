@@ -45,6 +45,7 @@ nav, section {
     display: block;
 }
 
+
 mark {
     background-color: #a6dbed;
     padding-left: 5px;
@@ -119,7 +120,7 @@ h5, h6 {
 
 
 header .content-wrapper {
-    padding-top: 20px; 
+    padding-top: 50px; 
 }
     
 footer {
@@ -296,50 +297,6 @@ aside {
 
 .label {
     font-weight: 700;
-}
-
-/* login page */
-#loginForm {
-    border-right: solid 2px #c8c8c8;
-    float: left;
-    width: 55%;
-}
-
-    #loginForm .validation-error {
-        display: block;
-        margin-left: 15px;
-    }
-
-#socialLoginForm {
-    margin-left: 40px;
-    float: left;
-    width: 40%;
-}
-
-    #socialLoginForm h2 {
-        margin-bottom:  5px;
-    }
-
-fieldset.open-auth-providers {
-    margin-top: 15px;
-}
-
-    fieldset.open-auth-providers button {
-        margin-bottom: 12px;
-    }
-    
-/* contact */
-.contact h3 {
-    font-size: 1.2em;
-}
-
-.contact p {
-    margin: 5px 0 0 10px;
-}
-
-.contact iframe {
-    border: 1px solid #333;
-    margin: 5px 0 0 10px;
 }
 
 /* forms */
@@ -650,26 +607,6 @@ tr.pager td {
     /* forms */
     input {
         width: 90%;
-    }
-
-    
-    
-    /* login page */
-    #loginForm {
-        border-right: none;
-        float: none;
-        width: auto;
-    }
-
-        #loginForm .validation-error {
-            display: block;
-            margin-left: 15px;
-        }
-
-    #socialLoginForm {
-        margin-left: 0;
-        float: none;
-        width: auto;
     }
 
     /* footer

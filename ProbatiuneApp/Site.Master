@@ -14,37 +14,38 @@
 
 <body>
     <form runat="server">
-    <header>
+        <header>
             <div id='cssmenu'>
                 <ul>
                     <li><a href='Default.aspx'><span>Cazuri</span></a></li>
                     <li><a href='Angajati.aspx'><span>Angajati</span></a></li>
                     <li class='active has-sub'><a href='#'><span>Export</span></a>
                         <ul>
-                            <li class='has-sub'><asp:LinkButton runat="server" OnClick="ExportCazuri" ><span>Export Cazuri</span></asp:LinkButton></li>
-                            <li class='has-sub'><asp:LinkButton runat="server" OnClick="ExportAngajati" ><span>Export Anajati</span></asp:LinkButton>
+                            <li class='has-sub'>
+                                <asp:LinkButton runat="server" OnClick="ExportCazuri"><span>Export Cazuri</span></asp:LinkButton></li>
+                            <li class='has-sub'>
+                                <asp:LinkButton runat="server" OnClick="ExportAngajati"><span>Export Anajati</span></asp:LinkButton>
                         </ul>
                     </li>
                     <li class='last'><a href='Audit.aspx'><span>Audit</span></a></li>
                     <li class='last'><a href='#'><span>Documentatie</span></a></li>
-                      <asp:Label ID="Label1" runat="server" Text="<% User.Identity.Name %>"></asp:Label>
+
                 </ul>
             </div>
-         
-    </header>
+        </header>
 
-    <div id="body">
-         
-        <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
-        <section class="content-wrapper main-content clear-fix">
-             
-            <asp:ContentPlaceHolder runat="server" ID="MainContent" >
-                 <asp:GridView runat="server" ID ="Grid_Angajati">
-                 </asp:GridView>
-            </asp:ContentPlaceHolder>
-        </section>
-    </div>
+        <div id="body">
 
+            <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+            <section class="content-wrapper main-content clear-fix">
+
+                <asp:ContentPlaceHolder runat="server" ID="MainContent">
+                    <asp:GridView runat="server" ID="Grid_Angajati">
+                    </asp:GridView>
+                </asp:ContentPlaceHolder>
+            </section>
+        </div>
+    </form>
     <footer>
         <div class="content-wrapper">
             <div class="float-left">
@@ -52,6 +53,6 @@
             </div>
         </div>
     </footer>
-    </form>
+   
 </body>
 </html>
