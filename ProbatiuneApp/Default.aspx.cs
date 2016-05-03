@@ -27,8 +27,7 @@ namespace ProbatiuneApp
         {
             if (!IsPostBack)
                 BindGrid();
-
-             }
+        }
         
         protected void Panel_Load(object sender, EventArgs e)
         {
@@ -51,17 +50,22 @@ namespace ProbatiuneApp
             pBAL.Delete(id);
             BindGrid();
         }
-        protected void SearchNrDosar_Click(object sender, ImageClickEventArgs e)
+        protected void SearchNrDosar_Click(object sender, EventArgs e)
         {
-            GridView1.DataSource = GDSSearch_NrDosar(SearchTextBox2.Text.ToString());
+            //To get value:
+            string myname = searchtext2.Value;
+            GridView1.DataSource = GDSSearch_NrDosar(myname);
             GridView1.DataBind();
         }
-        protected void SearchButton_Click(object sender, ImageClickEventArgs e)
+        protected void SearchButton_Click(object sender, EventArgs e)
         {
-            GridView1.DataSource = GridDataSource_Search(SearchTextBox.Text.ToString());
+            //To get value:
+            string myname = searchtext1.Value;
+
+            GridView1.DataSource = GridDataSource_Search(myname);
             GridView1.DataBind();
         }
-        
+
         /// <summary>
         /// Search refresh the gridview
         /// </summary>
@@ -111,10 +115,10 @@ namespace ProbatiuneApp
     {  
         //NewEditIndex property used to determine the index of the row being edited.  
         GridView1.EditIndex = e.NewEditIndex;
-       
-        if (SearchTextBox.Text.ToString() != "")
+
+        if (searchtext1.Value.ToString() != "")
         {
-            GridView1.DataSource = GridDataSource_Search(SearchTextBox.Text.ToString());
+            GridView1.DataSource = GridDataSource_Search(searchtext1.Value.ToString());
             GridView1.DataBind();
         }
         else BindGrid();
@@ -136,11 +140,11 @@ namespace ProbatiuneApp
         //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
         GridView1.EditIndex = -1;  
         //Call ShowData method for displaying updated data  */
-        if (SearchTextBox.Text.ToString() != "")
+        if (searchtext1.Value.ToString() != "")
         {
-            GridView1.DataSource = GridDataSource_Search(SearchTextBox.Text.ToString());
+            GridView1.DataSource = GridDataSource_Search(searchtext1.Value.ToString());
             GridView1.DataBind();
-            SearchTextBox.Text = "";
+            searchtext1.Value = "";
         }
         else BindGrid();
     }

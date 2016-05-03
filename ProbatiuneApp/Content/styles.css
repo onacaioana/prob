@@ -429,7 +429,7 @@ text-align:center;
 }    
 
 /* Form submit button */
-.form-wrapper button {
+.form-wrapper button{
     overflow: visible;
     position: absolute;
     float: right;
