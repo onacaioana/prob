@@ -230,7 +230,7 @@ ul#menu {
 ----------------------------------------------------------*/
 /* featured */
 .featured {
-    background-color: #fff;
+    background-color:lightgrey;
 }
 
     .featured .content-wrapper {

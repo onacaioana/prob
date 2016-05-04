@@ -35,9 +35,9 @@ namespace ProbatiuneApp
             dset = pBAL.LoadAngajati();
             return dset;
         }
-        protected void SearchButton_Click(object sender, ImageClickEventArgs e)
+        protected void SearchButton_Click(object sender, EventArgs e)
         {
-            GridView1.DataSource = GridDataSource_Search(SearchTextBox.Text.ToString());
+            GridView1.DataSource = GridDataSource_Search(SearchTextBox.Value.ToString());
             GridView1.DataBind();
         }
 
@@ -79,9 +79,9 @@ namespace ProbatiuneApp
             //NewEditIndex property used to determine the index of the row being edited.  
             GridView1.EditIndex = e.NewEditIndex;
 
-            if (SearchTextBox.Text.ToString() != "")
+            if (SearchTextBox.Value.ToString() != "")
             {
-                GridView1.DataSource = GridDataSource_Search(SearchTextBox.Text.ToString());
+                GridView1.DataSource = GridDataSource_Search(SearchTextBox.Value.ToString());
                 GridView1.DataBind();
             }
             else BindGrid();
@@ -99,11 +99,11 @@ namespace ProbatiuneApp
             //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
             GridView1.EditIndex = -1;
             //Call ShowData method for displaying updated data  */
-            if (SearchTextBox.Text.ToString() != "")
+            if (SearchTextBox.Value.ToString() != "")
             {
-                GridView1.DataSource = GridDataSource_Search(SearchTextBox.Text.ToString());
+                GridView1.DataSource = GridDataSource_Search(SearchTextBox.Value.ToString());
                 GridView1.DataBind();
-                SearchTextBox.Text = "";
+                SearchTextBox.Value = "";
             }
             else BindGrid();
         }

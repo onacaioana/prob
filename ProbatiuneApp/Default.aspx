@@ -4,11 +4,11 @@
     <section class="featured">
         <div class="form-wrapper cf">
             <input runat="server" id="searchtext1" type="text" placeholder="Cauta caz..." required>
-            <button type="submit" runat="server" onserverclick="SearchButton_Click">Search</button>/>
+            <button type="submit" runat="server" onserverclick="SearchButton_Click">Search</button>
         </div>
         <div class="form-wrapper cf">
             <input runat="server" id="searchtext2" type="text" placeholder="Cauta dosar..." required>
-            <button id="Button1" type="submit" runat="server" onserverclick="SearchNrDosar_Click">Search</button>/>
+            <button id="Button1" type="submit" runat="server" onserverclick="SearchNrDosar_Click">Search</button>
         </div>
     </section>
 </asp:Content>

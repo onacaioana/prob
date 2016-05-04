@@ -27,9 +27,9 @@ namespace ProbatiuneApp
             GridView1.DataBind();
         }
 
-        protected void SearchButton_Click(object sender, ImageClickEventArgs e)
+        protected void SearchButton_Click(object sender, EventArgs e)
         {
-            GridView1.DataSource = GridDataSource_Search(SearchTextBox.Text.ToString());
+            GridView1.DataSource = GridDataSource_Search(SearchTextBox.Value.ToString());
             GridView1.DataBind();
         }
 

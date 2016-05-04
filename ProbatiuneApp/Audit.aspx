@@ -2,9 +2,9 @@
 
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
     <section class="featured">
-        <div class="content-wrapper"  >
-            <asp:TextBox ID="SearchTextBox" runat="server" placeholder="Cautare UserName" Height="23px" Width="272px" BorderColor="#264d73" style="margin:10px 15px 15px 15px;position:static;" BackColor="#D8D8D8 " ></asp:TextBox>
-            <asp:ImageButton ID="SearchButton" runat="server" Height="30px" ImageUrl="~/Images/search.png" OnClick="SearchButton_Click" Width="30px" style="margin:10px 15px -10px 0px;position:static;" />
+        <div class="form-wrapper cf">
+            <input runat="server" id="SearchTextBox" type="text" placeholder="Cauta audit..." required>
+            <button id="Button1" type="submit" runat="server" onserverclick="SearchButton_Click">Search</button>
         </div>
     </section>
 </asp:Content>
