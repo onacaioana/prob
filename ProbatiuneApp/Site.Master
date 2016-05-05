@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <form runat="server">
+    <form runat="server" novalidate>
         <header>
             <div id='cssmenu'>
                 <ul>
