@@ -83,7 +83,7 @@ namespace ProbatiuneApp.BAL
                 throw;
             }
             finally
-            {
+           {
                 pDAL = null;
             }
         }
