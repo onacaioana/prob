@@ -119,38 +119,7 @@ namespace ProbatiuneApp.DAL
                 conn.Dispose();
             }
         }
-        
 
-        //nr de cazuri/angajat
-        public string nrCazuri()
-        {
-            int value;
-            string str = "";
-            SqlConnection conn = new SqlConnection(connStr);
-            SqlDataAdapter dAd = new SqlDataAdapter("NoOfCasesAll", conn);
-            dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
-            DataSet dSet = new DataSet();
-            try
-            {
-                dAd.Fill(dSet,"NrCazuri");
-                for (int i = 0; i < dSet.Tables["NrCazuri"].Rows.Count; i++) {
-                    value = Convert.ToInt32(dSet.Tables["NrCazuri"].Rows[i]["Numar"]);
-                }
-                DataColumn col = new DataColumn();
-                return str; 
-            }
-            catch
-            {
-                throw; 
-            }
-            finally
-            {
-                dSet.Dispose();
-                dAd.Dispose();
-                conn.Close();
-                conn.Dispose();
-            }
-        }
 
         /// <summary>
         /// Load records from CAZURI ---2----
@@ -179,7 +148,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select IdAngajat,Nume,Prenume from AngajatiP order by IdAngajat", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select ID,Nume,Prenume,Numar from (select CazuriP.IdAngajat,AngajatiP.IdAngajat as ID,AngajatiP.Nume,AngajatiP.Prenume, COUNT(*) as Numar from CazuriP right join AngajatiP on AngajatiP.IdAngajat = CazuriP.IdAngajat GROUP BY CazuriP.IdAngajat,AngajatiP.Nume,AngajatiP.Prenume,AngajatiP.IdAngajat) as Tabel", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);

@@ -36,7 +36,7 @@
             <Columns> 
                 <asp:TemplateField HeaderText=" Nr.crt ">  
                     <ItemTemplate>  
-                        <asp:Label ID="lbl_ID" runat="server" Text='<%#Eval("IdAngajat") %>'></asp:Label>  
+                        <asp:Label ID="lbl_ID" runat="server" Text='<%#Eval("ID") %>'></asp:Label>  
                     </ItemTemplate>  
                 </asp:TemplateField>  
                 <asp:TemplateField HeaderText="   Nume   ">  
@@ -57,7 +57,7 @@
                 </asp:TemplateField> 
                 <asp:TemplateField HeaderText="   Total   ">  
                     <ItemTemplate>  
-                        <asp:Label ID="lbl_total" runat="server" Text='<%#Eval("Total") %>'></asp:Label>  
+                        <asp:Label ID="lbl_total" runat="server" Text='<%#Eval("Numar") %>'></asp:Label>  
                     </ItemTemplate>  
                 </asp:TemplateField> 
                 <asp:TemplateField>  

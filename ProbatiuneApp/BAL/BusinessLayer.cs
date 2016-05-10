@@ -71,11 +71,6 @@ namespace ProbatiuneApp.BAL
             }
         }
 
-        public string nrCazuri() {
-            DAL.DataLayer pDal = new DAL.DataLayer();
-            return pDal.nrCazuri();
-        }
-
         public DataSet Load()
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();

@@ -33,9 +33,6 @@ namespace ProbatiuneApp
         {
             DataSet dset = new DataSet();
             dset = pBAL.LoadAngajati();
-            DataColumn col = new DataColumn("Total",typeof(System.String));
-            
-            dset.Tables[0].Columns.Add(col);
             return dset;
         }
         protected void SearchButton_Click(object sender, EventArgs e)
