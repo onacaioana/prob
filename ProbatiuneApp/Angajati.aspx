@@ -55,7 +55,11 @@
                         <asp:TextBox ID="txt_Prenume" Width="90%" runat="server" Text='<%#Eval("Prenume") %>'></asp:TextBox>  
                     </EditItemTemplate>  
                 </asp:TemplateField> 
-               
+                <asp:TemplateField HeaderText="   Total   ">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lbl_total" runat="server" Text='<%#Eval("Total") %>'></asp:Label>  
+                    </ItemTemplate>  
+                </asp:TemplateField> 
                 <asp:TemplateField>  
                     <ItemTemplate>  
                         <asp:ImageButton  ID="btn_Edit" ImageUrl="~/Images/edit.png" Height="20px" runat="server" CommandName="Edit" />  

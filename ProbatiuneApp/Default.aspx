@@ -46,12 +46,12 @@
             <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns> 
-                <asp:TemplateField HeaderText="ID">  
+                <asp:TemplateField HeaderText="Nr.Crt">  
                     <ItemTemplate>  
-                        <asp:Label ID="lbl_ID" runat="server" Text='<%#Eval("IDCazz") %>'></asp:Label>  
+                        <asp:Label ID="lbl_ID" runat="server" Text='<%#Eval("IDCaz") %>'></asp:Label>  
                     </ItemTemplate>  
                 </asp:TemplateField>  
-                <asp:TemplateField HeaderText="Nume">  
+                <asp:TemplateField HeaderText="Nume Caz">  
                     <ItemTemplate>  
                         <asp:Label ID="lbl_Nume" runat="server" Text='<%#Eval("Nume") %>'></asp:Label>  
                     </ItemTemplate>  
@@ -59,7 +59,7 @@
                         <asp:TextBox ID="txt_Nume" Width="90%" runat="server" Text='<%#Eval("Nume") %>'></asp:TextBox>  
                     </EditItemTemplate>  
                 </asp:TemplateField>  
-                 <asp:TemplateField HeaderText="Prenume">  
+                 <asp:TemplateField HeaderText="Prenume Caz">  
                     <ItemTemplate>  
                         <asp:Label ID="lbl_Prenume" runat="server" Text='<%#Eval("Prenume") %>'></asp:Label>  
                     </ItemTemplate>  
@@ -68,7 +68,7 @@
                     </EditItemTemplate>  
                 </asp:TemplateField> 
                
-                <asp:TemplateField HeaderText="NrDosar">  
+                <asp:TemplateField HeaderText="Nr.Dosar">  
                     <ItemTemplate>  
                         <asp:Label ID="lbl_NrDosar" runat="server" Text='<%#Eval("NrDosar") %>'></asp:Label>  
                     </ItemTemplate>  
@@ -77,20 +77,20 @@
                     </EditItemTemplate>  
                 </asp:TemplateField>  
 
-                <asp:TemplateField HeaderText="StartDate">  
+                <asp:TemplateField HeaderText="Data Inceput">  
                     <ItemTemplate>  
-                        <asp:Label ID="lbl_Start" runat="server" Text='<%#Eval("Start") %>'></asp:Label>  
+                        <asp:Label ID="lbl_Start" runat="server" Text='<%#Eval("DataInceperii") %>'></asp:Label>  
                     </ItemTemplate>  
                     <EditItemTemplate>  
-                        <asp:TextBox ID="txt_Start" Width="90%" runat="server" Text='<%#Eval("Start") %>'></asp:TextBox>  
+                        <asp:TextBox ID="txt_Start" Width="90%" runat="server" Text='<%#Eval("DataInceperii") %>'></asp:TextBox>  
                     </EditItemTemplate>  
                 </asp:TemplateField> 
-                  <asp:TemplateField HeaderText="StopDate">  
+                  <asp:TemplateField HeaderText="Data Sfarsit">  
                     <ItemTemplate>  
-                        <asp:Label ID="lbl_TheEnd" runat="server" Text='<%#Eval("TheEnd") %>'></asp:Label>  
+                        <asp:Label ID="lbl_TheEnd" runat="server" Text='<%#Eval("DataFinal") %>'></asp:Label>  
                     </ItemTemplate>  
                     <EditItemTemplate>  
-                        <asp:TextBox ID="txt_TheEnd" Width="90%" runat="server" Text='<%#Eval("TheEnd") %>'></asp:TextBox>  
+                        <asp:TextBox ID="txt_TheEnd" Width="90%" runat="server" Text='<%#Eval("DataFinal") %>'></asp:TextBox>  
                     </EditItemTemplate>  
                 </asp:TemplateField>  
 
