@@ -202,6 +202,23 @@ namespace ProbatiuneApp.BAL
             }
         }
 
+        public DataSet SearchAudit(string text)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            try
+            {
+                return pDAL.SearchAudit(text);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                pDAL = null;
+            }
+        }
+
         public DataSet Search_NrDosar(string text)
         {
             int nr = Int32.Parse(text);

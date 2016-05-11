@@ -55,7 +55,7 @@
                         <asp:TextBox ID="txt_Prenume" Width="90%" runat="server" Text='<%#Eval("Prenume") %>'></asp:TextBox>  
                     </EditItemTemplate>  
                 </asp:TemplateField> 
-                <asp:TemplateField HeaderText="   Total   ">  
+                <asp:TemplateField HeaderText="   Nr.cazuri   ">  
                     <ItemTemplate>  
                         <asp:Label ID="lbl_total" runat="server" Text='<%#Eval("Numar") %>'></asp:Label>  
                     </ItemTemplate>  

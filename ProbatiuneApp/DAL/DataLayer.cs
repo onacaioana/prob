@@ -250,7 +250,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select * from AngajatiP where Nume like '%" + text + "%' OR Prenume like '%" + text + "%' order by IdAngajat;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select ID,Nume,Prenume,Numar from (select CazuriP.IdAngajat,AngajatiP.IdAngajat as ID,AngajatiP.Nume,AngajatiP.Prenume, COUNT(*) as Numar from CazuriP right join AngajatiP on AngajatiP.IdAngajat = CazuriP.IdAngajat where AngajatiP.Nume like '%"+text+"%' OR AngajatiP.Prenume like '%"+text+"%' GROUP BY CazuriP.IdAngajat,AngajatiP.Nume,AngajatiP.Prenume,AngajatiP.IdAngajat) as Tabel", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -266,6 +266,20 @@ namespace ProbatiuneApp.DAL
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where c.NrDosar = " + nr + "  order by c.IDCaz;", conn))
+                {
+                    DataSet dset = new DataSet();
+                    dAd.Fill(dset);
+                    return dset;
+                }
+            }
+        }
+
+        public DataSet SearchAudit(string text)
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+
+                using (SqlDataAdapter dAd = new SqlDataAdapter("SELECT * FROM Audit where UserName like '%"+text+"%' ORDER BY UpdateDate DESC", conn))  
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);

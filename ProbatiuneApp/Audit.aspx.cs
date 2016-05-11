@@ -39,7 +39,7 @@ namespace ProbatiuneApp
         private DataSet GridDataSource_Search(string text)
         {
             DataSet dset = new DataSet();
-            dset = pBAL.SearchAngajat(text.ToString());
+            dset = pBAL.SearchAudit(text.ToString());
             return dset;
         }
 
