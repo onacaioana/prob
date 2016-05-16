@@ -18,15 +18,15 @@ namespace ProbatiuneApp
         }
         protected void btnsubmit_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection("Data Source=10.15.60.23;Initial Catalog=probatiune;Persist Security Info=True;User ID=sa; password=22043Nicu");
+            SqlConnection con = new SqlConnection("Data Source=192.168.0.14;Initial Catalog=probatiune;Persist Security Info=True;User ID=sa; password=ioana");
             con.Open();
-            SqlCommand cmd = new SqlCommand("Select * from LogIn where UserName='" + txtusername.Text + "' and Password ='" + txtpassword.Text + "'", con);
+            SqlCommand cmd = new SqlCommand("Select * from Users where UserName='" + txtusername.Text + "' and Password ='" + txtpassword.Text + "'", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
             if (dt.Rows.Count > 0)
             {
-                Response.Redirect("Details.aspx");
+                Response.Redirect("Default.aspx");
             }
             else
             {

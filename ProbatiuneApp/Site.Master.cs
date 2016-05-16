@@ -91,6 +91,14 @@ namespace ProbatiuneApp
             ExportToExcel(tbl, "export");
         }
 
+
+        protected void ExportOpis(object sender, EventArgs e)
+        {
+            DataTable tbl = new DataTable();
+            tbl = pBAL.LoadOpis().Tables[0];
+            ExportToExcel(tbl, "export");
+        }
+
         void ExportToExcel(DataTable dt, string FileName)
         {
             if (dt.Rows.Count > 0)

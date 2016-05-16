@@ -66,6 +66,37 @@ namespace ProbatiuneApp.DAL
             }
         }
 
+        public int InsertOpis(string Nume, string CNP,string CazRef,string CazSuprav,string CazAsis,string Consilier)
+        {
+            SqlConnection conn = new SqlConnection(connStr);
+            conn.Open();
+            string sql = "Insert INTO Opis(Nume,CNP,[Caz referat],[Caz supraveghere],CazAsistenta,Consilier) VALUES(@Nume,@CNP,@CazRef,@CazSuprav,@CazAsis,@Consilier)";
+            SqlCommand dCmd = new SqlCommand(sql, conn);
+
+            try
+            {
+                dCmd.Parameters.Add("@Nume", SqlDbType.NVarChar, 255).Value = Nume;
+                dCmd.Parameters.Add("@CNP", SqlDbType.NVarChar, 255).Value = CNP;
+                dCmd.Parameters.Add("@CazRef", SqlDbType.NVarChar, 255).Value = CazRef;
+                dCmd.Parameters.Add("@CazSuprav", SqlDbType.NVarChar, 255).Value = CazSuprav;
+                dCmd.Parameters.Add("@CazAsis", SqlDbType.NVarChar, 255).Value = CazAsis;
+                dCmd.Parameters.Add("@Consilier", SqlDbType.NVarChar, 255).Value = Consilier;
+                dCmd.CommandType = CommandType.Text;
+                return dCmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                dCmd.Dispose();
+                conn.Close();
+                conn.Dispose();
+            }
+        }
+
+
         public int InsertAngajat(string Nume, string Prenume)
         {
             SqlConnection conn = new SqlConnection(connStr);
@@ -91,6 +122,7 @@ namespace ProbatiuneApp.DAL
                 conn.Dispose();
             }
         }
+
 
         /// <summary>
         /// Load all records from database ----1----
@@ -138,6 +170,22 @@ namespace ProbatiuneApp.DAL
             }
         }
 
+        /// <summary>
+        /// Load opis records 
+        /// </summary>
+        /// <returns></returns>
+        public DataSet LoadOpis()
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select IdOpis,Nume,CNP,[Caz referat],[Caz supraveghere],CazAsistenta,Consilier from Opis order by Nume ASC", conn))
+                {
+                    DataSet dset = new DataSet();
+                    dAd.Fill(dset);
+                    return dset;
+                }
+            }
+        }
 
 
         /// <summary>
@@ -179,6 +227,45 @@ namespace ProbatiuneApp.DAL
             {
 
                 dCmd.Parameters.AddWithValue("@IDCaz", CazID);
+
+                return dCmd.ExecuteNonQuery();
+
+            }
+
+            catch
+            {
+
+                throw;
+
+            }
+
+            finally
+            {
+
+                dCmd.Dispose();
+
+                conn.Close();
+
+                conn.Dispose();
+
+            }
+
+        }
+
+
+        public int DeleteOpis(int IdOpis)
+        {
+
+            SqlConnection conn = new SqlConnection(connStr);
+
+            conn.Open();
+
+            SqlCommand dCmd = new SqlCommand("DELETE FROM Opis WHERE IdOpis=@ID ;", conn);
+
+            try
+            {
+
+                dCmd.Parameters.AddWithValue("@ID", IdOpis);
 
                 return dCmd.ExecuteNonQuery();
 

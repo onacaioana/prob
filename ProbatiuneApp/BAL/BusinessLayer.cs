@@ -46,6 +46,24 @@ namespace ProbatiuneApp.BAL
             }
         }
 
+        public int InsertOpis(string Nume, string CNP, string cazR, string cazS, string cazA, string consilier)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+
+            try
+            {
+                return pDAL.InsertOpis(Nume, CNP, cazR, cazS, cazA, consilier);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                pDAL = null;
+            }
+
+        }
         /// <summary>
         /// insert records into database
         /// </summary>
@@ -84,6 +102,23 @@ namespace ProbatiuneApp.BAL
             }
             finally
            {
+                pDAL = null;
+            }
+        }
+
+        public DataSet LoadOpis()
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            try
+            {
+                return pDAL.LoadOpis();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
                 pDAL = null;
             }
         }
@@ -139,6 +174,26 @@ namespace ProbatiuneApp.BAL
                 pDAL = null;
             }
         }
+
+        public int DeleteOpis(int ID)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            try
+            {
+                return pDAL.DeleteOpis(ID);
+            }
+
+            catch
+            {
+                throw;
+            }
+
+            finally
+            {
+                pDAL = null;
+            }
+        }
+
         public int Update(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();

@@ -25,8 +25,12 @@
                                 <asp:LinkButton runat="server" OnClick="ExportCazuri"><span>Export Cazuri</span></asp:LinkButton></li>
                             <li class='has-sub'>
                                 <asp:LinkButton runat="server" OnClick="ExportAngajati"><span>Export Anajati</span></asp:LinkButton>
+                            <li class='has-sub'>
+                                <asp:LinkButton runat="server" OnClick="ExportOpis"><span>Export OPIS</span></asp:LinkButton>
+                      
                         </ul>
                     </li>
+                    <li class='last'><a href='OPIS.aspx'><span>OPIS</span></a></li>
                     <li class='last'><a href='Audit.aspx'><span>Audit</span></a></li>
                     <li class='last'><a href='#'><span>Documentatie</span></a></li>
                     <li class='last'><a href='LogIn.aspx'><span>LogIn</span></a></li>

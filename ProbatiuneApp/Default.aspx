@@ -15,7 +15,7 @@
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
     <div class="searchDiv">
         <asp:Panel ID="panel" runat="server" HorizontalAlign="Center" style="margin-bottom:10px">
-            <asp:TextBox ID="TextBox1" runat="server" placeholder="Nume Caz" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBox11" runat="server" placeholder="Nume Caz" Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox2" runat="server" placeholder="Prenume Caz" Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox3" runat="server" placeholder="Nr. Dosar" Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox4" runat="server" placeholder="Data inceperii" Width="10%" ></asp:TextBox>
