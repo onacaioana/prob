@@ -2,6 +2,7 @@
 
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
     <section class="featured">
+      
         <div class="form-wrapper cf">
             <input runat="server" id="searchtext1" type="text" placeholder="Cauta caz..." required>
             <button type="submit" runat="server" onserverclick="SearchButton_Click">Search</button>

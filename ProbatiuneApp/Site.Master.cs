@@ -7,9 +7,11 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace ProbatiuneApp
 {
+   
     public partial class SiteMaster : MasterPage
     {
         private const string AntiXsrfTokenKey = "__AntiXsrfToken";
@@ -17,8 +19,10 @@ namespace ProbatiuneApp
         private string _antiXsrfTokenValue;
         private _Default def = new _Default();
         private BAL.BusinessLayer pBAL = new BAL.BusinessLayer();
+      
         protected void Page_Init(object sender, EventArgs e)
         {
+           
             // The code below helps to protect against XSRF attacks
             var requestCookie = Request.Cookies[AntiXsrfTokenKey];
             Guid requestCookieGuidValue;
@@ -70,7 +74,7 @@ namespace ProbatiuneApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Label1.Text = Request.QueryString["Name"];
         }
 
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)

@@ -34,13 +34,15 @@
                     <li class='last'><a href='Audit.aspx'><span>Audit</span></a></li>
                     <li class='last'><a href='#'><span>Documentatie</span></a></li>
                     <li class='last'><a href='LogIn.aspx'><span>LogIn</span></a></li>
+                     
+                    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
 
                 </ul>
+                 
             </div>
         </header>
 
         <div id="body">
-
             <asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
             <section class="content-wrapper main-content clear-fix">
 
