@@ -14,13 +14,37 @@ namespace ProbatiuneApp
         private BAL.BusinessLayer pBAL = new BAL.BusinessLayer();
         protected void Page_Load(object sender, EventArgs e)
         {
- 
+            if (!IsPostBack)
+            {
+                if (Request.Cookies["UserName"] != null && Request.Cookies["Password"] != null)
+                {
+                    txtusername.Text = Request.Cookies["UserName"].Value;
+                    txtpassword.Attributes["value"] = Request.Cookies["Password"].Value;
+                    chkRememberMe.Checked = true;
+                    Response.Redirect("#");
+                }
+            }
+           
         }
 
   
         protected void btnsubmit_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection("Data Source=10.15.60.23;Initial Catalog=probatiune;Persist Security Info=True;User ID=sa; password=22043Nicu");
+            if (chkRememberMe.Checked)
+            {
+                Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
+                Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
+            }
+            else
+            {
+                Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies["Password"].Expires = DateTime.Now.AddDays(-1);
+
+            }
+            Response.Cookies["UserName"].Value = txtusername.Text.Trim();
+            Response.Cookies["Password"].Value = txtpassword.Text.Trim();
+
+            SqlConnection con = new SqlConnection("Data Source=192.168.0.14;Initial Catalog=probatiune;Persist Security Info=True;User ID=sa; password=ioana");
             con.Open();
             SqlCommand cmd = new SqlCommand("Select * from Users where UserName='" + txtusername.Text + "' and Password ='" + txtpassword.Text + "'", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);

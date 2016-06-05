@@ -74,7 +74,9 @@ namespace ProbatiuneApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Label1.Text = Request.QueryString["Name"];
+            if (Request.Cookies["UserName"] != null)
+                Label1.Text = Request.Cookies["UserName"].Value;
+            else Label1.Text = "";
         }
 
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
