@@ -165,6 +165,8 @@ namespace ProbatiuneApp
 
     protected void AddButon_Click(object sender, EventArgs e)
     {
+       // if(Int32.Parse(TextBox3.Text.ToString()))
+        //    Response.Write("<script>alert('Numarul dosarului nu poate contine litere!')</script>");
         pBAL.Insert(TextBox11.Text.ToString(), TextBox2.Text.ToString(),Int32.Parse(TextBox3.Text.ToString()), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), TextBox7.Text.ToString(), TextBox8.Text.ToString());
         TextBox8.Text = "";
         TextBox7.Text = "";

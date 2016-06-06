@@ -490,6 +490,24 @@ namespace ProbatiuneApp.DAL
 
         }
 
+        public bool LogIn(string txtusername,string txtpassword) 
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("Select * from Users where UserName='" + txtusername + "' and Password ='" + txtpassword + "'", conn))
+                {
+                    DataTable dt = new DataTable();
+                    dAd.Fill(dt);
+                    if (dt.Rows.Count == 0)
+                    {
+                        return false;
+                    }
+               
+                }
+                return true;
+            }  
+        }
+
     }
 
 

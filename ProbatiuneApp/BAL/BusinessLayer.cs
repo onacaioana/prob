@@ -298,5 +298,10 @@ namespace ProbatiuneApp.BAL
             return pDAL.ReturnAudit();
         }
 
+        public bool LogIn(string txtusername, string txtpassword) {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            return pDAL.LogIn(txtusername,txtpassword);
+        }
+
     }
 }

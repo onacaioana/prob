@@ -44,16 +44,9 @@ namespace ProbatiuneApp
             Response.Cookies["UserName"].Value = txtusername.Text.Trim();
             Response.Cookies["Password"].Value = txtpassword.Text.Trim();
 
-            SqlConnection con = new SqlConnection("Data Source=192.168.0.14;Initial Catalog=probatiune;Persist Security Info=True;User ID=sa; password=ioana");
-            con.Open();
-            SqlCommand cmd = new SqlCommand("Select * from Users where UserName='" + txtusername.Text + "' and Password ='" + txtpassword.Text + "'", con);
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            if (dt.Rows.Count > 0)
-            {
-
-               
+            
+            if (pBAL.LogIn(txtusername.Text,txtpassword.Text))
+            {  
                 Response.Redirect("#");
             }
             else
