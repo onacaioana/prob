@@ -26,9 +26,15 @@ namespace ProbatiuneApp
       
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            string[] n;
             if (!IsPostBack)
                 BindGrid();
+            if (Request.Cookies["UserName"] != null)
+            {
+                n = Request.Cookies["UserName"].Value.Split('.');
+                TextBox7.Text = n[0];
+                TextBox8.Text = n[1];
+            }
         }
         
         protected void Panel_Load(object sender, EventArgs e)
@@ -165,20 +171,29 @@ namespace ProbatiuneApp
 
     protected void AddButon_Click(object sender, EventArgs e)
     {
-       // if(TryParse(TextBox3.Text.ToString()))
-         //  Response.Write("<script>alert('Numarul dosarului nu poate contine litere!')</script>");
+     
+        int nr;
+        if (!Int32.TryParse(TextBox3.Text.ToString(), out nr))
 
-        pBAL.Insert(TextBox11.Text.ToString(), TextBox2.Text.ToString(),Int32.Parse(TextBox3.Text.ToString()), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), TextBox7.Text.ToString(), TextBox8.Text.ToString());
-        TextBox8.Text = "";
-        TextBox7.Text = "";
-        TextBox6.Text = "";
-        TextBox5.Text = "";
-        TextBox4.Text = "";
-        TextBox3.Text = "";
-        TextBox2.Text = "";
-        TextBox11.Text = "";
-       
-        BindGrid();
+            Response.Write("<script>alert('Numarul dosarului nu poate contine litere!')</script>");
+        else if (!pBAL.CheckAngajat(TextBox7.Text.ToString(), TextBox8.Text.ToString()))
+        {
+            Response.Write("<script>alert('Numele angajatului nu se regaseste in baza de date!')</script>");
+        }
+        else
+        {
+            pBAL.Insert(TextBox11.Text.ToString(), TextBox2.Text.ToString(), Int32.Parse(TextBox3.Text.ToString()), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), TextBox7.Text.ToString(), TextBox8.Text.ToString());
+            TextBox8.Text = "";
+            TextBox7.Text = "";
+            TextBox6.Text = "";
+            TextBox5.Text = "";
+            TextBox4.Text = "";
+            TextBox3.Text = "";
+            TextBox2.Text = "";
+            TextBox11.Text = "";
+
+            BindGrid();
+        }
     }
 
 

@@ -333,6 +333,24 @@ namespace ProbatiuneApp.DAL
             }
         }
 
+        public bool CheckAngajat(string Nume,string Prenume)
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select Nume from AngajatiP where Nume like '" + Nume + "%' AND Prenume like '" + Prenume + "%'", conn))
+                {
+                    DataTable dt = new DataTable();
+                    dAd.Fill(dt);
+                    if (dt.Rows.Count == 0)
+                    {
+                        return false;
+                    }
+                    
+                }
+            }
+            return true;
+        }
+
         public DataSet SearchAngajat(string text)
         {
             using (SqlConnection conn = new SqlConnection(connStr))

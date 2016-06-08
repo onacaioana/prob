@@ -75,7 +75,7 @@ namespace ProbatiuneApp
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.Cookies["UserName"] != null)
-                Label1.Text = Request.Cookies["UserName"].Value;
+                Label1.Text = "Utilizator:  " + Request.Cookies["UserName"].Value;
             else Label1.Text = "";
         }
 

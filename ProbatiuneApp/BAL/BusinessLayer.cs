@@ -46,6 +46,11 @@ namespace ProbatiuneApp.BAL
             }
         }
 
+        public bool CheckAngajat(string Nume, string Prenume) {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            return pDAL.CheckAngajat(Nume, Prenume);
+        }
+
         public int InsertOpis(string Nume, string CNP, string cazR, string cazS, string cazA, string consilier)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
