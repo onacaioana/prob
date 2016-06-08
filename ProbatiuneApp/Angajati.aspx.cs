@@ -122,8 +122,9 @@ namespace ProbatiuneApp
                 string Nume = TextBox1.Text.ToString();
                 string Prenume = TextBox2.Text.ToString();
                 pBAL.InsertAngajat(Nume,Prenume);
-                Response.Write("<script>alert('ATENTIE! Utilizatorul pe care l-ati creat se poate loga la aplicatie cu username:'"+Prenume.ToLower()+"'.'"+Nume.ToLower()+"' si parola:'"+pBAL.getPassword(Nume,Prenume)+"' !!!')</script>");
-
+               // Response.Write("<script>alert('ATENTIE! Utilizatorul pe care l-ati creat se poate loga la aplicatie cu username: !!!')</script>");
+              //  Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert(" + Nume.ToString() + ");", true);
+                
                 TextBox2.Text = "";
                 TextBox1.Text = "";
                 BindGrid();
