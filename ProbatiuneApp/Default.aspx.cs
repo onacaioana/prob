@@ -32,8 +32,10 @@ namespace ProbatiuneApp
             if (Request.Cookies["UserName"] != null)
             {
                 n = Request.Cookies["UserName"].Value.Split('.');
-                TextBox7.Text = n[0];
-                TextBox8.Text = n[1];
+               TextBox7.Text = n[1].ToUpper();
+               TextBox8.Text = n[0].ToUpper();
+               TextBox7.Enabled = false;
+               TextBox8.Enabled = false;
             }
         }
         

@@ -526,7 +526,21 @@ namespace ProbatiuneApp.DAL
             }  
         }
 
+        public string getPassword(string Nume, string Prenume) {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("Select Password from Users where UserName='" + Prenume.ToLower()+"."+ Nume.ToLower()+"'", conn))
+                {
+                    DataTable dt = new DataTable();
+                    dAd.Fill(dt);
+                    return dt.Rows[0][0].ToString();
+                }
+            }
+            
+        }
+
+
+
+
     }
-
-
 }

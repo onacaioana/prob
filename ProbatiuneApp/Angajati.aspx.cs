@@ -51,13 +51,7 @@ namespace ProbatiuneApp
             return dset;
         }
 
-        protected void AddButon_Click(object sender, EventArgs e)
-        {
-            pBAL.InsertAngajat(TextBox1.Text.ToString(), TextBox2.Text.ToString());
-            TextBox2.Text = "";
-            TextBox1.Text = "";
-            BindGrid();
-        }
+
 
         protected void GridView1_Delete(object sender, System.Web.UI.WebControls.GridViewDeletedEventArgs e)
         {
@@ -121,11 +115,21 @@ namespace ProbatiuneApp
         }
         protected void AddButon_Click(object sender, ImageClickEventArgs e)
         {
-            pBAL.InsertAngajat(TextBox1.Text.ToString(), TextBox2.Text.ToString());
-            TextBox2.Text = "";
-            TextBox1.Text = "";
+            if (TextBox1.Text == "" || TextBox2.Text == "")
+                Response.Write("<script>alert('Trebuie completate AMBELE campuri!')</script>");
+            else
+            {
+                string Nume = TextBox1.Text.ToString();
+                string Prenume = TextBox2.Text.ToString();
+                pBAL.InsertAngajat(Nume,Prenume);
+                Response.Write("<script>alert('ATENTIE! Utilizatorul pe care l-ati creat se poate loga la aplicatie cu username:'"+Prenume.ToLower()+"'.'"+Nume.ToLower()+"' si parola:'"+pBAL.getPassword(Nume,Prenume)+"' !!!')</script>");
 
-            BindGrid();
+                TextBox2.Text = "";
+                TextBox1.Text = "";
+                BindGrid();
+                
+            
+            }
         }
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)

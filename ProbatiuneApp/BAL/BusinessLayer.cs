@@ -94,6 +94,13 @@ namespace ProbatiuneApp.BAL
             }
         }
 
+
+        public string getPassword(string Nume, string Prenume) { 
+              DAL.DataLayer pDAL = new DAL.DataLayer();
+              return pDAL.getPassword(Nume, Prenume);
+        }
+
+
         public DataSet Load()
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
