@@ -32,8 +32,8 @@ namespace ProbatiuneApp
             if (Request.Cookies["UserName"] != null)
             {
                 n = Request.Cookies["UserName"].Value.Split('.');
-               TextBox7.Text = n[1].ToUpper();
-               TextBox8.Text = n[0].ToUpper();
+               TextBox7.Text = n[0].ToUpper();
+               TextBox8.Text = n[1].ToUpper();
                TextBox7.Enabled = false;
                TextBox8.Enabled = false;
             }
@@ -63,17 +63,25 @@ namespace ProbatiuneApp
         protected void SearchNrDosar_Click(object sender, EventArgs e)
         {
             //To get value:
-            string myname = searchtext2.Value;
-            GridView1.DataSource = GDSSearch_NrDosar(myname);
-            GridView1.DataBind();
+            if (searchtext2.Value.ToString() == "")
+                Response.Write("<script>alert('Scrieti numarul dosarului pe care il cautati!')</script>");
+            else
+            {
+                string myname = searchtext2.Value;
+                GridView1.DataSource = GDSSearch_NrDosar(myname);
+                GridView1.DataBind();
+            }
         }
         protected void SearchButton_Click(object sender, EventArgs e)
         {
             //To get value:
-            string myname = searchtext1.Value;
-
-            GridView1.DataSource = GridDataSource_Search(myname);
-            GridView1.DataBind();
+            if (searchtext1.Value.ToString() == "")
+                Response.Write("<script>alert('Scrieti numele cazului pe care il cautati!')</script>");
+            {
+                string myname = searchtext1.Value;
+                GridView1.DataSource = GridDataSource_Search(myname);
+                GridView1.DataBind();
+            }
         }
 
         /// <summary>
@@ -175,6 +183,9 @@ namespace ProbatiuneApp
     {
      
         int nr;
+        if (TextBox11.Text == "" || TextBox2.Text == "" || TextBox3.Text=="" || TextBox4.Text=="" || TextBox5.Text=="")
+            Response.Write("<script>alert('Trebuie completate campuri Nume Caz, Prenume Caz, Nr.Dosar, Data Inceperii, Data Final!')</script>");
+        else
         if (!Int32.TryParse(TextBox3.Text.ToString(), out nr))
 
             Response.Write("<script>alert('Numarul dosarului nu poate contine litere!')</script>");
