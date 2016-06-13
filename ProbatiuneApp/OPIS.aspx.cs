@@ -43,8 +43,13 @@ namespace ProbatiuneApp
         }
         protected void SearchButton_Click(object sender, EventArgs e)
         {
-            GridView1.DataSource = GridDataSource_Search(SearchTextBox.Value.ToString());
-            GridView1.DataBind();
+            if (SearchTextBox.Value.ToString() == "")
+                Response.Write("<script>alert('Scrieti numele cazului pe care il cautati!')</script>");
+            else
+            {
+                GridView1.DataSource = GridDataSource_Search(SearchTextBox.Value.ToString());
+                GridView1.DataBind();
+            }
         }
 
         /// <summary>
@@ -59,14 +64,19 @@ namespace ProbatiuneApp
 
         protected void AddButon_Click(object sender, EventArgs e)
         {
-            pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString());
-            TextBox2.Text = "";
-            TextBox1.Text = "";
-            TextBox3.Text = "";
-            TextBox4.Text = "";
-            TextBox5.Text = "";
-            TextBox6.Text = "";
-            BindGrid();
+             if (TextBox3.Text=="" || TextBox4.Text=="")
+                Response.Write("<script>alert('Trebuie completate campuri CazReferat si CazSupraveghere!')</script>");
+             else 
+            {
+                pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString());
+                TextBox2.Text = "";
+                TextBox1.Text = "";
+                TextBox3.Text = "";
+                TextBox4.Text = "";
+                TextBox5.Text = "";
+                TextBox6.Text = "";
+                BindGrid();
+            }
         }
 
         protected void GridView1_Delete(object sender, System.Web.UI.WebControls.GridViewDeletedEventArgs e)

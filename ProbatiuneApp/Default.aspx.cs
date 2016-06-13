@@ -77,6 +77,7 @@ namespace ProbatiuneApp
             //To get value:
             if (searchtext1.Value.ToString() == "")
                 Response.Write("<script>alert('Scrieti numele cazului pe care il cautati!')</script>");
+            else
             {
                 string myname = searchtext1.Value;
                 GridView1.DataSource = GridDataSource_Search(myname);
