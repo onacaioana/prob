@@ -97,6 +97,13 @@ namespace ProbatiuneApp
             ExportToExcel(tbl, "export");
         }
 
+        protected void LogOut(object sender, EventArgs e) {
+            pBAL.LogOut(Request.Cookies["UserName"].Value, Request.Cookies["Password"].Value);
+            Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
+            Response.Cookies["Password"].Expires = DateTime.Now.AddDays(-1);
+
+            HttpContext.Current.Response.Redirect("LogIn.aspx");
+        }
 
         protected void ExportOpis(object sender, EventArgs e)
         {

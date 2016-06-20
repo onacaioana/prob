@@ -526,6 +526,30 @@ namespace ProbatiuneApp.DAL
             }  
         }
 
+        public int LogOut(string username, string pass) {
+            SqlConnection conn = new SqlConnection(connStr);
+
+            conn.Open();
+
+            SqlCommand dCmd = new SqlCommand("UPDATE Users SET IP = '' WHERE UserName= @user AND Password = @pass;", conn);
+            dCmd.Parameters.AddWithValue("@user", username);
+            dCmd.Parameters.AddWithValue("@pass", pass);
+
+            return dCmd.ExecuteNonQuery();
+            
+        }
+        public int UpdateIP(string username,string pass) {
+            SqlConnection conn = new SqlConnection(connStr);
+
+            conn.Open();
+
+            SqlCommand dCmd = new SqlCommand("UPDATE Users SET IP = CAST(CONNECTIONPROPERTY('client_net_address') AS NVARCHAR(15)) WHERE UserName= @user AND Password = @pass;", conn);
+            dCmd.Parameters.AddWithValue("@user", username);
+            dCmd.Parameters.AddWithValue("@pass", pass);
+            
+            return dCmd.ExecuteNonQuery();
+            
+        }
         public string getPassword(string Nume, string Prenume) {
             using (SqlConnection conn = new SqlConnection(connStr))
             {

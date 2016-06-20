@@ -13,9 +13,9 @@
         <asp:TextBox ID="txtpassword" placeholder="Password" runat="server" Width="180px" TextMode="Password"></asp:TextBox>
         <br />
         <br />
-        Remember me:
+        <!--Remember me:
         <asp:CheckBox ID="chkRememberMe" runat="server" /><br />
-        <asp:Button ID="btnsubmit" runat="server" Text="Submit" Width="81px" onclick="btnsubmit_Click" />
+        --><asp:Button ID="btnsubmit" runat="server" Text="LogIn" Width="81px" onclick="btnsubmit_Click" />
             <br />
          </div>
     </section>

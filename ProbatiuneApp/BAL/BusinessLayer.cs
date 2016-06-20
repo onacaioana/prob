@@ -235,6 +235,18 @@ namespace ProbatiuneApp.BAL
             { pDAL = null; }
 
         }
+        public int LogOut(string username, string pass)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            return pDAL.LogOut(username, pass);
+
+        }
+        public int UpdateIP(string username, string pass)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            return pDAL.UpdateIP(username,pass);
+          
+        }
         public DataSet SearchQuery(string text)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();

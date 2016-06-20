@@ -33,7 +33,8 @@
                     <li class='last'><a href='OPIS.aspx'><span>OPIS</span></a></li>
                     <li class='last'><a href='Audit.aspx'><span>Audit</span></a></li>
                     <li class='last'><a href='#'><span>Documentatie</span></a></li>
-                     
+                    <li class='last'>
+                         <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LogOut"><span>Log Out</span></asp:LinkButton>
                     <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
 
                 </ul>

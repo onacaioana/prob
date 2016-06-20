@@ -20,7 +20,6 @@ namespace ProbatiuneApp
                 {
                     txtusername.Text = Request.Cookies["UserName"].Value;
                     txtpassword.Attributes["value"] = Request.Cookies["Password"].Value;
-                    chkRememberMe.Checked = true;
                     Response.Redirect("#");
                 }
             }
@@ -30,7 +29,7 @@ namespace ProbatiuneApp
   
         protected void btnsubmit_Click(object sender, EventArgs e)
         {
-            if (chkRememberMe.Checked)
+           /* if (chkRememberMe.Checked)
             {
                 Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
                 Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
@@ -40,13 +39,17 @@ namespace ProbatiuneApp
                 Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
                 Response.Cookies["Password"].Expires = DateTime.Now.AddDays(-1);
 
-            }
+            }*/
+            Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
+            Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
+
             Response.Cookies["UserName"].Value = txtusername.Text.Trim();
             Response.Cookies["Password"].Value = txtpassword.Text.Trim();
 
-            
-            if (pBAL.LogIn(txtusername.Text,txtpassword.Text))
-            {  
+
+            if (pBAL.LogIn(txtusername.Text, txtpassword.Text))
+            {
+                pBAL.UpdateIP(txtusername.Text, txtpassword.Text);
                 Response.Redirect("#");
             }
             else
