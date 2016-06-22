@@ -16,11 +16,12 @@ namespace ProbatiuneApp
         {
             if (!IsPostBack)
             {
+                
                 if (Request.Cookies["UserName"] != null && Request.Cookies["Password"] != null)
                 {
-                    txtusername.Text = Request.Cookies["UserName"].Value;
+                    txtusername.Value = Request.Cookies["UserName"].Value;
                     txtpassword.Attributes["value"] = Request.Cookies["Password"].Value;
-                    Response.Redirect("#");
+                    Response.Redirect("Default.aspx");
                 }
             }
            
@@ -29,28 +30,35 @@ namespace ProbatiuneApp
   
         protected void btnsubmit_Click(object sender, EventArgs e)
         {
-           /* if (chkRememberMe.Checked)
+            /* if (chkRememberMe.Checked)
+             {
+                 Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
+                 Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
+             }
+             else
+             {
+                 Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
+                 Response.Cookies["Password"].Expires = DateTime.Now.AddDays(-1);
+
+                  Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
+             Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
+
+             Response.Cookies["UserName"].Value = txtusername.Value.Trim();
+             Response.Cookies["Password"].Value = txtpassword.Value.Trim();
+
+             }*/
+
+
+            if (pBAL.LogIn(txtusername.Value, txtpassword.Value))
             {
                 Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
                 Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
-            }
-            else
-            {
-                Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
-                Response.Cookies["Password"].Expires = DateTime.Now.AddDays(-1);
 
-            }*/
-            Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
-            Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
+                Response.Cookies["UserName"].Value = txtusername.Value.Trim();
+                Response.Cookies["Password"].Value = txtpassword.Value.Trim();
 
-            Response.Cookies["UserName"].Value = txtusername.Text.Trim();
-            Response.Cookies["Password"].Value = txtpassword.Text.Trim();
-
-
-            if (pBAL.LogIn(txtusername.Text, txtpassword.Text))
-            {
-                pBAL.UpdateIP(txtusername.Text, txtpassword.Text);
-                Response.Redirect("#");
+                pBAL.UpdateIP(txtusername.Value, txtpassword.Value);
+                Response.Redirect("Default.aspx");
             }
             else
             {

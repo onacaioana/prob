@@ -76,7 +76,11 @@ namespace ProbatiuneApp
         {
             if (Request.Cookies["UserName"] != null)
                 Label1.Text = "Utilizator:  " + Request.Cookies["UserName"].Value;
-            else Label1.Text = "";
+            else
+            {
+                Label1.Text = "";
+                cssmenu.Visible = false;
+            }
         }
 
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
@@ -98,10 +102,12 @@ namespace ProbatiuneApp
         }
 
         protected void LogOut(object sender, EventArgs e) {
-            pBAL.LogOut(Request.Cookies["UserName"].Value, Request.Cookies["Password"].Value);
-            Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
-            Response.Cookies["Password"].Expires = DateTime.Now.AddDays(-1);
-
+            if (Request.Cookies["UserName"] != null)
+            {
+                pBAL.LogOut(Request.Cookies["UserName"].Value, Request.Cookies["Password"].Value);
+                Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies["Password"].Expires = DateTime.Now.AddDays(-1);
+            }
             HttpContext.Current.Response.Redirect("LogIn.aspx");
         }
 

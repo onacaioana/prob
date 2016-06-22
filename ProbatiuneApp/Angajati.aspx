@@ -11,10 +11,10 @@
 
 <asp:Content runat="server" ID="BodyContent1" ContentPlaceHolderID="MainContent">
     <div class="searchDiv">
-        <asp:Panel ID="panel" runat="server" HorizontalAlign="Center" style="margin-bottom:10px">
+        <asp:Panel ID="panel" runat="server" HorizontalAlign="Center" Style="margin-bottom: 10px">
             <asp:TextBox ID="TextBox1" runat="server" placeholder="Nume Angajat" Width="13%"></asp:TextBox>
-            <asp:TextBox ID="TextBox2" runat="server" placeholder="Prenume Angajat" Width="13%"  ></asp:TextBox>
-            <asp:ImageButton  ID="BTN_aDD" ImageUrl="~/Images/add.png" Height="50px" runat="server" OnClick="AddButon_Click"/> 
+            <asp:TextBox ID="TextBox2" runat="server" placeholder="Prenume Angajat" Width="13%"></asp:TextBox>
+            <asp:ImageButton ID="BTN_aDD" ImageUrl="~/Images/add.png" Height="50px" runat="server" OnClick="AddButon_Click" />
 
         </asp:Panel>
     </div>

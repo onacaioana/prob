@@ -4,19 +4,15 @@
 
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="MainContent">
     <section class="featured">
-        <div class="logIn">
 
-   
-        <asp:TextBox ID="txtusername" placeholder="Username" runat="server" Width="180px"></asp:TextBox>
-        <br />
-        <br />
-        <asp:TextBox ID="txtpassword" placeholder="Password" runat="server" Width="180px" TextMode="Password"></asp:TextBox>
-        <br />
-        <br />
-        <!--Remember me:
-        <asp:CheckBox ID="chkRememberMe" runat="server" /><br />
-        --><asp:Button ID="btnsubmit" runat="server" Text="LogIn" Width="81px" onclick="btnsubmit_Click" />
-            <br />
-         </div>
+        <div class="login-page">
+            <div class="form">
+
+                <input type="text" id="txtusername" name="txtusername" placeholder="Username" runat="server" />
+                <input type="password" id="txtpassword" placeholder="Password" runat="server" />
+                <button onserverclick=" btnsubmit_Click" runat="server">Sign In</button>
+            </div>
+        </div>
     </section>
+
 </asp:Content>

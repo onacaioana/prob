@@ -15,8 +15,8 @@
 <body>
     <form runat="server" novalidate>
         <header>
-            <div id='cssmenu'>
-                <ul>
+            <div id="cssmenu" runat="server">
+                <ul >
                     <li><a href='Default.aspx'><span>Cazuri</span></a></li>
                     <li><a href='Angajati.aspx'><span>Angajati</span></a></li>
                     <li class='active has-sub'><a href='#'><span>Export</span></a>
@@ -27,18 +27,18 @@
                                 <asp:LinkButton runat="server" OnClick="ExportAngajati"><span>Export Anajati</span></asp:LinkButton>
                             <li class='has-sub'>
                                 <asp:LinkButton runat="server" OnClick="ExportOpis"><span>Export OPIS</span></asp:LinkButton>
-                      
                         </ul>
                     </li>
                     <li class='last'><a href='OPIS.aspx'><span>OPIS</span></a></li>
                     <li class='last'><a href='Audit.aspx'><span>Audit</span></a></li>
                     <li class='last'><a href='#'><span>Documentatie</span></a></li>
                     <li class='last'>
-                         <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LogOut"><span>Log Out</span></asp:LinkButton>
+                        <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LogOut"><span>Log Out</span></asp:LinkButton>
+                    </li>
                     <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
 
                 </ul>
-                 
+
             </div>
         </header>
 
@@ -60,6 +60,6 @@
             </div>
         </div>
     </footer>
-   
+
 </body>
 </html>

@@ -20,8 +20,10 @@ namespace ProbatiuneApp
         private BAL.BusinessLayer pBAL = new BAL.BusinessLayer();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-                BindGrid();
+           
+                if (!IsPostBack)
+                    BindGrid();
+    
         }
         /// <summary>
         /// Bind the gridview

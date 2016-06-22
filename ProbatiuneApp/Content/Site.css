@@ -115,7 +115,7 @@ h5, h6 {
 
     .main-content {
         padding-left: 10px;
-        padding-top: 30px;
+        padding-top: 0px;
     }
 
 
@@ -150,14 +150,14 @@ footer {
 
 /* login
 ----------------------------------------------------------*/
-#login {
+login {
     display: block;
     font-size: .85em;
     margin: 0 0 10px;
     text-align: right;
 }
 
-    #login a {
+    #login txtusername {
         background-color: #d3dce0;
         margin-left: 10px;
         margin-right: 3px;
@@ -230,11 +230,12 @@ ul#menu {
 ----------------------------------------------------------*/
 /* featured */
 .featured {
-    background-color:lightgrey;
+    background-color: #efeeef;
+    padding-top: 10px;
 }
 
     .featured .content-wrapper {
-        /*background-image: url('../Images/back.jpg');*/
+        
         background-color: royalblue;
         padding: 20px 40px 30px 40px;
     width: 802px;
