@@ -563,7 +563,18 @@ namespace ProbatiuneApp.DAL
             
         }
 
-
+        public DataTable getLast6Months(string numeAng)
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("SELECT TYPE,TableName,PK,FieldName,OldValue,NewValue,UserName FROM  Audit WHERE (UpdateDate ='" + dtt + "') ORDER BY TableName DESC", conn))
+                {
+                    DataSet dset = new DataSet();
+                    dAd.Fill(dset);
+                    return dset.Tables[0];
+                }
+            }
+        }
 
 
     }
