@@ -29,6 +29,7 @@ namespace ProbatiuneApp
             string[] n;
             if (!IsPostBack)
                 BindGrid();
+            TextBox4.Text = DateTime.Now.ToString("yyyy-MM-dd");
             if (Request.Cookies["UserName"] != null)
             {
                 n = Request.Cookies["UserName"].Value.Split('.');
@@ -190,7 +191,7 @@ namespace ProbatiuneApp
         if (!Int32.TryParse(TextBox3.Text.ToString(), out nr))
 
             Response.Write("<script>alert('Numarul dosarului nu poate contine litere!')</script>");
-        else if (!pBAL.CheckAngajat(TextBox7.Text.ToString(), TextBox8.Text.ToString()))
+        else if (!pBAL.CheckAngajat(TextBox8.Text.ToString(), TextBox7.Text.ToString()))
         {
             Response.Write("<script>alert('Numele angajatului nu se regaseste in baza de date!')</script>");
         }

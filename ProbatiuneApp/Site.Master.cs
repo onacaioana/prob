@@ -85,7 +85,7 @@ namespace ProbatiuneApp
 
         protected void Calendar1_SelectionChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         protected void ExportCazuri(object sender, EventArgs e) {

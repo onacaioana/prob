@@ -19,8 +19,8 @@
             <asp:TextBox ID="TextBox11" runat="server" placeholder="Nume Caz" Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox2" runat="server" placeholder="Prenume Caz" Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox3" runat="server" placeholder="Nr. Dosar" Width="10%" ></asp:TextBox>
-            <asp:TextBox ID="TextBox4" runat="server" placeholder="Data inceperii" Width="10%" ></asp:TextBox>
-            <asp:TextBox ID="TextBox5" runat="server" placeholder="Data final" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBox4" runat="server" TextMode="Date" placeholder="Data inceperii" Width="14%" ></asp:TextBox>
+            <asp:TextBox ID="TextBox5" runat="server" TextMode="Date" placeholder="Data final" Width="14%" ></asp:TextBox>
             <asp:TextBox ID="TextBox6" runat="server" placeholder="Observatii" Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox7" runat="server" placeholder="Nume Angajat" Width="10%"></asp:TextBox>
             <asp:TextBox ID="TextBox8" runat="server" placeholder="Prenume Angajat" Width="10%" ></asp:TextBox>
