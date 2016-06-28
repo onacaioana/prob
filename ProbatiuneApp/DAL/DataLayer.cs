@@ -38,7 +38,7 @@ namespace ProbatiuneApp.DAL
         {
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,Observatii,IDAngajat) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Observatii,(SELECT AngajatiP.IdAngajat from AngajatiP where Nume  = @Angajat AND Prenume=@AngajatPre))";
+            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,Observatii,IDAngajat) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Observatii,(SELECT AngajatiP.IdAngajat from AngajatiP where Nume  IN( @Angajat,@AngajatPre) AND Prenume IN (@AngajatPre,@Angajat)))";
             SqlCommand dCmd = new SqlCommand(sql, conn);
 
             try
@@ -333,11 +333,11 @@ namespace ProbatiuneApp.DAL
             }
         }
 
-        public bool CheckAngajat(string Nume,string Prenume)
+        public bool CheckAngajat(string Nume, string Prenume)
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select Nume from AngajatiP where Nume like '" + Nume + "%' AND Prenume like '" + Prenume + "%'", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select Nume from AngajatiP where Nume IN('"+Nume+"','"+Prenume+"') AND Prenume IN ('"+Nume+"','"+Prenume+"')", conn))
                 {
                     DataTable dt = new DataTable();
                     dAd.Fill(dt);
@@ -392,6 +392,64 @@ namespace ProbatiuneApp.DAL
                 }
             }
         }
+
+        public DataSet SearchOpis(string text)
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+
+                using (SqlDataAdapter dAd = new SqlDataAdapter("SELECT * FROM Opis where Nume like '%" + text + "%' ORDER BY Nume DESC", conn))
+                {
+                    DataSet dset = new DataSet();
+                    dAd.Fill(dset);
+                    return dset;
+                }
+            }
+        }
+
+        public int UpdateOpis(int IdOpis, string Nume, string CNP, string CazReferat, string CazSuprav, string CazAsist, string Consilier)
+        {
+
+            SqlConnection conn = new SqlConnection(connStr);
+
+            conn.Open();
+
+            SqlCommand dCmd = new SqlCommand("UPDATE Opis SET Nume=@Nume, CNP=@CNP, [Caz Referat] = @CazReferat, [Caz Supraveghere]=@CazSuprav, [Caz Asistenta]=@CazAsist, Consilier=@Consilier WHERE IdOpis=@Id;", conn);
+
+            try
+            {
+
+                dCmd.Parameters.AddWithValue("@Id", IdOpis);
+                dCmd.Parameters.AddWithValue("@Nume", Nume);
+                dCmd.Parameters.AddWithValue("@CNP", CNP);
+                dCmd.Parameters.AddWithValue("@CazReferat", CazReferat);
+                dCmd.Parameters.AddWithValue("@CazSuprav", CazSuprav);
+                dCmd.Parameters.AddWithValue("@CazAsist", CazAsist);
+                dCmd.Parameters.AddWithValue("@Consilier", Consilier);
+                return dCmd.ExecuteNonQuery();
+
+            }
+
+            catch
+            {
+
+                throw;
+
+            }
+
+            finally
+            {
+
+                dCmd.Dispose();
+
+                conn.Close();
+
+                conn.Dispose();
+
+            }
+
+        }
+
 
         public int Update(int CazID, string Nume, string Prenume, int nrDosar, string Start, string TheEnd, string Observatii)
         {

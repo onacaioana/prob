@@ -46,7 +46,7 @@ namespace ProbatiuneApp
         protected void SearchButton_Click(object sender, EventArgs e)
         {
             if (SearchTextBox.Value.ToString() == "")
-                Response.Write("<script>alert('Scrieti numele cazului pe care il cautati!')</script>");
+                Response.Write("<script>alert('Scrieti numele cazului pe care il cautati in OPIS!')</script>");
             else
             {
                 GridView1.DataSource = GridDataSource_Search(SearchTextBox.Value.ToString());
@@ -60,7 +60,7 @@ namespace ProbatiuneApp
         private DataSet GridDataSource_Search(string text)
         {
             DataSet dset = new DataSet();
-            dset = pBAL.SearchAngajat(text.ToString());
+            dset = pBAL.SearchOpis(text.ToString());
             return dset;
         }
 
@@ -113,10 +113,14 @@ namespace ProbatiuneApp
             //Finding the controls from Gridview for the row which is going to update  
             Label id = GridView1.Rows[e.RowIndex].FindControl("lbl_ID") as Label;
             TextBox Nume = GridView1.Rows[e.RowIndex].FindControl("txt_Nume") as TextBox;
-            TextBox Prenume = GridView1.Rows[e.RowIndex].FindControl("txt_Prenume") as TextBox;
-
+            TextBox CNP = GridView1.Rows[e.RowIndex].FindControl("txt_CNP") as TextBox;
+            TextBox Caz_Referat = GridView1.Rows[e.RowIndex].FindControl("txt_cazReferat") as TextBox;
+            TextBox Caz_Supraveghere = GridView1.Rows[e.RowIndex].FindControl("txt_cazSuprav") as TextBox;
+            TextBox Caz_Asistenta = GridView1.Rows[e.RowIndex].FindControl("txt_cazAsis") as TextBox;
+            TextBox Consilier = GridView1.Rows[e.RowIndex].FindControl("txt_Consilier") as TextBox;
+            
             //updating the record  
-            pBAL.UpdateAngajat(Int32.Parse(id.Text), Nume.Text, Prenume.Text);
+            pBAL.UpdateOpis(Int32.Parse(id.Text.ToString()),Nume.Text, CNP.Text,Caz_Referat.Text,Caz_Supraveghere.Text,Caz_Asistenta.Text,Consilier.Text);
 
             //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
             GridView1.EditIndex = -1;
@@ -143,7 +147,7 @@ namespace ProbatiuneApp
         }
         protected void AddButon_Click(object sender, ImageClickEventArgs e)
         {
-            pBAL.InsertAngajat(TextBox1.Text.ToString(), TextBox2.Text.ToString());
+            pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(),TextBox3.Text,TextBox4.Text,TextBox5.Text,TextBox6.Text);
             TextBox2.Text = "";
             TextBox1.Text = "";
 

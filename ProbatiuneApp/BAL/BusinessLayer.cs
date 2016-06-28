@@ -206,6 +206,19 @@ namespace ProbatiuneApp.BAL
             }
         }
 
+        public int UpdateOpis(int IdOpis, string Nume, string CNP, string CazReferat, string CazSuprav, string CazAsist, string Consilier)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            try
+            {
+                return pDAL.UpdateOpis(IdOpis,Nume,CNP,CazReferat,CazSuprav,CazAsist,Consilier);
+            }
+            catch
+            { throw; }
+
+            finally
+            { pDAL = null; }
+        }
         public int Update(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
@@ -315,6 +328,25 @@ namespace ProbatiuneApp.BAL
                 pDAL = null;
             }
         }
+
+        public DataSet SearchOpis(string text)
+        {
+       
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            try
+            {
+                return pDAL.SearchOpis(text);
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                pDAL = null;
+            }
+        }
+
 
         public DataTable Audit_Tabel()
         {

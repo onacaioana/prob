@@ -3,7 +3,7 @@
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
     <section class="featured">
         <div class="form-wrapper cf">
-            <input runat="server" id="SearchTextBox" type="text" placeholder="Cauta audit..." required>
+            <input runat="server" id="SearchTextBox" type="text" placeholder="Cauta audit dupa Username..." required>
             <button id="Button1" type="submit" runat="server" onserverclick="SearchButton_Click">Search</button>
         </div>
     </section>
