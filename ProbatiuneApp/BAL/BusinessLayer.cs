@@ -9,6 +9,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using System.Data.SqlClient;
+using System.Data;
+
 
 namespace ProbatiuneApp.BAL
 {
@@ -356,6 +359,10 @@ namespace ProbatiuneApp.BAL
 
         public bool LogIn(string txtusername, string txtpassword) {
             DAL.DataLayer pDAL = new DAL.DataLayer();
+
+            if (txtusername == "" || txtpassword == "")
+                return false;
+    
             return pDAL.LogIn(txtusername,txtpassword);
         }
 

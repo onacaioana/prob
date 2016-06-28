@@ -26,18 +26,10 @@ namespace ProbatiuneApp
       
         protected void Page_Load(object sender, EventArgs e)
         {
-            string[] n;
+
             if (!IsPostBack)
                 BindGrid();
-            TextBox4.Text = DateTime.Now.ToString("yyyy-MM-dd");
-            if (Request.Cookies["UserName"] != null)
-            {
-                n = Request.Cookies["UserName"].Value.Split('.');
-               TextBox7.Text = n[0].ToUpper();
-               TextBox8.Text = n[1].ToUpper();
-               TextBox7.Enabled = false;
-               TextBox8.Enabled = false;
-            }
+           
         }
         
         protected void Panel_Load(object sender, EventArgs e)
@@ -65,7 +57,7 @@ namespace ProbatiuneApp
         {
             //To get value:
             if (searchtext2.Value.ToString() == "")
-                Response.Write("<script>alert('Scrieti numarul dosarului pe care il cautati!')</script>");
+                BindGrid();
             else
             {
                 string myname = searchtext2.Value;
@@ -77,7 +69,7 @@ namespace ProbatiuneApp
         {
             //To get value:
             if (searchtext1.Value.ToString() == "")
-                Response.Write("<script>alert('Scrieti numele cazului pe care il cautati!')</script>");
+                BindGrid();
             else
             {
                 string myname = searchtext1.Value;
@@ -108,6 +100,19 @@ namespace ProbatiuneApp
         /// </summary>
         private void BindGrid()
         {
+            //setari initiale
+            string[] n;
+            TextBox4.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            if (Request.Cookies["UserName"] != null)
+            {
+                n = Request.Cookies["UserName"].Value.Split('.');
+                TextBox7.Text = n[0].ToUpper();
+                TextBox8.Text = n[1].ToUpper();
+                TextBox7.Enabled = false;
+                TextBox8.Enabled = false;
+            }
+            
+            //insert data in gridView
             GridView1.DataSource = GridDataSource();
             GridView1.DataBind();
         }
@@ -185,8 +190,8 @@ namespace ProbatiuneApp
     {
      
         int nr;
-        if (TextBox11.Text == "" || TextBox2.Text == "" || TextBox3.Text=="" || TextBox4.Text=="" || TextBox5.Text=="")
-            Response.Write("<script>alert('Trebuie completate campuri Nume Caz, Prenume Caz, Nr.Dosar, Data Inceperii, Data Final!')</script>");
+        if (TextBox11.Text == "" || TextBox2.Text == "" || TextBox3.Text=="" || TextBox4.Text=="")
+            Response.Write("<script>alert('Trebuie completate campuri Nume Caz, Prenume Caz, Nr.Dosar, Data Inceperii!')</script>");
         else
         if (!Int32.TryParse(TextBox3.Text.ToString(), out nr))
 

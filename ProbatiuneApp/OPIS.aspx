@@ -14,9 +14,9 @@
           <asp:Panel ID="panel1" runat="server" HorizontalAlign="Center" style="margin-bottom:10px">
             <asp:TextBox ID="TextBox1" runat="server" placeholder="Nume" Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox2" runat="server" placeholder="CNP" Width="10%" ></asp:TextBox>
-            <asp:TextBox ID="TextBox3" runat="server" placeholder="Caz referat" Width="10%" ></asp:TextBox>
-            <asp:TextBox ID="TextBox4" runat="server" placeholder="Caz supraveghere" Width="10%" ></asp:TextBox>
-            <asp:TextBox ID="TextBox5" runat="server" placeholder="Caz asistenta" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBox3" runat="server" placeholder="CazReferat" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBox4" runat="server" placeholder="CazSupraveghere" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBox5" runat="server" placeholder="CazAsistenta" Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox6" runat="server" placeholder="Consilier" Width="10%" ></asp:TextBox>
             <asp:ImageButton  ID="ImageButton1" ImageUrl="~/Images/add.png" Height="50px" runat="server" OnClick="AddButon_Click"   /> 
 
@@ -62,19 +62,19 @@
                
                 <asp:TemplateField HeaderText="Caz referat">  
                     <ItemTemplate>  
-                        <asp:Label ID="lbl_cazReferat" runat="server" Text='<%#Eval("[Caz referat]") %>'></asp:Label>  
+                        <asp:Label ID="lbl_cazReferat" runat="server" Text='<%#Eval("CazReferat") %>'></asp:Label>  
                     </ItemTemplate>  
                     <EditItemTemplate>  
-                        <asp:TextBox ID="txt_cazReferat" Width="90%" runat="server" Text='<%#Eval("[Caz referat]") %>'></asp:TextBox>  
+                        <asp:TextBox ID="txt_cazReferat" Width="90%" runat="server" Text='<%#Eval("CazReferat") %>'></asp:TextBox>  
                     </EditItemTemplate>  
                 </asp:TemplateField>  
 
                 <asp:TemplateField HeaderText="Caz supraveghere">  
                     <ItemTemplate>  
-                        <asp:Label ID="lbl_cazSuprav" runat="server" Text='<%#Eval("[Caz supraveghere]") %>'></asp:Label>  
+                        <asp:Label ID="lbl_cazSuprav" runat="server" Text='<%#Eval("CazSupraveghere") %>'></asp:Label>  
                     </ItemTemplate>  
                     <EditItemTemplate>  
-                        <asp:TextBox ID="txt_cazSuprav" Width="90%" runat="server" Text='<%#Eval("[Caz supraveghere]") %>'></asp:TextBox>  
+                        <asp:TextBox ID="txt_cazSuprav" Width="90%" runat="server" Text='<%#Eval("CazSupraveghere") %>'></asp:TextBox>  
                     </EditItemTemplate>  
                 </asp:TemplateField> 
                   <asp:TemplateField HeaderText="Caz Asistenta">  

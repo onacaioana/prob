@@ -16,7 +16,7 @@ namespace ProbatiuneApp
         {
             if (!IsPostBack)
             {
-                
+               
                 if (Request.Cookies["UserName"] != null && Request.Cookies["Password"] != null)
                 {
                     txtusername.Value = Request.Cookies["UserName"].Value;
@@ -48,8 +48,8 @@ namespace ProbatiuneApp
 
              }*/
 
-
-            if (pBAL.LogIn(txtusername.Value, txtpassword.Value))
+           
+            if (pBAL.LogIn(txtusername.Value, txtpassword.Value) )
             {
                 Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
                 Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);

@@ -46,7 +46,7 @@ namespace ProbatiuneApp
         protected void SearchButton_Click(object sender, EventArgs e)
         {
             if (SearchTextBox.Value.ToString() == "")
-                Response.Write("<script>alert('Scrieti numele cazului pe care il cautati in OPIS!')</script>");
+                 BindGrid();
             else
             {
                 GridView1.DataSource = GridDataSource_Search(SearchTextBox.Value.ToString());
@@ -64,22 +64,7 @@ namespace ProbatiuneApp
             return dset;
         }
 
-        protected void AddButon_Click(object sender, EventArgs e)
-        {
-             if (TextBox3.Text=="" || TextBox4.Text=="")
-                Response.Write("<script>alert('Trebuie completate campuri CazReferat si CazSupraveghere!')</script>");
-             else 
-            {
-                pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString());
-                TextBox2.Text = "";
-                TextBox1.Text = "";
-                TextBox3.Text = "";
-                TextBox4.Text = "";
-                TextBox5.Text = "";
-                TextBox6.Text = "";
-                BindGrid();
-            }
-        }
+   
 
         protected void GridView1_Delete(object sender, System.Web.UI.WebControls.GridViewDeletedEventArgs e)
         {
@@ -147,11 +132,20 @@ namespace ProbatiuneApp
         }
         protected void AddButon_Click(object sender, ImageClickEventArgs e)
         {
-            pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(),TextBox3.Text,TextBox4.Text,TextBox5.Text,TextBox6.Text);
-            TextBox2.Text = "";
-            TextBox1.Text = "";
-
-            BindGrid();
+            if (TextBox3.Text == "" || TextBox4.Text == "")
+                Response.Write("<script>alert('Trebuie completate campuri CazReferat si CazSupraveghere!')</script>");
+            else
+            {
+                pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString());
+                TextBox2.Text = "";
+                TextBox1.Text = "";
+                TextBox3.Text = "";
+                TextBox4.Text = "";
+                TextBox5.Text = "";
+                TextBox6.Text = "";
+                BindGrid();
+            }
+            
         }
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)

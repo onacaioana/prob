@@ -70,7 +70,7 @@ namespace ProbatiuneApp.DAL
         {
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            string sql = "Insert INTO Opis(Nume,CNP,[Caz referat],[Caz supraveghere],CazAsistenta,Consilier) VALUES(@Nume,@CNP,@CazRef,@CazSuprav,@CazAsis,@Consilier)";
+            string sql = "Insert INTO Opis(Nume,CNP,CazReferat,CazSupraveghere,CazAsistenta,Consilier) VALUES(@Nume,@CNP,@CazRef,@CazSuprav,@CazAsis,@Consilier)";
             SqlCommand dCmd = new SqlCommand(sql, conn);
 
             try
@@ -178,7 +178,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select IdOpis,Nume,CNP,[Caz referat],[Caz supraveghere],CazAsistenta,Consilier from Opis order by Nume ASC", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select IdOpis,Nume,CNP,CazReferat,CazSupraveghere,CazAsistenta,Consilier from Opis order by Nume ASC", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -414,7 +414,7 @@ namespace ProbatiuneApp.DAL
 
             conn.Open();
 
-            SqlCommand dCmd = new SqlCommand("UPDATE Opis SET Nume=@Nume, CNP=@CNP, [Caz Referat] = @CazReferat, [Caz Supraveghere]=@CazSuprav, [Caz Asistenta]=@CazAsist, Consilier=@Consilier WHERE IdOpis=@Id;", conn);
+            SqlCommand dCmd = new SqlCommand("UPDATE Opis SET Nume=@Nume, CNP=@CNP, CazReferat = @CazReferat, CazSupraveghere=@CazSuprav, CazAsistenta=@CazAsist, Consilier=@Consilier WHERE IdOpis=@Id;", conn);
 
             try
             {
