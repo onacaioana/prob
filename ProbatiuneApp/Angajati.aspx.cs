@@ -70,8 +70,10 @@ namespace ProbatiuneApp
         {
             Label tb = GridView1.Rows[e.RowIndex].FindControl("lbl_ID") as Label;
             int id = Int32.Parse(tb.Text.ToString());
-            pBAL.DeleteAngajat(id);
-            BindGrid();
+            
+                pBAL.DeleteAngajat(id);
+                BindGrid();
+            
         }
 
         protected void GridView1_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)

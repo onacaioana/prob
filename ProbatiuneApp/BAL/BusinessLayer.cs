@@ -10,7 +10,6 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Data.SqlClient;
-using System.Data;
 
 
 namespace ProbatiuneApp.BAL
@@ -251,16 +250,16 @@ namespace ProbatiuneApp.BAL
             { pDAL = null; }
 
         }
-        public int LogOut(string username, string pass)
+        public int LogOut(string username)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            return pDAL.LogOut(username, pass);
+            return pDAL.LogOut(username);
 
         }
-        public int UpdateIP(string username, string pass)
+        public int UpdateIP(string username)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            return pDAL.UpdateIP(username,pass);
+            return pDAL.UpdateIP(username);
           
         }
         public DataSet SearchQuery(string text)
@@ -364,6 +363,13 @@ namespace ProbatiuneApp.BAL
                 return false;
     
             return pDAL.LogIn(txtusername,txtpassword);
+        }
+
+        public DataTable GetLast6MonthsCases(string angajat) {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+
+
+            return pDAL.getLast6Months(angajat);
         }
 
     }

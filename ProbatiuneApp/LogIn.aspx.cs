@@ -17,10 +17,9 @@ namespace ProbatiuneApp
             if (!IsPostBack)
             {
                
-                if (Request.Cookies["UserName"] != null && Request.Cookies["Password"] != null)
+                if (Request.Cookies["UserName"] != null)
                 {
                     txtusername.Value = Request.Cookies["UserName"].Value;
-                    txtpassword.Attributes["value"] = Request.Cookies["Password"].Value;
                     Response.Redirect("Default.aspx");
                 }
             }
@@ -52,12 +51,12 @@ namespace ProbatiuneApp
             if (pBAL.LogIn(txtusername.Value, txtpassword.Value) )
             {
                 Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
-                Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
+                
 
                 Response.Cookies["UserName"].Value = txtusername.Value.Trim();
-                Response.Cookies["Password"].Value = txtpassword.Value.Trim();
+               
 
-                pBAL.UpdateIP(txtusername.Value, txtpassword.Value);
+                pBAL.UpdateIP(txtusername.Value);
                 Response.Redirect("Default.aspx");
             }
             else

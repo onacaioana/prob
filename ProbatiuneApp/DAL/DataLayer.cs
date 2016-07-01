@@ -584,26 +584,26 @@ namespace ProbatiuneApp.DAL
             }  
         }
 
-        public int LogOut(string username, string pass) {
+        public int LogOut(string username) {
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
 
-            SqlCommand dCmd = new SqlCommand("UPDATE Users SET IP = '' WHERE UserName= @user AND Password = @pass;", conn);
+            SqlCommand dCmd = new SqlCommand("UPDATE Users SET IP = '' WHERE UserName= @user", conn);
             dCmd.Parameters.AddWithValue("@user", username);
-            dCmd.Parameters.AddWithValue("@pass", pass);
+         
 
             return dCmd.ExecuteNonQuery();
             
         }
-        public int UpdateIP(string username,string pass) {
+        public int UpdateIP(string username) {
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
 
-            SqlCommand dCmd = new SqlCommand("UPDATE Users SET IP = CAST(CONNECTIONPROPERTY('client_net_address') AS NVARCHAR(15)) WHERE UserName= @user AND Password = @pass;", conn);
+            SqlCommand dCmd = new SqlCommand("UPDATE Users SET IP = CAST(CONNECTIONPROPERTY('client_net_address') AS NVARCHAR(15)) WHERE UserName= @user", conn);
             dCmd.Parameters.AddWithValue("@user", username);
-            dCmd.Parameters.AddWithValue("@pass", pass);
+           
             
             return dCmd.ExecuteNonQuery();
             
@@ -625,7 +625,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("SELECT TYPE,TableName,PK,FieldName,OldValue,NewValue,UserName FROM  Audit WHERE (UpdateDate ='" + numeAng + "') ORDER BY TableName DESC", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("SELECT * from CazuriP where DATEDIFF(month,GETDATE(),CazuriP.DataFinal) < 6 AND  DATEDIFF(month,GETDATE(),CazuriP.DataFinal) > 0", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);

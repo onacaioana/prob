@@ -19,7 +19,9 @@ namespace ProbatiuneApp
         private string _antiXsrfTokenValue;
         private _Default def = new _Default();
         private BAL.BusinessLayer pBAL = new BAL.BusinessLayer();
-      
+        private string clients;
+        public string Clients { get { return clients; } }
+
         protected void Page_Init(object sender, EventArgs e)
         {
            
@@ -74,11 +76,15 @@ namespace ProbatiuneApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (Request.Cookies["UserName"] != null)
-                Label1.Text = "Utilizator:  " + Request.Cookies["UserName"].Value;
+            {
+                clients = Request.Cookies["UserName"].Value;
+                clients = clients.Replace(".", " ");
+            }
+            //Label1.Text = "Utilizator:  " + Request.Cookies["UserName"].Value;
             else
             {
-                Label1.Text = "";
                 cssmenu.Visible = false;
             }
         }
@@ -104,9 +110,20 @@ namespace ProbatiuneApp
         protected void LogOut(object sender, EventArgs e) {
             if (Request.Cookies["UserName"] != null)
             {
-                pBAL.LogOut(Request.Cookies["UserName"].Value, Request.Cookies["Password"].Value);
+                pBAL.LogOut(Request.Cookies["UserName"].Value);
                 Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
-                Response.Cookies["Password"].Expires = DateTime.Now.AddDays(-1);
+                
+            }
+            HttpContext.Current.Response.Redirect("LogIn.aspx");
+        }
+
+        protected void ChangePassword(object sender, EventArgs e)
+        {
+            if (Request.Cookies["UserName"] != null)
+            {
+                pBAL.LogOut(Request.Cookies["UserName"].Value);
+                Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
+
             }
             HttpContext.Current.Response.Redirect("LogIn.aspx");
         }
