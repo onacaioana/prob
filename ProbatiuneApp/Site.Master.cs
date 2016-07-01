@@ -120,12 +120,8 @@ namespace ProbatiuneApp
         protected void ChangePassword(object sender, EventArgs e)
         {
             if (Request.Cookies["UserName"] != null)
-            {
-                pBAL.LogOut(Request.Cookies["UserName"].Value);
-                Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
-
-            }
-            HttpContext.Current.Response.Redirect("LogIn.aspx");
+                 HttpContext.Current.Response.Redirect("password.aspx");
+            
         }
 
         protected void ExportOpis(object sender, EventArgs e)

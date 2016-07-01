@@ -102,6 +102,11 @@ namespace ProbatiuneApp.BAL
               return pDAL.getPassword(Nume, Prenume);
         }
 
+        public int changePassword(string username, string newpass)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            return pDAL.changePassword(username, newpass);
+        }
 
         public DataSet Load()
         {
@@ -135,6 +140,14 @@ namespace ProbatiuneApp.BAL
             {
                 pDAL = null;
             }
+        }
+
+        public DataSet LoadPerAngajat(string Nume, string Prenume)
+        {
+              DAL.DataLayer pDAL = new DAL.DataLayer();
+              int idAngajat = pDAL.getAngajatiId(Nume, Prenume);
+
+              return pDAL.LoadPerAngajat(idAngajat);
         }
 
         public DataSet LoadAngajati()
@@ -315,21 +328,17 @@ namespace ProbatiuneApp.BAL
 
         public DataSet Search_NrDosar(string text)
         {
-            int nr = Int32.Parse(text);
-            DAL.DataLayer pDAL = new DAL.DataLayer();
-            try
+            int value;
+            
+            if (int.TryParse(text, out value))
             {
-                return pDAL.SearchDosar(nr);
+                DAL.DataLayer pDAL = new DAL.DataLayer();
+                return pDAL.SearchDosar(value);
             }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                pDAL = null;
-            }
+            else return null;
         }
+
+
 
         public DataSet SearchOpis(string text)
         {

@@ -116,7 +116,7 @@ h5, h6 {
     background-color: #efeeef;
     clear: both;
 	width: 100%;
-    position: absolute;
+    position: inherit;
     min-height: 85%;
 }
 
@@ -134,10 +134,9 @@ footer {
     clear: both;
     background-color: #e2e2e2;
     font-size: .8em;
-    min-height: 10%;
-    position: absolute;
+    min-height:10%;
+    position: fixed;
     width: 100%;
-    margin-top: 40%;
 }
 
 

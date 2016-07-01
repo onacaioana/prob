@@ -69,11 +69,12 @@ namespace ProbatiuneApp
         public void GridView1_Deleting(object sender, GridViewDeleteEventArgs e)
         {
             Label tb = GridView1.Rows[e.RowIndex].FindControl("lbl_ID") as Label;
-            int id = Int32.Parse(tb.Text.ToString());
-            
-                pBAL.DeleteAngajat(id);
-                BindGrid();
-            
+            int id;
+             if (int.TryParse(tb.Text, out id))
+             {
+                 pBAL.DeleteAngajat(id);
+                 BindGrid();
+             }
         }
 
         protected void GridView1_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)
@@ -96,18 +97,19 @@ namespace ProbatiuneApp
             TextBox Prenume = GridView1.Rows[e.RowIndex].FindControl("txt_Prenume") as TextBox;
 
             //updating the record  
-            pBAL.UpdateAngajat(Int32.Parse(id.Text), Nume.Text, Prenume.Text);
+             int idd;
+             if (int.TryParse(id.Text, out idd) || SearchTextBox.Value.ToString() != "")
+             {
+                 pBAL.UpdateAngajat(idd, Nume.Text, Prenume.Text);
+                 //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
+                 GridView1.EditIndex = -1;
 
-            //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
-            GridView1.EditIndex = -1;
-            //Call ShowData method for displaying updated data  */
-            if (SearchTextBox.Value.ToString() != "")
-            {
-                GridView1.DataSource = GridDataSource_Search(SearchTextBox.Value.ToString());
-                GridView1.DataBind();
-                SearchTextBox.Value = "";
-            }
-            else BindGrid();
+                 GridView1.DataSource = GridDataSource_Search(SearchTextBox.Value.ToString());
+                 GridView1.DataBind();
+                 SearchTextBox.Value = "";
+             }
+             else BindGrid();
+
         }
         protected void GridView1_RowCancelingEdit(object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
         {

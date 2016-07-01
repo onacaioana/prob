@@ -32,7 +32,7 @@
         <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Angajati" HorizontalAlign="Center" 
         VerticalAlign =" 50px" CellPadding="4"  OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AlternatingRowStyle-BackColor=""
          OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing"
-         OnRowUpdating="GridView1_RowUpdating"  AutoGenerateColumns="False" AllowPaging="True" PageSize="8" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" >
+         OnRowUpdating="GridView1_RowUpdating"  AutoGenerateColumns="False" AllowPaging="True" PageSize="12" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" >
 
             <EditRowStyle BackColor="#999999" />
 
