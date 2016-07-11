@@ -1,22 +1,14 @@
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
 #cssmenu {
-     background: #4cb6ea;
-    margin: 0 auto;
-    width: 100%;
-    padding: 0px;
-    line-height: 99%;
-    display: flex;
+    background: #4cb6ea;
     text-align: center;
-    position: inherit;
     font-family: 'PT Sans', sans-serif;
 }
 
 #cssmenu ul {
-text-align:center;
-  list-style: none;
-  margin: 0 auto;
-  padding: 0;
-  display: block;
+  list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 #cssmenu ul:after,
 #cssmenu:after {
@@ -32,6 +24,10 @@ text-align:center;
   padding: 0;
   display: block;
   position: relative;
+  float:left;
+}
+#cssmenu ul li:last-child{
+ float:right;
 }
 #cssmenu ul li a {
   text-decoration: none;
@@ -74,10 +70,6 @@ text-align:center;
   right: 15px;
 }
 
-#cssmenu.align-right ul li ul li.has-sub:after {
-  right: auto;
-  left: 15px;
-}
 #cssmenu ul li ul li.has-sub:before {
   display: block;
   position: absolute;
