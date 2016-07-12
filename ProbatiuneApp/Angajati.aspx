@@ -19,8 +19,8 @@
         </asp:Panel>
     </div>
         <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Angajati" CellPadding="4" OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting"
-        OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating" 
-        AutoGenerateColumns="False" AllowPaging="True" PageSize="18" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" style="margin:0 auto" >
+        OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating"  style=" width: 100%; word-wrap:break-word; table-layout: fixed;"
+        AutoGenerateColumns="False" AllowPaging="True" PageSize="18" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" >
       
             <EditRowStyle BackColor="#999999" />
             <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />

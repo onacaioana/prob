@@ -13,7 +13,7 @@
     <div class="searchDiv">
     </div>
         <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Angajati" CellPadding="4" AutoGenerateColumns="False" AllowPaging="True"
-             PageSize="15" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" style="margin:0 auto" >
+             PageSize="15" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" style="margin:0 auto; width: 100%; word-wrap:break-word; table-layout: fixed;" >
       
             <EditRowStyle BackColor="#999999" />
             <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />

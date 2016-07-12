@@ -522,3 +522,10 @@
   background: #4cb6ea;
 }
 
+.searchDiv{
+	margin: auto;
+	max-width:100%;
+	overflow:auto;
+	border: 1px hidden black;
+}
+
