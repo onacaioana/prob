@@ -55,15 +55,7 @@ namespace ProbatiuneApp
         }
         protected void SearchNrDosar_Click(object sender, EventArgs e)
         {
-            //To get value:
-            if (searchtext2.Value.ToString() == "")
-                BindGrid();
-            else
-            {
-                string myname = searchtext2.Value;
-                GridView1.DataSource = GDSSearch_NrDosar(myname);
-                GridView1.DataBind();
-            }
+         
         }
         protected void SearchButton_Click(object sender, EventArgs e)
         {
@@ -73,7 +65,19 @@ namespace ProbatiuneApp
             else
             {
                 string myname = searchtext1.Value;
-                GridView1.DataSource = GridDataSource_Search(myname);
+                DataSet ds = new DataSet();
+                int tmp;
+                if (int.TryParse(myname, out tmp))
+                {
+                    ds.Tables.Add(pBAL.Search_NrDosar(myname).Tables[0].Copy());
+                    searchtext1.Value = "";
+                }
+                else
+                {
+                    ds.Tables.Add(pBAL.SearchQuery(myname).Tables[0].Copy());
+                    searchtext1.Value = "";
+                }
+                GridView1.DataSource = ds;
                 GridView1.DataBind();
             }
         }
@@ -165,13 +169,7 @@ namespace ProbatiuneApp
         //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
         GridView1.EditIndex = -1;  
         //Call ShowData method for displaying updated data  */
-        if (searchtext1.Value.ToString() != "")
-        {
-            GridView1.DataSource = GridDataSource_Search(searchtext1.Value.ToString());
-            GridView1.DataBind();
-            searchtext1.Value = "";
-        }
-        else BindGrid();
+        BindGrid();
     }
     protected void GridView1_RowCancelingEdit(object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
     {

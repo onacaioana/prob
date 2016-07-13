@@ -125,6 +125,25 @@ namespace ProbatiuneApp.BAL
             }
         }
 
+
+        public DataSet LoadInactiv()
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            try
+            {
+                return pDAL.LoadInactiv();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                pDAL = null;
+            }
+        }
+
+
         public DataSet LoadOpis()
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();

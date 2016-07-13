@@ -19,8 +19,9 @@
         </asp:Panel>
     </div>
         <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Angajati" CellPadding="4" OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting"
-        OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating"  style=" width: 100%; word-wrap:break-word; table-layout: fixed;"
-        AutoGenerateColumns="False" AllowPaging="True" PageSize="18" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" >
+        OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating" 
+        style=" text-align:center; margin:0 auto; width: 80%; font-size: 14px;"
+        AutoGenerateColumns="False" AllowPaging="True" PageSize="15" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" >
       
             <EditRowStyle BackColor="#999999" />
             <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
@@ -55,11 +56,12 @@
                         <asp:TextBox ID="txt_Prenume" Width="90%" runat="server" Text='<%#Eval("Prenume") %>'></asp:TextBox>  
                     </EditItemTemplate>  
                 </asp:TemplateField> 
-                <asp:TemplateField HeaderText="   Nr.cazuri   ">  
+                <asp:TemplateField HeaderText="   Nr. Cazuri   ">  
                     <ItemTemplate>  
                         <asp:Label ID="lbl_total" runat="server" Text='<%#Eval("Numar") %>'></asp:Label>  
                     </ItemTemplate>  
                 </asp:TemplateField> 
+                
                 <asp:TemplateField>  
                     <ItemTemplate>  
                         <asp:ImageButton  ID="btn_Edit" ImageUrl="~/Images/edit.png" Height="20px" runat="server" CommandName="Edit" />  

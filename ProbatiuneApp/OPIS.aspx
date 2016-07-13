@@ -22,9 +22,10 @@
 
         </asp:Panel>
     </div>
-        <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Angajati" CellPadding="4" OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting"
-        OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating" 
-        AutoGenerateColumns="False" AllowPaging="True" PageSize="18" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" style=" width: 100%; height:100%; word-wrap:break-word; table-layout: fixed;" >
+        <asp:GridView runat="server" ID="GridView1" Content="Value" IsHitTestVisible="False" ContentPlaceHolderID="Grid_Angajati" 
+            CellPadding="2" OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting" HorizontalAlign="Center" style=" text-align:center; margin:0 auto; width: 80%; font-size: 14px;"
+            OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating" 
+            AutoGenerateColumns="False" AllowPaging="true" PageSize="15" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None"   >
       
             <EditRowStyle BackColor="#999999" />
             <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
@@ -37,7 +38,7 @@
             <SortedDescendingCellStyle BackColor="#FFFDF8" />
             <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-            <Columns> 
+            <Columns > 
                 <asp:TemplateField HeaderText="Nr.Crt">  
                     <ItemTemplate>  
                         <asp:Label ID="lbl_ID" runat="server" Text='<%#Eval("IdOpis") %>'></asp:Label>  

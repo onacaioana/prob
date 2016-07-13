@@ -23,7 +23,7 @@ namespace ProbatiuneApp
            
                 if (!IsPostBack)
                     BindGrid();
-    
+                ClientScript.RegisterClientScriptBlock(this.GetType(), "blah", "YourJsFunction();", true);
         }
         /// <summary>
         /// Bind the gridview

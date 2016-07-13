@@ -10,14 +10,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="Content/styles.css">
     <link rel="stylesheet" href="Content/Site.css">
+
 </head>
 
 <body>
     <form runat="server" novalidate>
         <div id="container">
+            
             <div id="cssmenu" runat="server">
                 <ul>
-                    <li><a href='Default.aspx'><span>Cazuri</span></a></li>
+                    <li><a href='Default.aspx'><span>Cazuri Curente</span></a></li>
+                     <li><a href='Default.aspx'><span>Cazuri Iesite</span></a></li>
                     <li><a href='Angajati.aspx'><span>Angajati</span></a></li>
                     <li class='active has-sub'><a href='#'><span>Export</span></a>
                         <ul>
@@ -47,6 +50,7 @@
                 <section class="content-wrapper main-content clear-fix">
 
                     <asp:ContentPlaceHolder runat="server" ID="MainContent">
+                        
                         <asp:GridView runat="server" ID="GridView1" >
                         </asp:GridView>
                     </asp:ContentPlaceHolder>
