@@ -10,7 +10,7 @@
 namespace ProbatiuneApp {
     
     
-    public partial class _Default {
+    public partial class Iesite {
         
         /// <summary>
         /// searchtext1 control.

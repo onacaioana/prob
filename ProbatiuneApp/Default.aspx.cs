@@ -50,7 +50,7 @@ namespace ProbatiuneApp
         public void GridView1_Deleting(object sender, GridViewDeleteEventArgs e) {
             Label tb = GridView1.Rows[e.RowIndex].FindControl("lbl_ID") as Label;
             int id = Int32.Parse(tb.Text.ToString());
-            pBAL.Delete(id);
+            pBAL.DeleteActiv(id);
             BindGrid();
         }
         protected void SearchNrDosar_Click(object sender, EventArgs e)
@@ -69,12 +69,12 @@ namespace ProbatiuneApp
                 int tmp;
                 if (int.TryParse(myname, out tmp))
                 {
-                    ds.Tables.Add(pBAL.Search_NrDosar(myname).Tables[0].Copy());
+                    ds.Tables.Add(pBAL.Search_NrDosarActiv(myname).Tables[0].Copy());
                     searchtext1.Value = "";
                 }
                 else
                 {
-                    ds.Tables.Add(pBAL.SearchQuery(myname).Tables[0].Copy());
+                    ds.Tables.Add(pBAL.SearchQueryActiv(myname).Tables[0].Copy());
                     searchtext1.Value = "";
                 }
                 GridView1.DataSource = ds;
@@ -88,14 +88,14 @@ namespace ProbatiuneApp
         private DataSet GridDataSource_Search(string text)
         { 
             DataSet dset = new DataSet();
-            dset = pBAL.SearchQuery(text.ToString());
+            dset = pBAL.SearchQueryActiv(text.ToString());
             return dset;
         }
 
         private DataSet GDSSearch_NrDosar(string text)
         {
             DataSet dset = new DataSet();
-            dset = pBAL.Search_NrDosar(text.ToString());
+            dset = pBAL.Search_NrDosarActiv(text.ToString());
             return dset;
         }
 
@@ -127,7 +127,7 @@ namespace ProbatiuneApp
         public DataSet GridDataSource()
         {
             DataSet dset = new DataSet();
-                dset = pBAL.Load();
+                dset = pBAL.LoadActiv();
             return dset;
         }
  
@@ -164,7 +164,7 @@ namespace ProbatiuneApp
         TextBox Observatii = GridView1.Rows[e.RowIndex].FindControl("txt_Observatii") as TextBox;
       
         //updating the record  
-        pBAL.Update(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text);
+        pBAL.UpdateActiv(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text);
 
         //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
         GridView1.EditIndex = -1;  

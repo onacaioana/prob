@@ -20,7 +20,7 @@
             <div id="cssmenu" runat="server">
                 <ul>
                     <li><a href='Default.aspx'><span>Cazuri Curente</span></a></li>
-                     <li><a href='Default.aspx'><span>Cazuri Iesite</span></a></li>
+                     <li><a href='Iesite.aspx'><span>Cazuri Iesite</span></a></li>
                     <li><a href='Angajati.aspx'><span>Angajati</span></a></li>
                     <li class='active has-sub'><a href='#'><span>Export</span></a>
                         <ul>

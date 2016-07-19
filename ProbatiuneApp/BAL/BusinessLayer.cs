@@ -33,19 +33,8 @@ namespace ProbatiuneApp.BAL
         public int Insert(string Nume, string Prenume, int NrDosar, string startDate, string stopDate, string Observatii, string AngajatName, string PrenumeAng)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-
-            try
-            {
                 return pDAL.Insert(Nume, Prenume, NrDosar, startDate, stopDate, Observatii, AngajatName, PrenumeAng);
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                pDAL = null;
-            }
+
         }
 
         public bool CheckAngajat(string Nume, string Prenume) {
@@ -56,19 +45,8 @@ namespace ProbatiuneApp.BAL
         public int InsertOpis(string Nume, string CNP, string cazR, string cazS, string cazA, string consilier)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-
-            try
-            {
                 return pDAL.InsertOpis(Nume, CNP, cazR, cazS, cazA, consilier);
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                pDAL = null;
-            }
+     
 
         }
         /// <summary>
@@ -81,19 +59,7 @@ namespace ProbatiuneApp.BAL
         public int InsertAngajat(string Nume, string Prenume)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-
-            try
-            {
-                return pDAL.InsertAngajat(Nume, Prenume);
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                pDAL = null;
-            }
+            return pDAL.InsertAngajat(Nume, Prenume);
         }
 
 
@@ -108,57 +74,23 @@ namespace ProbatiuneApp.BAL
             return pDAL.changePassword(username, newpass);
         }
 
-        public DataSet Load()
+        public DataSet LoadActiv()
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            try
-            {
-                return pDAL.Load();
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-           {
-                pDAL = null;
-            }
+            return pDAL.LoadActiv();
         }
 
 
         public DataSet LoadInactiv()
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            try
-            {
-                return pDAL.LoadInactiv();
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                pDAL = null;
-            }
+           return pDAL.LoadInactiv();
+
         }
-
-
         public DataSet LoadOpis()
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            try
-            {
-                return pDAL.LoadOpis();
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                pDAL = null;
-            }
+            return pDAL.LoadOpis();
         }
 
         public DataSet LoadPerAngajat(string Nume, string Prenume)
@@ -176,110 +108,55 @@ namespace ProbatiuneApp.BAL
         }
 
         /// Delete record from database
-        public int Delete(int IDCaz)
+        public int DeleteActiv(int IDCaz)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            try
-            {
-
-                return pDAL.Delete(IDCaz);
-
-            }
-
-            catch
-            {
-
-                throw;
-
-            }
-
-            finally
-            {
-
-                pDAL = null;
-
-            }
-
+                return pDAL.DeleteActiv(IDCaz);
         }
 
+
+        /// Delete record from database
+        public int DeleteInactiv(int IDCaz)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            return pDAL.DeleteInactiv(IDCaz);
+        }
         public int DeleteAngajat(int IdAngajat)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            try
-            {
                 return pDAL.DeleteAngajat(IdAngajat);
-            }
-
-            catch
-            {
-                throw;
-            }
-
-            finally
-            {
-                pDAL = null;
-            }
         }
 
         public int DeleteOpis(int ID)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            try
-            {
-                return pDAL.DeleteOpis(ID);
-            }
-
-            catch
-            {
-                throw;
-            }
-
-            finally
-            {
-                pDAL = null;
-            }
+            return pDAL.DeleteOpis(ID);
         }
 
         public int UpdateOpis(int IdOpis, string Nume, string CNP, string CazReferat, string CazSuprav, string CazAsist, string Consilier)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            try
-            {
                 return pDAL.UpdateOpis(IdOpis,Nume,CNP,CazReferat,CazSuprav,CazAsist,Consilier);
-            }
-            catch
-            { throw; }
-
-            finally
-            { pDAL = null; }
         }
-        public int Update(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs)
+        public int UpdateActiv(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            try
-            {
-                return pDAL.Update(IDCaz, nume, prenume, nrDosar, start, stop, obs);
-            }
-            catch
-            { throw; }
-
-            finally
-            { pDAL = null; }
-
+            return pDAL.UpdateActiv(IDCaz, nume, prenume, nrDosar, start, stop, obs);
         }
+
+        public int UpdateInactiv(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+                return pDAL.UpdateInactiv(IDCaz, nume, prenume, nrDosar, start, stop, obs);
+        }
+
+
 
         public int UpdateAngajat(int AngID, string nume, string prenume)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            try
-            {
                 return pDAL.UpdateAngajat(AngID, nume, prenume);
-            }
-            catch
-            { throw; }
 
-            finally
-            { pDAL = null; }
 
         }
         public int LogOut(string username)
@@ -294,70 +171,54 @@ namespace ProbatiuneApp.BAL
             return pDAL.UpdateIP(username);
           
         }
-        public DataSet SearchQuery(string text)
+        public DataSet SearchQueryActiv(string text)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            try
-            {
-                return pDAL.SearchQuery(text);
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                pDAL = null;
-            }
+                return pDAL.SearchQueryActiv(text);
+        }
+
+        public DataSet SearchQueryInactiv(string text)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            return pDAL.SearchQueryInactiv(text);
         }
 
         public DataSet SearchAngajat(string text)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            try
-            {
                 return pDAL.SearchAngajat(text);
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                pDAL = null;
-            }
+          
         }
 
         public DataSet SearchAudit(string text)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            try
-            {
                 return pDAL.SearchAudit(text);
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                pDAL = null;
-            }
         }
 
-        public DataSet Search_NrDosar(string text)
+        public DataSet Search_NrDosarActiv(string text)
         {
             int value;
             
             if (int.TryParse(text, out value))
             {
                 DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.SearchDosar(value);
+                return pDAL.SearchDosarActiv(value);
             }
             else return null;
         }
 
+        public DataSet Search_NrDosarInactiv(string text)
+        {
+            int value;
 
+            if (int.TryParse(text, out value))
+            {
+                DAL.DataLayer pDAL = new DAL.DataLayer();
+                return pDAL.SearchDosarInactiv(value);
+            }
+            else return null;
+        }
 
         public DataSet SearchOpis(string text)
         {
