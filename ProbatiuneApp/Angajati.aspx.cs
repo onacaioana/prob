@@ -126,22 +126,32 @@ namespace ProbatiuneApp
         protected void AddButon_Click(object sender, ImageClickEventArgs e)
         {
             if (TextBox1.Text == "" || TextBox2.Text == "")
-                Response.Write("<script>alert('Trebuie completate AMBELE campuri!')</script>");
+            {
+                Response.Write("<script type='text/javascript'>");
+                Response.Write("alert('Trebuie completate AMBELE campuri!');");
+                Response.Write("document.location.href='Angajati.aspx';");
+                Response.Write("</script>");
+
+                
+            }
             else
             {
                 string Nume = TextBox1.Text.ToString();
                 string Prenume = TextBox2.Text.ToString();
-                pBAL.InsertAngajat(Nume,Prenume);
+                pBAL.InsertAngajat(Nume, Prenume);
                 string pass = pBAL.getPassword(Nume, Prenume);
                 string user = Nume + "." + Prenume;
                 // Response.Write("<script>alert('ATENTIE! Utilizatorul pe care l-ati creat se poate loga la aplicatie cu username: !!!')</script>");
-              //  Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert(" + Nume.ToString() + ");", true);
-                Response.Write("<script>alert('Utilizatorul creat va folosi:                                       Username:" + Server.HtmlEncode(user) + "                                                             Password:" + Server.HtmlEncode(pass) + "')</script>");
+                //  Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert(" + Nume.ToString() + ");", true);
+                //Response.Write("<script>alert('Utilizatorul creat va folosi:                                       Username:" + Server.HtmlEncode(user) + "                                                             Password:" + Server.HtmlEncode(pass) + "')</script>");
+      
+                Response.Write("<script type='text/javascript'>");
+                Response.Write("alert('Utilizatorul creat va folosi:  USERNAME:" + Server.HtmlEncode(user) + " PASSWORD:" + Server.HtmlEncode(pass) + "');");
+                Response.Write("document.location.href='Angajati.aspx';");
+                Response.Write("</script>");
                 TextBox2.Text = "";
                 TextBox1.Text = "";
-                BindGrid();
-                
-            
+
             }
         }
 

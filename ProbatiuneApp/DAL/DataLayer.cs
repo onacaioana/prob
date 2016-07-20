@@ -235,7 +235,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select ID,Nume,Prenume,Numar from (select CazuriP.IdAngajat,AngajatiP.IdAngajat as ID,AngajatiP.Nume,AngajatiP.Prenume, COUNT(*) as Numar from CazuriP right join AngajatiP on AngajatiP.IdAngajat = CazuriP.IdAngajat GROUP BY CazuriP.IdAngajat,AngajatiP.Nume,AngajatiP.Prenume,AngajatiP.IdAngajat) as Tabel", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter(" SELECT ang.IdAngajat as ID, Nume, Prenume, isnull(a.activ,0) as activ, isnull(i.inactiv,0) as inactiv From AngajatiP as ang left join (SELECT IdAngajat,COUNT(*) AS activ FROM CazuriP WHERE Activ='True' GROUP BY IdAngajat) as a ON a.IdAngajat = ang.IdAngajat left join (SELECT IdAngajat,COUNT(*) AS inactiv FROM CazuriP WHERE Activ='False' GROUP BY IdAngajat) as i ON i.IdAngajat = ang.IdAngajat", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -410,7 +410,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where c.Nume COLLATE Latin1_General_CI_AI like '" + text + "%' OR c.Prenume COLLATE Latin1_General_CI_AI like '" + text + "%' AND Activ='True' order by c.Nume,c.Prenume;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ='True' AND (c.Nume COLLATE Latin1_General_CI_AI like '" + text + "%' OR c.Prenume COLLATE Latin1_General_CI_AI like '" + text + "%')  order by c.Nume,c.Prenume;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -428,7 +428,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where c.Nume COLLATE Latin1_General_CI_AI like '" + text + "%' OR c.Prenume COLLATE Latin1_General_CI_AI like '" + text + "%' AND Activ='False' order by c.Nume,c.Prenume;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where  Activ='False' AND (c.Nume COLLATE Latin1_General_CI_AI like '" + text + "%' OR c.Prenume COLLATE Latin1_General_CI_AI like '" + text + "%')  order by c.Nume,c.Prenume;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -458,7 +458,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select ID,Nume,Prenume,Numar from (select CazuriP.IdAngajat,AngajatiP.IdAngajat as ID,AngajatiP.Nume,AngajatiP.Prenume, COUNT(*) as Numar from CazuriP right join AngajatiP on AngajatiP.IdAngajat = CazuriP.IdAngajat where AngajatiP.Nume COLLATE Latin1_General_CI_AI like '%" + text + "%' OR AngajatiP.Prenume COLLATE Latin1_General_CI_AI like '%" + text + "%' GROUP BY CazuriP.IdAngajat,AngajatiP.Nume,AngajatiP.Prenume,AngajatiP.IdAngajat) as Tabel", conn))
+               using (SqlDataAdapter dAd = new SqlDataAdapter("SELECT ang.IdAngajat as ID, Nume, Prenume, isnull(a.activ,0) as activ,isnull(i.inactiv,0) as inactiv From AngajatiP as ang left join (SELECT IdAngajat,COUNT(*) AS activ FROM CazuriP WHERE Activ='True' GROUP BY IdAngajat) as a ON a.IdAngajat = ang.IdAngajat left join (SELECT IdAngajat,COUNT(*) AS inactiv FROM CazuriP WHERE Activ='False' GROUP BY IdAngajat) as i ON i.IdAngajat = ang.IdAngajat WHERE Nume COLLATE Latin1_General_CI_AI like '%" + text + "%' OR Prenume COLLATE Latin1_General_CI_AI like '%" + text + "%'", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -473,7 +473,7 @@ namespace ProbatiuneApp.DAL
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where c.NrDosar = " + nr + "AND Activ = 'True'  order by c.IDCaz;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = 'True' AND c.NrDosar = " + nr + " order by c.IDCaz;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -487,7 +487,7 @@ namespace ProbatiuneApp.DAL
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where c.NrDosar = " + nr + "AND Activ = 'False'  order by c.IDCaz;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ='False' AND c.NrDosar = " + nr + " order by c.IDCaz;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);

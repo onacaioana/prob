@@ -94,11 +94,20 @@ namespace ProbatiuneApp
             
         }
 
-        protected void ExportCazuri(object sender, EventArgs e) {
+        protected void ExportCazuriCurente(object sender, EventArgs e) {
             DataTable tbl = new DataTable();
-            tbl = def.GridDataSource().Tables[0];
+            tbl = pBAL.LoadActiv().Tables[0];
             ExportToExcel(tbl, "export");
         }
+
+
+        protected void ExportCazuriIesite(object sender, EventArgs e)
+        {
+            DataTable tbl = new DataTable();
+            tbl = pBAL.LoadInactiv().Tables[0];
+            ExportToExcel(tbl, "export");
+        }
+
 
         protected void ExportAngajati(object sender, EventArgs e)
         {

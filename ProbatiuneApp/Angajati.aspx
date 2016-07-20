@@ -20,7 +20,7 @@
     </div>
         <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Angajati" CellPadding="4" OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting"
         OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating" 
-        style=" text-align:center; margin:0 auto; width: 80%; font-size: 14px;"
+        style=" text-align:left; margin:0 auto; width: 80%; font-size: 14px;"
         AutoGenerateColumns="False" AllowPaging="True" PageSize="15" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" >
       
             <EditRowStyle BackColor="#999999" />
@@ -56,9 +56,15 @@
                         <asp:TextBox ID="txt_Prenume" Width="90%" runat="server" Text='<%#Eval("Prenume") %>'></asp:TextBox>  
                     </EditItemTemplate>  
                 </asp:TemplateField> 
-                <asp:TemplateField HeaderText="   Nr. Cazuri   ">  
+                <asp:TemplateField HeaderText="   Nr. Active   ">  
                     <ItemTemplate>  
-                        <asp:Label ID="lbl_total" runat="server" Text='<%#Eval("Numar") %>'></asp:Label>  
+                        <asp:Label ID="lbl_totalActiv" runat="server" Text='<%#Eval("activ") %>'></asp:Label>  
+                    </ItemTemplate>  
+                </asp:TemplateField> 
+
+                 <asp:TemplateField HeaderText="   Nr. Inactive   ">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lbl_totalInactiv" runat="server" Text='<%#Eval("inactiv") %>'></asp:Label>  
                     </ItemTemplate>  
                 </asp:TemplateField> 
                 

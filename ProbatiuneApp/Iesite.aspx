@@ -10,7 +10,7 @@
     </section>
 </asp:Content>
 <asp:Content runat="server" ID="BodyContent" ContentPlaceHolderID="MainContent">
-    <div class="searchDiv" style="margin:0 auto; width: 80%; font-size: 14px;">
+    <div id="adaugare" class="searchDiv" style="margin:0 auto; width: 80%; font-size: 14px;">
         <asp:Panel ID="panel" runat="server" HorizontalAlign="Center" Style="margin-bottom: 10px">
             <asp:TextBox ID="TextBox11" runat="server" placeholder="Nume Caz" Width="10%"></asp:TextBox>
             <asp:TextBox ID="TextBox2" runat="server" placeholder="Prenume Caz" Width="10%"></asp:TextBox>
@@ -20,7 +20,7 @@
             <asp:TextBox ID="TextBox6" runat="server" placeholder="Observatii" Width="10%"></asp:TextBox>
             <asp:TextBox ID="TextBox7" runat="server" placeholder="Nume Angajat" Width="10%"></asp:TextBox>
             <asp:TextBox ID="TextBox8" runat="server" placeholder="Prenume Angajat" Width="10%"></asp:TextBox>
-            <asp:ImageButton ID="BTN_aDD" ImageUrl="~/Images/add.png" style="max-height:50px;" runat="server" OnClick="AddButon_Click" />
+            <asp:ImageButton ID="BTN_aDD" ImageUrl="~/Images/add.png" style="max-height:50px; margin-bottom: 13px;" runat="server" OnClick="AddButon_Click" Width="50px" />
 
         </asp:Panel>
     </div>
@@ -29,7 +29,7 @@
         OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting" 
         OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating"
         AutoGenerateColumns="False" AllowPaging="True" PageSize="15" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" 
-        GridLines="None" style="text-align:center; margin:0 auto; width: 80%; font-size: 14px;">
+        GridLines="None" style="text-align:left; margin:0 auto; width: 80%; font-size: 14px;">
 
         <EditRowStyle BackColor="#999999" />
 

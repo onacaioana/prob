@@ -29,7 +29,6 @@ namespace ProbatiuneApp
 
             if (!IsPostBack)
                 BindGrid();
-
         }
 
         protected void Panel_Load(object sender, EventArgs e)
@@ -75,7 +74,7 @@ namespace ProbatiuneApp
                 }
                 else
                 {
-                    ds.Tables.Add(pBAL.Search_NrDosarInactiv(myname).Tables[0].Copy());
+                    ds.Tables.Add(pBAL.SearchQueryInactiv(myname).Tables[0].Copy());
                     searchtext1.Value = "";
                 }
                 GridView1.DataSource = ds;

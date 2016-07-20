@@ -29,7 +29,7 @@
         OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting" 
         OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating"
         AutoGenerateColumns="False" AllowPaging="True" PageSize="15" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" 
-        GridLines="None" style="text-align:center; margin:0 auto; width: 80%; font-size: 14px;">
+        GridLines="None" style="text-align:left; margin:0 auto; width: 80%; font-size: 14px;">
 
         <EditRowStyle BackColor="#999999" />
 

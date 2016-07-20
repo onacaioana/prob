@@ -14,7 +14,7 @@
     </div>
         <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Angajati" CellPadding="4" AutoGenerateColumns="False" AllowPaging="True"
              PageSize="20" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" 
-             style="text-align:center; margin-top:20px; margin-left:auto; margin-right:auto; width: 80%; font-size: 14px;" >
+             style="text-align:left; margin-top:20px; margin-left:auto; margin-right:auto; width: 80%; font-size: 14px;" >
       
             <EditRowStyle BackColor="#999999" />
             <FooterStyle BackColor="#5D7B9D" ForeColor="White" Font-Bold="True" />
