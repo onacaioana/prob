@@ -28,10 +28,25 @@ namespace ProbatiuneApp
         {
 
             if (!IsPostBack)
+            {
                 BindGrid();
+               
+                    
+            }
            
         }
-        
+
+
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if (Request.Cookies["UserName"].Value.Equals("admin"))
+                {
+                    (e.Row.FindControl("btn_Update") as Button).Enabled = false;
+                }
+            }
+        }
         protected void Panel_Load(object sender, EventArgs e)
         {
            
@@ -119,6 +134,8 @@ namespace ProbatiuneApp
             //insert data in gridView
             GridView1.DataSource = GridDataSource();
             GridView1.DataBind();
+       
+
         }
 
         /// <summary>
@@ -139,6 +156,8 @@ namespace ProbatiuneApp
         {
 
         }
+
+     
 
           protected void GridView1_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)  
     {  

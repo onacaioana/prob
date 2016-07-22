@@ -114,18 +114,18 @@
                 </ItemTemplate>
 
             </asp:TemplateField>
-            <asp:TemplateField>
+            <asp:TemplateField  >
                 <ItemTemplate>
                     <asp:ImageButton ID="btn_Edit" ImageUrl="~/Images/edit.png" Height="20px" runat="server" CommandName="Edit" />
 
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <asp:Button ID="btn_Update" runat="server" Text="Update" CommandName="Update" />
+                    <asp:Button ID="btn_Update" CssClass="iii" runat="server" Text="Update" CommandName="Update" />
                     <asp:Button ID="btn_Cancel" runat="server" Text="Cancel" CommandName="Cancel" />
                 </EditItemTemplate>
 
             </asp:TemplateField>
-            <asp:ButtonField ButtonType="Image" ImageUrl="~/Images/delete.png" CommandName="Delete">
+            <asp:ButtonField  ButtonType="Image" ImageUrl="~/Images/delete.png" CommandName="Delete">
                 <ControlStyle Height="20px"></ControlStyle>
             </asp:ButtonField>
         </Columns>
