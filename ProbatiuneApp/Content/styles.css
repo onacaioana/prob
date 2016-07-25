@@ -527,6 +527,12 @@
   background: #4cb6ea;
 }
 
+  .GridView1:hover
+        {
+            background-color: #FFEB9C;
+            border-top: solid;
+            color:#9C6500;
+        }
 
 
 

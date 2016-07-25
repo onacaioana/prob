@@ -26,9 +26,15 @@ namespace ProbatiuneApp
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!IsPostBack)
+            {
+
+                if (!Request.Cookies["UserName"].Value.Contains("admin"))
+                {
+                    this.GridView1.Columns[10].Visible = false;
+                }
                 BindGrid();
+            }
         }
 
         protected void Panel_Load(object sender, EventArgs e)
@@ -107,13 +113,17 @@ namespace ProbatiuneApp
             //setari initiale
             string[] n;
             TextBox4.Text = DateTime.Now.ToString("yyyy-MM-dd");
-            if (Request.Cookies["UserName"] != null)
+            if (Request.Cookies["UserName"] != null && !Request.Cookies["UserName"].Value.Contains("admin"))
             {
                 n = Request.Cookies["UserName"].Value.Split('.');
                 TextBox7.Text = n[0].ToUpper();
                 TextBox8.Text = n[1].ToUpper();
                 TextBox7.Enabled = false;
                 TextBox8.Enabled = false;
+            }
+            else if (Request.Cookies["UserName"].Value.Contains("admin"))
+            {
+                panel.Enabled = false;
             }
 
             //insert data in gridView

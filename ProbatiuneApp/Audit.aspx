@@ -28,7 +28,7 @@
             <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns> 
-                <asp:TemplateField HeaderText="Tip Op. ">  
+                <asp:TemplateField HeaderText="Tip Operatie ">  
                     <ItemTemplate>  
                         <asp:Label ID="lbl_type" runat="server" Text='<%#Eval("TYPE") %>'></asp:Label>  
                     </ItemTemplate>  

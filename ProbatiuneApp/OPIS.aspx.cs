@@ -20,10 +20,17 @@ namespace ProbatiuneApp
         private BAL.BusinessLayer pBAL = new BAL.BusinessLayer();
         protected void Page_Load(object sender, EventArgs e)
         {
-           
-                if (!IsPostBack)
-                    BindGrid();
-                ClientScript.RegisterClientScriptBlock(this.GetType(), "blah", "YourJsFunction();", true);
+
+            if (!IsPostBack)
+            {
+
+                if (!Request.Cookies["UserName"].Value.Contains("admin"))
+                {
+                    this.GridView1.Columns[8].Visible = false;
+                }
+                BindGrid();
+            }
+                //ClientScript.RegisterClientScriptBlock(this.GetType(), "blah", "YourJsFunction();", true);
         }
         /// <summary>
         /// Bind the gridview

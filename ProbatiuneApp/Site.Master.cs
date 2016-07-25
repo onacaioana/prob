@@ -77,10 +77,14 @@ namespace ProbatiuneApp
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            if (Request.Cookies["UserName"] != null)
+            if (Request.Cookies["UserName"] != null && !Request.Cookies["UserName"].Value.Contains("admin"))
             {
                 clients = Request.Cookies["UserName"].Value;
                 clients = clients.Replace(".", " ");
+            }
+            else if (Request.Cookies["UserName"] != null && Request.Cookies["UserName"].Value.Contains("admin"))
+            {
+                clients = Request.Cookies["UserName"].Value;
             }
             //Label1.Text = "Utilizator:  " + Request.Cookies["UserName"].Value;
             else
