@@ -56,7 +56,7 @@ namespace ProbatiuneApp
         public void GridView1_Deleting(object sender, GridViewDeleteEventArgs e) {
             Label tb = GridView1.Rows[e.RowIndex].FindControl("lbl_ID") as Label;
             int id = Int32.Parse(tb.Text.ToString());
-            pBAL.DeleteActiv(id);
+            pBAL.DeleteActiv(id, Request.Cookies["UserName"].Value);
             BindGrid();
         }
         protected void SearchNrDosar_Click(object sender, EventArgs e)
@@ -177,7 +177,7 @@ namespace ProbatiuneApp
         TextBox Observatii = GridView1.Rows[e.RowIndex].FindControl("txt_Observatii") as TextBox;
       
         //updating the record  
-        pBAL.UpdateActiv(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text);
+        pBAL.UpdateActiv(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text, Request.Cookies["UserName"].Value);
 
         //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
         GridView1.EditIndex = -1;  
@@ -213,7 +213,7 @@ namespace ProbatiuneApp
         }
         else
         {
-            pBAL.Insert(TextBox11.Text.ToString(), TextBox2.Text.ToString(), Int32.Parse(TextBox3.Text.ToString()), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), TextBox7.Text.ToString(), TextBox8.Text.ToString());
+            pBAL.Insert(TextBox11.Text.ToString(), TextBox2.Text.ToString(), Int32.Parse(TextBox3.Text.ToString()), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), TextBox7.Text.ToString(), TextBox8.Text.ToString(), Request.Cookies["UserName"].Value);
             TextBox8.Text = "";
             TextBox7.Text = "";
             TextBox6.Text = "";

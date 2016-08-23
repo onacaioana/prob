@@ -48,7 +48,20 @@ namespace ProbatiuneApp
             GridView1.PageIndex = e.NewPageIndex;
             BindGrid();
         }
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
 
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                System.Data.DataRow row = ((System.Data.DataRowView)e.Row.DataItem).Row;
+                if (row["TYPE"].ToString() == "Modificare")
+                    e.Row.ForeColor = System.Drawing.Color.Green;
+                else if (row["TYPE"].ToString() == "Adaugare")
+                    e.Row.ForeColor = System.Drawing.Color.Black;
+                else if (row["TYPE"].ToString() == "Stergere")
+                    e.Row.ForeColor = System.Drawing.Color.Red;
+            }
+        }
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 

@@ -122,11 +122,8 @@ namespace ProbatiuneApp
 
         protected void LogOut(object sender, EventArgs e) {
             if (Request.Cookies["UserName"] != null)
-            {
-                pBAL.LogOut(Request.Cookies["UserName"].Value);
                 Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(-1);
-                
-            }
+
             HttpContext.Current.Response.Redirect("LogIn.aspx");
         }
 

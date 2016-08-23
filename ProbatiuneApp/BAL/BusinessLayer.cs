@@ -30,10 +30,10 @@ namespace ProbatiuneApp.BAL
         /// <param name="lastName"></param>
         /// <param name="age"></param>
         /// <returns></returns>
-        public int Insert(string Nume, string Prenume, int NrDosar, string startDate, string stopDate, string Observatii, string AngajatName, string PrenumeAng)
+        public int Insert(string Nume, string Prenume, int NrDosar, string startDate, string stopDate, string Observatii, string AngajatName, string PrenumeAng, string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.Insert(Nume, Prenume, NrDosar, startDate, stopDate, Observatii, AngajatName, PrenumeAng);
+                return pDAL.Insert(Nume, Prenume, NrDosar, startDate, stopDate, Observatii, AngajatName, PrenumeAng, user);
 
         }
 
@@ -42,10 +42,10 @@ namespace ProbatiuneApp.BAL
             return pDAL.CheckAngajat(Nume, Prenume);
         }
 
-        public int InsertOpis(string Nume, string CNP, string cazR, string cazS, string cazA, string consilier)
+        public int InsertOpis(string Nume, string CNP, string cazR, string cazS, string cazA, string consilier, string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.InsertOpis(Nume, CNP, cazR, cazS, cazA, consilier);
+                return pDAL.InsertOpis(Nume, CNP, cazR, cazS, cazA, consilier, user);
      
 
         }
@@ -56,10 +56,10 @@ namespace ProbatiuneApp.BAL
         /// <param name="lastName"></param>
         /// <param name="age"></param>
         /// <returns></returns>
-        public int InsertAngajat(string Nume, string Prenume)
+        public int InsertAngajat(string Nume, string Prenume, string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            return pDAL.InsertAngajat(Nume, Prenume);
+            return pDAL.InsertAngajat(Nume, Prenume, user);
         }
 
 
@@ -108,69 +108,69 @@ namespace ProbatiuneApp.BAL
         }
 
         /// Delete record from database
-        public int DeleteActiv(int IDCaz)
+        public int DeleteActiv(int IDCaz, string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.DeleteActiv(IDCaz);
+                return pDAL.DeleteActiv(IDCaz, user);
         }
 
 
         /// Delete record from database
-        public int DeleteInactiv(int IDCaz)
+        public int DeleteInactiv(int IDCaz, string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            return pDAL.DeleteInactiv(IDCaz);
+            return pDAL.DeleteInactiv(IDCaz, user);
         }
-        public int DeleteAngajat(int IdAngajat)
+        public int DeleteAngajat(int IdAngajat, string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.DeleteAngajat(IdAngajat);
+                return pDAL.DeleteAngajat(IdAngajat,user);
         }
 
-        public int DeleteOpis(int ID)
+        public int DeleteOpis(int ID, string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            return pDAL.DeleteOpis(ID);
+            return pDAL.DeleteOpis(ID,user);
         }
 
-        public int UpdateOpis(int IdOpis, string Nume, string CNP, string CazReferat, string CazSuprav, string CazAsist, string Consilier)
+        public int UpdateOpis(int IdOpis, string Nume, string CNP, string CazReferat, string CazSuprav, string CazAsist, string Consilier, string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.UpdateOpis(IdOpis,Nume,CNP,CazReferat,CazSuprav,CazAsist,Consilier);
+                return pDAL.UpdateOpis(IdOpis,Nume,CNP,CazReferat,CazSuprav,CazAsist,Consilier,user);
         }
-        public int UpdateActiv(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs)
+        public int UpdateActiv(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs, string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            return pDAL.UpdateActiv(IDCaz, nume, prenume, nrDosar, start, stop, obs);
+            return pDAL.UpdateActiv(IDCaz, nume, prenume, nrDosar, start, stop, obs,user);
         }
 
-        public int UpdateInactiv(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs)
+        public int UpdateInactiv(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs, string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.UpdateInactiv(IDCaz, nume, prenume, nrDosar, start, stop, obs);
+                return pDAL.UpdateInactiv(IDCaz, nume, prenume, nrDosar, start, stop, obs,user);
         }
 
 
 
-        public int UpdateAngajat(int AngID, string nume, string prenume)
+        public int UpdateAngajat(int AngID, string nume, string prenume, string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.UpdateAngajat(AngID, nume, prenume);
+                return pDAL.UpdateAngajat(AngID, nume, prenume,user);
 
 
         }
-        public int LogOut(string username)
+        /*public int LogOut(string username)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
             return pDAL.LogOut(username);
 
-        }
-        public int UpdateIP(string username)
+        }*/
+        /*public int UpdateIP(string username)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
             return pDAL.UpdateIP(username);
           
-        }
+        }*/
         public DataSet SearchQueryActiv(string text)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();

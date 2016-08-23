@@ -34,11 +34,11 @@ namespace ProbatiuneApp.DAL
         /// <param name="StopDate"></param>
         /// <param name="Angajat"></param>
         /// <returns></returns>
-        public int Insert(string Nume, string Prenume, int NrDosar, string StartDate, string StopDate, string Observatii, string PrenumeAng, string AngajatName)
+        public int Insert(string Nume, string Prenume, int NrDosar, string StartDate, string StopDate, string Observatii, string PrenumeAng, string AngajatName,string user)
         {
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,Observatii,IDAngajat) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Observatii,(SELECT AngajatiP.IdAngajat from AngajatiP where Nume  IN( @Angajat,@AngajatPre) AND Prenume IN (@AngajatPre,@Angajat)))";
+            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,Observatii,IDAngajat,user_modif) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Observatii,(SELECT AngajatiP.IdAngajat from AngajatiP where Nume  IN( @Angajat,@AngajatPre) AND Prenume IN (@AngajatPre,@Angajat)),@user)";
             SqlCommand dCmd = new SqlCommand(sql, conn);
 
             try
@@ -51,6 +51,7 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.Add("@Observatii", SqlDbType.NVarChar, 255).Value = Observatii;
                 dCmd.Parameters.Add("@Angajat", SqlDbType.NVarChar, 255).Value = AngajatName;
                 dCmd.Parameters.Add("@AngajatPre", SqlDbType.NVarChar, 255).Value = PrenumeAng;
+                dCmd.Parameters.Add("@user", SqlDbType.NVarChar, 255).Value = user;
                 dCmd.CommandType = CommandType.Text;
                 return dCmd.ExecuteNonQuery();
             }
@@ -66,11 +67,11 @@ namespace ProbatiuneApp.DAL
             }
         }
 
-        public int InsertOpis(string Nume, string CNP,string CazRef,string CazSuprav,string CazAsis,string Consilier)
+        public int InsertOpis(string Nume, string CNP,string CazRef,string CazSuprav,string CazAsis,string Consilier,string user)
         {
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            string sql = "Insert INTO Opis(Nume,CNP,CazReferat,CazSupraveghere,CazAsistenta,Consilier) VALUES(@Nume,@CNP,@CazRef,@CazSuprav,@CazAsis,@Consilier)";
+            string sql = "Insert INTO Opis(Nume,CNP,CazReferat,CazSupraveghere,CazAsistenta,Consilier,user_modif) VALUES(@Nume,@CNP,@CazRef,@CazSuprav,@CazAsis,@Consilier,@user)";
             SqlCommand dCmd = new SqlCommand(sql, conn);
 
             try
@@ -81,6 +82,7 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.Add("@CazSuprav", SqlDbType.NVarChar, 255).Value = CazSuprav;
                 dCmd.Parameters.Add("@CazAsis", SqlDbType.NVarChar, 255).Value = CazAsis;
                 dCmd.Parameters.Add("@Consilier", SqlDbType.NVarChar, 255).Value = Consilier;
+                dCmd.Parameters.Add("@user", SqlDbType.NVarChar, 255).Value = user;
                 dCmd.CommandType = CommandType.Text;
                 return dCmd.ExecuteNonQuery();
             }
@@ -97,17 +99,18 @@ namespace ProbatiuneApp.DAL
         }
 
 
-        public int InsertAngajat(string Nume, string Prenume)
+        public int InsertAngajat(string Nume, string Prenume, string user)
         {
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            string sql = "Insert INTO AngajatiP(Nume,Prenume) VALUES(@Nume,@Prenume)";
+            string sql = "Insert INTO AngajatiP(Nume,Prenume,user_modif) VALUES(@Nume,@Prenume,@user)";
             SqlCommand dCmd = new SqlCommand(sql, conn);
 
             try
             {
                 dCmd.Parameters.Add("@Nume", SqlDbType.NVarChar, 255).Value = Nume;
                 dCmd.Parameters.Add("@Prenume", SqlDbType.NVarChar, 255).Value = Prenume;
+                dCmd.Parameters.Add("@user", SqlDbType.NVarChar, 255).Value = user;
                 dCmd.CommandType = CommandType.Text;
                 return dCmd.ExecuteNonQuery();
             }
@@ -174,7 +177,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = 'True' order by c.Nume,c.Prenume;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = 1 order by c.Nume,c.Prenume;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -187,7 +190,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ ='False' order by c.Nume,c.Prenume;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ =0 order by c.Nume,c.Prenume;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -235,7 +238,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter(" SELECT ang.IdAngajat as ID, Nume, Prenume, isnull(a.activ,0) as activ, isnull(i.inactiv,0) as inactiv From AngajatiP as ang left join (SELECT IdAngajat,COUNT(*) AS activ FROM CazuriP WHERE Activ='True' GROUP BY IdAngajat) as a ON a.IdAngajat = ang.IdAngajat left join (SELECT IdAngajat,COUNT(*) AS inactiv FROM CazuriP WHERE Activ='False' GROUP BY IdAngajat) as i ON i.IdAngajat = ang.IdAngajat", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter(" SELECT ang.IdAngajat as ID, Nume, Prenume, isnull(a.activ,0) as activ, isnull(i.inactiv,0) as inactiv From AngajatiP as ang left join (SELECT IdAngajat,COUNT(*) AS activ FROM CazuriP WHERE Activ=1 GROUP BY IdAngajat) as a ON a.IdAngajat = ang.IdAngajat left join (SELECT IdAngajat,COUNT(*) AS inactiv FROM CazuriP WHERE Activ=0 GROUP BY IdAngajat) as i ON i.IdAngajat = ang.IdAngajat", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -244,163 +247,77 @@ namespace ProbatiuneApp.DAL
             }
         }
 
-        /// <summary>
-
-        /// Delete record from database
-
-        /// </summary>
-
-        /// <param name="personID"></param>
-
-        /// <returns></returns>
-        public int DeleteActiv(int CazID)
+        // Delete record from database
+        public int DeleteActiv(int CazID, string user)
         {
 
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
+            SqlCommand userCmd = new SqlCommand("UPDATE CazuriP SET user_modif = @user WHERE IDCaz=@IDCaz AND Activ=1 ;", conn);
+            SqlCommand dCmd = new SqlCommand("DELETE FROM CazuriP WHERE IDCaz=@IDCaz AND Activ=1 ;", conn);
 
-            SqlCommand dCmd = new SqlCommand("DELETE FROM CazuriP WHERE IDCaz=@IDCaz AND Activ='True' ;", conn);
+            userCmd.Parameters.AddWithValue("@user", user);
+            userCmd.Parameters.AddWithValue("@IDCaz", CazID);
+            userCmd.ExecuteNonQuery();
 
-            try
-            {
-
-                dCmd.Parameters.AddWithValue("@IDCaz", CazID);
-
-                return dCmd.ExecuteNonQuery();
-
-            }
-
-            catch
-            {
-
-                throw;
-
-            }
-
-            finally
-            {
-
-                dCmd.Dispose();
-
-                conn.Close();
-
-                conn.Dispose();
-
-            }
+            dCmd.Parameters.AddWithValue("@IDCaz", CazID);
+            return dCmd.ExecuteNonQuery();
 
         }
 
-        /// <summary>
-
-        /// Delete record from database
-
-        /// </summary>
-
-        /// <param name="personID"></param>
-
-        /// <returns></returns>
-        public int DeleteInactiv(int CazID)
+        //Delete record from database
+        public int DeleteInactiv(int CazID, string user)
         {
 
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
+            SqlCommand userCmd = new SqlCommand("UPDATE CazuriP SET user_modif = @user WHERE IDCaz=@IDCaz AND Activ=0 ;", conn);
+            SqlCommand dCmd = new SqlCommand("DELETE FROM CazuriP WHERE IDCaz=@IDCaz AND Activ=0 ;", conn);
 
-            SqlCommand dCmd = new SqlCommand("DELETE FROM CazuriP WHERE IDCaz=@IDCaz AND Activ='False' ;", conn);
+            userCmd.Parameters.AddWithValue("@user", user);
+            userCmd.Parameters.AddWithValue("@IDCaz", CazID);
+            userCmd.ExecuteNonQuery();
 
-            try
-            {
-
-                dCmd.Parameters.AddWithValue("@IDCaz", CazID);
-
-                return dCmd.ExecuteNonQuery();
-
-            }
-
-            catch
-            {
-
-                throw;
-
-            }
-
-            finally
-            {
-
-                dCmd.Dispose();
-
-                conn.Close();
-
-                conn.Dispose();
-
-            }
+            dCmd.Parameters.AddWithValue("@IDCaz", CazID);
+            return dCmd.ExecuteNonQuery();
 
         }
 
-
-        public int DeleteOpis(int IdOpis)
+        public int DeleteOpis(int IdOpis, string user)
         {
 
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
-
+            SqlCommand userCmd = new SqlCommand("UPDATE Opis SET user_modif = @user WHERE IdOpis=@ID ;", conn);
             SqlCommand dCmd = new SqlCommand("DELETE FROM Opis WHERE IdOpis=@ID ;", conn);
 
-            try
-            {
+            userCmd.Parameters.AddWithValue("@user", user);
+            userCmd.Parameters.AddWithValue("@ID", IdOpis);
+            userCmd.ExecuteNonQuery();
 
-                dCmd.Parameters.AddWithValue("@ID", IdOpis);
-
-                return dCmd.ExecuteNonQuery();
-
-            }
-
-            catch
-            {
-
-                throw;
-
-            }
-
-            finally
-            {
-
-                dCmd.Dispose();
-
-                conn.Close();
-
-                conn.Dispose();
-
-            }
+            dCmd.Parameters.AddWithValue("@ID", IdOpis);
+            return dCmd.ExecuteNonQuery();
 
         }
 
-        public int DeleteAngajat(int IdAngajat)
+        public int DeleteAngajat(int IdAngajat, string user)
         {
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
-
+            SqlCommand userCmd = new SqlCommand("UPDATE AngajatiP SET user_modif = @user WHERE IdAngajat=@ID ;", conn);
             SqlCommand dCmd = new SqlCommand("DELETE FROM AngajatiP WHERE IdAngajat=@ID ;", conn);
 
-            try
-            {
-                dCmd.Parameters.AddWithValue("@ID", IdAngajat);
+            userCmd.Parameters.AddWithValue("@user", user);
+            userCmd.Parameters.AddWithValue("@ID", IdAngajat);
+            userCmd.ExecuteNonQuery();
 
-                return dCmd.ExecuteNonQuery();
-            }
-            catch
-            {
-                throw;
-            }
-            finally
-            {
-                dCmd.Dispose();
-                conn.Close();
-                conn.Dispose();
-            }
+            dCmd.Parameters.AddWithValue("@ID", IdAngajat);
+            return dCmd.ExecuteNonQuery();
+          
         }
         /// <summary>
         /// Folosit pentru modulul de search dupa Nume sau Prenume
@@ -410,7 +327,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ='True' AND (c.Nume COLLATE Latin1_General_CI_AI like '" + text + "%' OR c.Prenume COLLATE Latin1_General_CI_AI like '" + text + "%')  order by c.Nume,c.Prenume;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ=1 AND (c.Nume COLLATE Latin1_General_CI_AI like '" + text + "%' OR c.Prenume COLLATE Latin1_General_CI_AI like '" + text + "%')  order by c.Nume,c.Prenume;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -428,7 +345,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where  Activ='False' AND (c.Nume COLLATE Latin1_General_CI_AI like '" + text + "%' OR c.Prenume COLLATE Latin1_General_CI_AI like '" + text + "%')  order by c.Nume,c.Prenume;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where  Activ=0 AND (c.Nume COLLATE Latin1_General_CI_AI like '" + text + "%' OR c.Prenume COLLATE Latin1_General_CI_AI like '" + text + "%')  order by c.Nume,c.Prenume;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -458,7 +375,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-               using (SqlDataAdapter dAd = new SqlDataAdapter("SELECT ang.IdAngajat as ID, Nume, Prenume, isnull(a.activ,0) as activ,isnull(i.inactiv,0) as inactiv From AngajatiP as ang left join (SELECT IdAngajat,COUNT(*) AS activ FROM CazuriP WHERE Activ='True' GROUP BY IdAngajat) as a ON a.IdAngajat = ang.IdAngajat left join (SELECT IdAngajat,COUNT(*) AS inactiv FROM CazuriP WHERE Activ='False' GROUP BY IdAngajat) as i ON i.IdAngajat = ang.IdAngajat WHERE Nume COLLATE Latin1_General_CI_AI like '%" + text + "%' OR Prenume COLLATE Latin1_General_CI_AI like '%" + text + "%'", conn))
+               using (SqlDataAdapter dAd = new SqlDataAdapter("SELECT ang.IdAngajat as ID, Nume, Prenume, isnull(a.activ,0) as activ,isnull(i.inactiv,0) as inactiv From AngajatiP as ang left join (SELECT IdAngajat,COUNT(*) AS activ FROM CazuriP WHERE Activ=1 GROUP BY IdAngajat) as a ON a.IdAngajat = ang.IdAngajat left join (SELECT IdAngajat,COUNT(*) AS inactiv FROM CazuriP WHERE Activ=0 GROUP BY IdAngajat) as i ON i.IdAngajat = ang.IdAngajat WHERE Nume COLLATE Latin1_General_CI_AI like '%" + text + "%' OR Prenume COLLATE Latin1_General_CI_AI like '%" + text + "%'", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -473,7 +390,7 @@ namespace ProbatiuneApp.DAL
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = 'True' AND c.NrDosar = " + nr + " order by c.IDCaz;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = 1 AND c.NrDosar = " + nr + " order by c.IDCaz;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -487,7 +404,7 @@ namespace ProbatiuneApp.DAL
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ='False' AND c.NrDosar = " + nr + " order by c.IDCaz;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ=0 AND c.NrDosar = " + nr + " order by c.IDCaz;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -524,14 +441,14 @@ namespace ProbatiuneApp.DAL
             }
         }
 
-        public int UpdateOpis(int IdOpis, string Nume, string CNP, string CazReferat, string CazSuprav, string CazAsist, string Consilier)
+        public int UpdateOpis(int IdOpis, string Nume, string CNP, string CazReferat, string CazSuprav, string CazAsist, string Consilier, string user)
         {
 
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
 
-            SqlCommand dCmd = new SqlCommand("UPDATE Opis SET Nume=@Nume, CNP=@CNP, CazReferat = @CazReferat, CazSupraveghere=@CazSuprav, CazAsistenta=@CazAsist, Consilier=@Consilier WHERE IdOpis=@Id;", conn);
+            SqlCommand dCmd = new SqlCommand("UPDATE Opis SET Nume=@Nume, CNP=@CNP, CazReferat = @CazReferat, CazSupraveghere=@CazSuprav, CazAsistenta=@CazAsist, Consilier=@Consilier, user_modif=@user WHERE IdOpis=@Id;", conn);
 
             try
             {
@@ -543,6 +460,7 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.AddWithValue("@CazSuprav", CazSuprav);
                 dCmd.Parameters.AddWithValue("@CazAsist", CazAsist);
                 dCmd.Parameters.AddWithValue("@Consilier", Consilier);
+                dCmd.Parameters.AddWithValue("@user", user);
                 return dCmd.ExecuteNonQuery();
 
             }
@@ -568,14 +486,14 @@ namespace ProbatiuneApp.DAL
         }
 
 
-        public int UpdateActiv(int CazID, string Nume, string Prenume, int nrDosar, string Start, string TheEnd, string Observatii)
+        public int UpdateActiv(int CazID, string Nume, string Prenume, int nrDosar, string Start, string TheEnd, string Observatii, string user)
         {
 
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
 
-            SqlCommand dCmd = new SqlCommand("UPDATE CazuriP SET Nume=@Nume, Prenume=@Prenume, NrDosar = @NrDosar, DataInceperii=@Start, DataFinal=@TheEnd, Observatii=@Observatii WHERE IDCaz=@IDCaz AND Activ='True';", conn);
+            SqlCommand dCmd = new SqlCommand("UPDATE CazuriP SET Nume=@Nume, Prenume=@Prenume, NrDosar = @NrDosar, DataInceperii=@Start, DataFinal=@TheEnd, Observatii=@Observatii, user_modif = @user WHERE IDCaz=@IDCaz AND Activ=1;", conn);
 
             try
             {
@@ -587,6 +505,7 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.AddWithValue("@Start", Start);
                 dCmd.Parameters.AddWithValue("@TheEnd", TheEnd);
                 dCmd.Parameters.AddWithValue("@Observatii", Observatii);
+                dCmd.Parameters.AddWithValue("@user", user);
                 return dCmd.ExecuteNonQuery();
 
             }
@@ -611,14 +530,14 @@ namespace ProbatiuneApp.DAL
 
         }
 
-        public int UpdateInactiv(int CazID, string Nume, string Prenume, int nrDosar, string Start, string TheEnd, string Observatii)
+        public int UpdateInactiv(int CazID, string Nume, string Prenume, int nrDosar, string Start, string TheEnd, string Observatii, string user)
         {
 
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
 
-            SqlCommand dCmd = new SqlCommand("UPDATE CazuriP SET Nume=@Nume, Prenume=@Prenume, NrDosar = @NrDosar, DataInceperii=@Start, DataFinal=@TheEnd, Observatii=@Observatii WHERE IDCaz=@IDCaz AND Activ='False';", conn);
+            SqlCommand dCmd = new SqlCommand("UPDATE CazuriP SET Nume=@Nume, Prenume=@Prenume, NrDosar = @NrDosar, DataInceperii=@Start, DataFinal=@TheEnd, Observatii=@Observatii, user_modif = @user WHERE IDCaz=@IDCaz AND Activ=0;", conn);
 
             try
             {
@@ -630,6 +549,7 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.AddWithValue("@Start", Start);
                 dCmd.Parameters.AddWithValue("@TheEnd", TheEnd);
                 dCmd.Parameters.AddWithValue("@Observatii", Observatii);
+                dCmd.Parameters.AddWithValue("@user", user);
                 return dCmd.ExecuteNonQuery();
 
             }
@@ -654,20 +574,21 @@ namespace ProbatiuneApp.DAL
 
         }
 
-        public int UpdateAngajat(int AngID, string Nume, string Prenume)
+        public int UpdateAngajat(int AngID, string Nume, string Prenume, string user)
         {
 
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
 
-            SqlCommand dCmd = new SqlCommand("UPDATE AngajatiP SET Nume=@Nume, Prenume=@Prenume WHERE IdAngajat=@AngID", conn);
+            SqlCommand dCmd = new SqlCommand("UPDATE AngajatiP SET Nume=@Nume, Prenume=@Prenume, user_modif = user WHERE IdAngajat=@AngID", conn);
 
             try
             {
                 dCmd.Parameters.AddWithValue("@AngID", AngID);
                 dCmd.Parameters.AddWithValue("@Nume", Nume);
                 dCmd.Parameters.AddWithValue("@Prenume", Prenume);
+                dCmd.Parameters.AddWithValue("@user", user);
                 return dCmd.ExecuteNonQuery();
             }
 
@@ -744,30 +665,30 @@ namespace ProbatiuneApp.DAL
             }  
         }
 
-        public int LogOut(string username) {
+       /* public int LogOut(string username)
+        {
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
 
             SqlCommand dCmd = new SqlCommand("UPDATE Users SET IP = '' WHERE UserName= @user", conn);
             dCmd.Parameters.AddWithValue("@user", username);
-         
+
 
             return dCmd.ExecuteNonQuery();
-            
-        }
-        public int UpdateIP(string username) {
+
+        }*/
+
+       /* public int UpdateIP(string username) {
+        
             SqlConnection conn = new SqlConnection(connStr);
-
             conn.Open();
-
             SqlCommand dCmd = new SqlCommand("UPDATE Users SET IP = CAST(CONNECTIONPROPERTY('client_net_address') AS NVARCHAR(15)) WHERE UserName= @user", conn);
             dCmd.Parameters.AddWithValue("@user", username);
-           
-            
             return dCmd.ExecuteNonQuery();
             
-        }
+        }*/
+
         public string getPassword(string Nume, string Prenume) {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
@@ -825,6 +746,41 @@ namespace ProbatiuneApp.DAL
             }
         }
 
+
+        bool VerificaCNP(string cnp)
+        {
+
+            if (cnp.Length != 13)
+
+                return false;
+
+            const string a = "279146358279";
+
+            long j = 0;
+
+            if (!long.TryParse(cnp, out j))
+
+                return false;
+
+            long suma = 0;
+
+            for (int i = 0; i < 12; i++)
+
+                suma += long.Parse(cnp.Substring(i, 1)) * long.Parse(a.Substring(i, 1));
+
+            long rest = suma - 11 * (int)(suma / 11);
+
+            rest = rest == 10 ?
+
+           1 : rest;
+
+            if (long.Parse(cnp.Substring(12, 1)) != rest)
+
+                return false;
+
+            return true;
+
+        }
 
     }
 }

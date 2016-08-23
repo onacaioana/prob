@@ -62,7 +62,7 @@
             </div>
             <div id="footer">
                 <div class="float-left">
-                    <p>&copy; <%: DateTime.Now.Year %> - Probatiune</p>
+                    <p>&copy; <%: DateTime.Now.Year %> - Tribunalul Cluj</p>
                 </div>
             </div>
         </div>

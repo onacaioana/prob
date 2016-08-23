@@ -84,7 +84,7 @@ namespace ProbatiuneApp
         {
             Label tb = GridView1.Rows[e.RowIndex].FindControl("lbl_ID") as Label;
             int id = Int32.Parse(tb.Text.ToString());
-            pBAL.DeleteOpis(id);
+            pBAL.DeleteOpis(id, Request.Cookies["UserName"].Value);
             BindGrid();
         }
 
@@ -112,7 +112,7 @@ namespace ProbatiuneApp
             TextBox Consilier = GridView1.Rows[e.RowIndex].FindControl("txt_Consilier") as TextBox;
             
             //updating the record  
-            pBAL.UpdateOpis(Int32.Parse(id.Text.ToString()),Nume.Text, CNP.Text,Caz_Referat.Text,Caz_Supraveghere.Text,Caz_Asistenta.Text,Consilier.Text);
+            pBAL.UpdateOpis(Int32.Parse(id.Text.ToString()), Nume.Text, CNP.Text, Caz_Referat.Text, Caz_Supraveghere.Text, Caz_Asistenta.Text, Consilier.Text, Request.Cookies["UserName"].Value);
 
             //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
             GridView1.EditIndex = -1;
@@ -143,7 +143,7 @@ namespace ProbatiuneApp
                 Response.Write("<script>alert('Trebuie completate campuri CazReferat si CazSupraveghere!')</script>");
             else
             {
-                pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString());
+                pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), Request.Cookies["UserName"].Value);
                 TextBox2.Text = "";
                 TextBox1.Text = "";
                 TextBox3.Text = "";

@@ -79,7 +79,7 @@ namespace ProbatiuneApp
             int id;
              if (int.TryParse(tb.Text, out id))
              {
-                 pBAL.DeleteAngajat(id);
+                 pBAL.DeleteAngajat(id, Request.Cookies["UserName"].Value);
                  BindGrid();
              }
         }
@@ -107,7 +107,7 @@ namespace ProbatiuneApp
              int idd;
              if (int.TryParse(id.Text, out idd) || SearchTextBox.Value.ToString() != "")
              {
-                 pBAL.UpdateAngajat(idd, Nume.Text, Prenume.Text);
+                 pBAL.UpdateAngajat(idd, Nume.Text, Prenume.Text, Request.Cookies["UserName"].Value);
                  //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
                  GridView1.EditIndex = -1;
 
@@ -145,7 +145,7 @@ namespace ProbatiuneApp
             {
                 string Nume = TextBox1.Text.ToString();
                 string Prenume = TextBox2.Text.ToString();
-                pBAL.InsertAngajat(Nume, Prenume);
+                pBAL.InsertAngajat(Nume, Prenume, Request.Cookies["UserName"].Value);
                 string pass = pBAL.getPassword(Nume, Prenume);
                 string user = Nume + "." + Prenume;
                 // Response.Write("<script>alert('ATENTIE! Utilizatorul pe care l-ati creat se poate loga la aplicatie cu username: !!!')</script>");

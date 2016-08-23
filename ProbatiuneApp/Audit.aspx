@@ -13,7 +13,7 @@
     <div class="searchDiv">
     </div>
         <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Angajati" CellPadding="4" AutoGenerateColumns="False" AllowPaging="True"
-             PageSize="20" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" 
+             PageSize="20" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" GridLines="None" OnRowDataBound="GridView1_RowDataBound" 
              style="text-align:left; margin-top:20px; margin-left:auto; margin-right:auto; width: 80%; font-size: 14px;" >
       
             <EditRowStyle BackColor="#999999" />
@@ -38,7 +38,11 @@
                         <asp:Label ID="lbl_tableName" runat="server" Text='<%#Eval("TableName") %>'></asp:Label>  
                     </ItemTemplate>   
                 </asp:TemplateField>  
-                 
+                    <asp:TemplateField HeaderText="Nr.Crrt">  
+                    <ItemTemplate>  
+                        <asp:Label ID="lbl_crt" runat="server" Text='<%#Eval("PK") %>'></asp:Label>  
+                    </ItemTemplate>   
+                </asp:TemplateField>  
                    <asp:TemplateField HeaderText=" Campul Modif.">  
                     <ItemTemplate>  
                         <asp:Label ID="lbl_ID" runat="server" Text='<%#Eval("FieldName") %>'></asp:Label>  
