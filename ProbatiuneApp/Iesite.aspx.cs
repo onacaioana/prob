@@ -29,8 +29,9 @@ namespace ProbatiuneApp
             if (!IsPostBack)
             {
 
-                if (!Request.Cookies["UserName"].Value.Contains("admin"))
+                if (Request.Cookies["UserName"]!=null && !Request.Cookies["UserName"].Value.Contains("admin"))
                 {
+
                     this.GridView1.Columns[10].Visible = false;
                 }
                 BindGrid();
@@ -47,7 +48,7 @@ namespace ProbatiuneApp
         }
         protected void GridView1_Delete(object sender, System.Web.UI.WebControls.GridViewDeletedEventArgs e)
         {
-            //
+            
             string s = "2";
             if (true)
                 s.CompareTo("1");
@@ -121,7 +122,7 @@ namespace ProbatiuneApp
                 TextBox7.Enabled = false;
                 TextBox8.Enabled = false;
             }
-            else if (Request.Cookies["UserName"].Value.Contains("admin"))
+            else if (Request.Cookies["UserName"]!=null && Request.Cookies["UserName"].Value.Contains("admin"))
             {
                 panel.Enabled = false;
             }

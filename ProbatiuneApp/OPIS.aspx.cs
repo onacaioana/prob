@@ -24,7 +24,7 @@ namespace ProbatiuneApp
             if (!IsPostBack)
             {
 
-                if (!Request.Cookies["UserName"].Value.Contains("admin"))
+                if (Request.Cookies["UserName"]!=null && !Request.Cookies["UserName"].Value.Contains("admin"))
                 {
                     this.GridView1.Columns[8].Visible = false;
                 }

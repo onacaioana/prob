@@ -15,6 +15,31 @@
 
 <body>
     <form runat="server" novalidate>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
+        rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $("[id*=btnPopup]").live("click", function () {
+            $("#dialog").dialog({
+                title: "jQuery Dialog Popup",
+                buttons: {
+                    Close: function () {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+            return false;
+        });
+    </script>
+    <div id="dialog" style="display: none">
+        Username si parola!
+    </div>
+    <asp:Button ID="btnPopup" runat="server" Text="Show Popup" /><script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css"
+        rel="stylesheet" type="text/css" />
+   
         <div id="container">
             
             <div id="cssmenu" runat="server">
@@ -32,7 +57,7 @@
                                         <asp:LinkButton ID="LinkButton2" runat="server" OnClick="ExportCazuriIesite"><span>Cazuri Iesite</span></asp:LinkButton>
                                 </ul>
                             </li>
-                             <li class='last'><asp:LinkButton ID="LinkButton4" runat="server" OnClick="ExportAngajati"><span>Export Anajati</span></asp:LinkButton></li>
+                             <li class='last'><asp:LinkButton ID="LinkButton4" runat="server" OnClick="ExportAngajati"><span>Export Angajati</span></asp:LinkButton></li>
                              <li class='last'><asp:LinkButton ID="LinkButton5" runat="server" OnClick="ExportOpis"><span>Export OPIS</span></asp:LinkButton></li>
                         </ul>
                     </li>
