@@ -148,17 +148,17 @@ namespace ProbatiuneApp
                 pBAL.InsertAngajat(Nume, Prenume, Request.Cookies["UserName"].Value);
                 string pass = pBAL.getPassword(Nume, Prenume);
                 string user = Nume + "." + Prenume;
-                // Response.Write("<script>alert('ATENTIE! Utilizatorul pe care l-ati creat se poate loga la aplicatie cu username: !!!')</script>");
-                //  Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert(" + Nume.ToString() + ");", true);
-                //Response.Write("<script>alert('Utilizatorul creat va folosi:                                       Username:" + Server.HtmlEncode(user) + "                                                             Password:" + Server.HtmlEncode(pass) + "')</script>");
-      
-                Response.Write("<script type='text/javascript'>");
-                Response.Write("alert('Utilizatorul creat va folosi:  USERNAME:" + Server.HtmlEncode(user) + " PASSWORD:" + Server.HtmlEncode(pass) + "');");
-                Response.Write("document.location.href='Angajati.aspx';");
-                Response.Write("</script>");
+            
+             
+                /*   Response.Write("<script type='text/javascript'>");
+                   Response.Write("alert('Utilizatorul creat va folosi:  USERNAME:" + Server.HtmlEncode(user) + " PASSWORD:" + Server.HtmlEncode(pass) + "');");
+                   Response.Write("document.location.href='Angajati.aspx';");
+                   Response.Write("</script>");*/
                 TextBox2.Text = "";
                 TextBox1.Text = "";
-
+                UsernameLabel.Text = user;
+                PassLabel.Text = pass;
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "mycaca", "myfcn();", true);
             }
         }
 

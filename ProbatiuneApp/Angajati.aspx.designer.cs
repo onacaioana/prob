@@ -67,6 +67,24 @@ namespace ProbatiuneApp {
         protected global::System.Web.UI.WebControls.ImageButton BTN_aDD;
         
         /// <summary>
+        /// UsernameLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label UsernameLabel;
+        
+        /// <summary>
+        /// PassLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PassLabel;
+        
+        /// <summary>
         /// GridView1 control.
         /// </summary>
         /// <remarks>

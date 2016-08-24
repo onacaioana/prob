@@ -10,6 +10,8 @@
 </asp:Content>
 
 <asp:Content runat="server" ID="BodyContent1" ContentPlaceHolderID="MainContent">
+
+
     <div class="searchDiv">
         <asp:Panel ID="panel" runat="server" HorizontalAlign="Center" Style="margin-bottom: 10px">
             <asp:TextBox ID="TextBox1" runat="server" placeholder="Nume Angajat" Width="13%"></asp:TextBox>
@@ -18,6 +20,35 @@
 
         </asp:Panel>
     </div>
+
+               
+    <script type="text/javascript">
+        function myfcn() {
+            $("#dialog").dialog({
+                title: "Credentiale angajat",
+                buttons: {
+                    Close: function () {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+
+        
+        };
+       
+    </script>
+    <div id="dialog" style="display: none">
+        <p>Utilizatorul creat va folosi urmatoarele credentiale:<br></p>
+        Username:
+        <asp:Label ID="UsernameLabel" Text="Username:" runat="server"> </asp:Label><br>
+        Parola:
+         <asp:Label ID="PassLabel" Text="Password:" runat="server"> </asp:Label><br>
+    </div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css" rel="stylesheet" type="text/css" />
+
+
         <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Angajati" CellPadding="4" OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting"
         OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating" 
         style=" text-align:left; margin:0 auto; width: 80%; font-size: 14px;"
