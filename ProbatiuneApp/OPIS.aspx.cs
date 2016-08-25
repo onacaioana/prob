@@ -139,8 +139,10 @@ namespace ProbatiuneApp
         }
         protected void AddButon_Click(object sender, ImageClickEventArgs e)
         {
-            if (TextBox3.Text == "" || TextBox4.Text == "")
-                Response.Write("<script>alert('Trebuie completate campuri CazReferat si CazSupraveghere!')</script>");
+            if (TextBox3.Text == "" || TextBox4.Text == ""){
+              LabelText.Text = "Trebuie completate campuri CazReferat si CazSupraveghere!";
+              Page.ClientScript.RegisterStartupScript(this.GetType(), "func", "myfcn();", true);
+            }
             else
             {
                 pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), Request.Cookies["UserName"].Value);

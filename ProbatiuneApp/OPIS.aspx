@@ -21,6 +21,26 @@
             <asp:ImageButton  ID="ImageButton1" ImageUrl="~/Images/add.png" Height="50px" runat="server" OnClick="AddButon_Click"   /> 
 
         </asp:Panel>
+
+            <script type="text/javascript">
+                function myfcn() {
+                    $("#dialog").dialog({
+                        title: "Atentie!",
+                        buttons: {
+                            AmInteles: function () {
+                                $(this).dialog('close');
+                            }
+                        }
+                    });
+                };
+    </script>
+    <div id="dialog" style="display: none">
+         <asp:Label ID="LabelText" Text="" runat="server" > </asp:Label><br>
+    </div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+    <link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/start/jquery-ui.css" rel="stylesheet" type="text/css" />
+
     </div>
         <asp:GridView runat="server" ID="GridView1" Content="Value" IsHitTestVisible="False" ContentPlaceHolderID="Grid_Angajati" 
             CellPadding="2" OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting" HorizontalAlign="Center" style=" text-align:left; margin:0 auto; width: 80%; font-size: 14px;"

@@ -202,15 +202,20 @@ namespace ProbatiuneApp
     {
      
         int nr;
-        if (TextBox11.Text == "" || TextBox2.Text == "" || TextBox3.Text=="" || TextBox4.Text=="")
-            Response.Write("<script>alert('Trebuie completate campuri Nume Caz, Prenume Caz, Nr.Dosar, Data Inceperii!')</script>");
-        else
-        if (!Int32.TryParse(TextBox3.Text.ToString(), out nr))
+        if (TextBox11.Text == "" || TextBox2.Text == "" || TextBox3.Text=="" || TextBox4.Text==""){
 
-            Response.Write("<script>alert('Numarul dosarului nu poate contine litere!')</script>");
+                LabelText.Text = "Trebuie completate campuri Nume Caz, Prenume Caz, Nr.Dosar, Data Inceperii!";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "mycaca", "myfcn();", true);
+        }
+        else
+        if (!Int32.TryParse(TextBox3.Text.ToString(), out nr)){
+            LabelText.Text = "Numarul dosarului nu poate contine litere!";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "mycaca", "myfcn();", true);
+        }
         else if (!pBAL.CheckAngajat(TextBox8.Text.ToString(), TextBox7.Text.ToString()))
         {
-            Response.Write("<script>alert('Numele angajatului nu se regaseste in baza de date!')</script>");
+            LabelText.Text = "Numele angajatului nu se regaseste in baza de date!";
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "func", "myfcn();", true);
         }
         else
         {

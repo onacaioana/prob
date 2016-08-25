@@ -27,7 +27,7 @@
             $("#dialog").dialog({
                 title: "Credentiale angajat",
                 buttons: {
-                    Close: function () {
+                    AmInteles: function () {
                         $(this).dialog('close');
                     }
                 }
@@ -40,7 +40,7 @@
     <div id="dialog" style="display: none">
         <p>Utilizatorul creat va folosi urmatoarele credentiale:<br></p>
         Username:
-        <asp:Label ID="UsernameLabel" Text="Username:" runat="server"> </asp:Label><br>
+        <asp:Label ID="UsernameLabel" Text="Username:" runat="server" > </asp:Label><br>
         Parola:
          <asp:Label ID="PassLabel" Text="Password:" runat="server"> </asp:Label><br>
     </div>

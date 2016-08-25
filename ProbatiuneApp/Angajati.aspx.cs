@@ -149,16 +149,13 @@ namespace ProbatiuneApp
                 string pass = pBAL.getPassword(Nume, Prenume);
                 string user = Nume + "." + Prenume;
             
-             
-                /*   Response.Write("<script type='text/javascript'>");
-                   Response.Write("alert('Utilizatorul creat va folosi:  USERNAME:" + Server.HtmlEncode(user) + " PASSWORD:" + Server.HtmlEncode(pass) + "');");
-                   Response.Write("document.location.href='Angajati.aspx';");
-                   Response.Write("</script>");*/
                 TextBox2.Text = "";
                 TextBox1.Text = "";
+                UsernameLabel.ForeColor = System.Drawing.Color.Red;
                 UsernameLabel.Text = user;
+                PassLabel.ForeColor = System.Drawing.Color.Red;
                 PassLabel.Text = pass;
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "mycaca", "myfcn();", true);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "func", "myfcn();", true);
             }
         }
 

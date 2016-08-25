@@ -37,7 +37,8 @@ namespace ProbatiuneApp
             }
             else
             {
-                Response.Write("<script>alert('Please enter valid Username and Password')</script>");
+                LabelText.Text = "Username-ul sau parola sunt incorecte!";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "func", "myfcn();", true);
             }
             
         }
