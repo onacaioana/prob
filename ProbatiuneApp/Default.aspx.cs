@@ -198,6 +198,22 @@ namespace ProbatiuneApp
         BindGrid();
     }
 
+        //actualizare
+    protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+    {
+
+        if (e.Row.RowType == DataControlRowType.DataRow)
+        {
+            System.Data.DataRow row = ((System.Data.DataRowView)e.Row.DataItem).Row;
+            if (row["DataFinal"].ToString().Contains("1/1/1900"))
+                e.Row.ForeColor = System.Drawing.Color.Red;
+            else if (row["NrDosar"].Equals(0))
+                e.Row.ForeColor = System.Drawing.Color.Green;
+        }
+    }
+
+
+
     protected void AddButon_Click(object sender, EventArgs e)
     {
      
