@@ -105,7 +105,7 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Data Sfarsit">
                 <ItemTemplate>
-                    <asp:Label ID="lbl_TheEnd" runat="server" Text='<%#Eval("DataFinal") %>'></asp:Label>
+                    <asp:Label ID="lbl_TheEnd" runat="server"  DataFormatString="{0:MM/dd/yyyy}" Text='<%#Eval("DataFinal") %>'></asp:Label>
                 </ItemTemplate>
                 <EditItemTemplate>
                     <asp:TextBox ID="txt_TheEnd" Width="90%" runat="server" Text='<%#Eval("DataFinal") %>'></asp:TextBox>
