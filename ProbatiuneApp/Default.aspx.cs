@@ -26,7 +26,8 @@ namespace ProbatiuneApp
       
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            this.TextBox4.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            this.TextBox5.Text = DateTime.Now.ToString("dd/MM/yyyy");
             if (!IsPostBack)
             {
               
@@ -126,6 +127,8 @@ namespace ProbatiuneApp
                 panel.Enabled = false;
             }
             
+            //format date columns
+   
             //insert data in gridView
             GridView1.DataSource = GridDataSource();
             GridView1.DataBind();
@@ -247,6 +250,11 @@ namespace ProbatiuneApp
 
             BindGrid();
         }
+    }
+
+    protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
+    {
+
     }
 
 

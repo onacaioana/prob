@@ -100,7 +100,7 @@
 
             <asp:TemplateField HeaderText="Data Inceput">
                 <ItemTemplate>
-                    <asp:Label ID="lbl_Start" runat="server" Text='<%#Eval("DataInceperii") %>'></asp:Label>
+                    <asp:Label ID="lbl_Start" runat="server" Text='<%#DataBinder.Eval(Container.DataItem,"DataInceperii","{0:dd/MM/yyyy}")%>'></asp:Label>
                 </ItemTemplate>
                 <EditItemTemplate>
                     <asp:TextBox ID="txt_Start" Width="90%" runat="server" Text='<%#Eval("DataInceperii") %>'></asp:TextBox>
@@ -108,7 +108,7 @@
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Data Sfarsit">
                 <ItemTemplate>
-                    <asp:Label ID="lbl_TheEnd" runat="server" Text='<%#Eval("DataFinal") %>'></asp:Label>
+                    <asp:Label ID="lbl_TheEnd" runat="server"  Text='<%#DataBinder.Eval(Container.DataItem,"DataFinal","{0:dd/MM/yyyy}")%>'> </asp:Label>
                 </ItemTemplate>
                 <EditItemTemplate>
                     <asp:TextBox ID="txt_TheEnd" Width="90%" runat="server" Text='<%#Eval("DataFinal") %>'></asp:TextBox>
