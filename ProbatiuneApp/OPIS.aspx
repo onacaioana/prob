@@ -17,7 +17,7 @@
             <asp:TextBox ID="TextBox3" runat="server" placeholder="CazReferat" Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox4" runat="server" placeholder="CazSupraveghere" Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox5" runat="server" placeholder="CazAsistenta" Width="10%" ></asp:TextBox>
-            <asp:TextBox ID="TextBox6" runat="server" placeholder="Consilier" Width="10%" ></asp:TextBox>
+            <asp:DropDownList ID="DropDownList1" runat="server"></asp:DropDownList>
             <asp:ImageButton  ID="ImageButton1" ImageUrl="~/Images/add.png" Height="50px" runat="server" OnClick="AddButon_Click"   /> 
 
         </asp:Panel>

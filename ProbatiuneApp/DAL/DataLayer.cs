@@ -34,11 +34,11 @@ namespace ProbatiuneApp.DAL
         /// <param name="StopDate"></param>
         /// <param name="Angajat"></param>
         /// <returns></returns>
-        public int Insert(string Nume, string Prenume, int NrDosar, string StartDate, string StopDate, string Observatii, string PrenumeAng, string AngajatName,string user)
+        public int Insert(string Nume, string Prenume, int NrDosar, string StartDate, string StopDate, string Observatii, string AngajatName,string user)
         {
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,Observatii,IDAngajat,user_modif) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Observatii,(SELECT AngajatiP.IdAngajat from AngajatiP where Nume  IN( @Angajat,@AngajatPre) AND Prenume IN (@AngajatPre,@Angajat)),@user)";
+            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,Observatii,IDAngajat,user_modif) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Observatii,(SELECT AngajatiP.IdAngajat from AngajatiP where @Angajat like '%'+Nume+'%' AND  @Angajat like '%'+Prenume+'%'),@user)";
             SqlCommand dCmd = new SqlCommand(sql, conn);
 
             try
@@ -50,7 +50,38 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.Add("@StopDate", SqlDbType.NVarChar, 255).Value = StopDate;
                 dCmd.Parameters.Add("@Observatii", SqlDbType.NVarChar, 255).Value = Observatii;
                 dCmd.Parameters.Add("@Angajat", SqlDbType.NVarChar, 255).Value = AngajatName;
-                dCmd.Parameters.Add("@AngajatPre", SqlDbType.NVarChar, 255).Value = PrenumeAng;
+                dCmd.Parameters.Add("@user", SqlDbType.NVarChar, 255).Value = user;
+                dCmd.CommandType = CommandType.Text;
+                return dCmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                dCmd.Dispose();
+                conn.Close();
+                conn.Dispose();
+            }
+        }
+
+        //Insert case if Opis record has CazSuprav 
+        public int InsertCase(string Nume,string Prenume, int NrDosar,int IdAng, string user)
+        {
+            SqlConnection conn = new SqlConnection(connStr);
+            conn.Open();
+            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,IDAngajat,user_modif) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Angajat,@user)";
+            SqlCommand dCmd = new SqlCommand(sql, conn);
+
+            try
+            {
+                dCmd.Parameters.Add("@Nume", SqlDbType.NVarChar, 255).Value = Nume;
+                dCmd.Parameters.Add("@Prenume", SqlDbType.NVarChar, 255).Value = Prenume;
+                dCmd.Parameters.Add("@NrDosar", SqlDbType.Int).Value = NrDosar;
+                dCmd.Parameters.Add("@StartDate", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
+                dCmd.Parameters.Add("@StopDate", SqlDbType.Date).Value = "01/01/1900";
+                dCmd.Parameters.Add("@Angajat", SqlDbType.Int).Value = IdAng;
                 dCmd.Parameters.Add("@user", SqlDbType.NVarChar, 255).Value = user;
                 dCmd.CommandType = CommandType.Text;
                 return dCmd.ExecuteNonQuery();
@@ -173,6 +204,20 @@ namespace ProbatiuneApp.DAL
             }
         }
 
+
+        public DataTable LoadAngajatiListBox()
+        {
+            DataTable subjects = new DataTable();
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select Nume +' '+ Prenume as Num from AngajatiP", conn))
+                {
+                    dAd.Fill(subjects);
+                    return subjects;
+                }
+            }
+        }
+
         public DataSet LoadActiv()
         {
             using (SqlConnection conn = new SqlConnection(connStr))
@@ -199,11 +244,11 @@ namespace ProbatiuneApp.DAL
             }
         }
 
-        public DataSet LoadPerAngajat(int idAngajat)
+        public DataSet LoadPerAngajatActiv(int idAngajat)
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where a.IdAngajat = "+idAngajat+" order by c.Nume,c.Prenume;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where a.IdAngajat = "+idAngajat+" AND Activ=1 order by c.Nume,c.Prenume;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -212,6 +257,18 @@ namespace ProbatiuneApp.DAL
             }
         }
 
+        public DataSet LoadPerAngajatInactiv(int idAngajat)
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where a.IdAngajat = " + idAngajat + " AND Activ=0 order by c.Nume,c.Prenume;", conn))
+                {
+                    DataSet dset = new DataSet();
+                    dAd.Fill(dset);
+                    return dset;
+                }
+            }
+        }
         /// <summary>
         /// Load opis records 
         /// </summary>
@@ -502,8 +559,8 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.AddWithValue("@Nume", Nume);
                 dCmd.Parameters.AddWithValue("@Prenume", Prenume);
                 dCmd.Parameters.AddWithValue("@NrDosar", nrDosar);
-                dCmd.Parameters.AddWithValue("@Start", Start);
-                dCmd.Parameters.AddWithValue("@TheEnd", TheEnd);
+                dCmd.Parameters.Add("@Start", SqlDbType.Date).Value = Start;
+                dCmd.Parameters.Add("@TheEnd", SqlDbType.Date).Value = TheEnd;
                 dCmd.Parameters.AddWithValue("@Observatii", Observatii);
                 dCmd.Parameters.AddWithValue("@user", user);
                 return dCmd.ExecuteNonQuery();
@@ -546,8 +603,8 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.AddWithValue("@Nume", Nume);
                 dCmd.Parameters.AddWithValue("@Prenume", Prenume);
                 dCmd.Parameters.AddWithValue("@NrDosar", nrDosar);
-                dCmd.Parameters.AddWithValue("@Start", Start);
-                dCmd.Parameters.AddWithValue("@TheEnd", TheEnd);
+                dCmd.Parameters.Add("@Start", SqlDbType.Date).Value = Start;
+                dCmd.Parameters.Add("@TheEnd", SqlDbType.Date).Value = TheEnd;
                 dCmd.Parameters.AddWithValue("@Observatii", Observatii);
                 dCmd.Parameters.AddWithValue("@user", user);
                 return dCmd.ExecuteNonQuery();
@@ -746,40 +803,21 @@ namespace ProbatiuneApp.DAL
             }
         }
 
+        public int getIdAngajat(string Nume) {
 
-        bool VerificaCNP(string cnp)
-        {
 
-            if (cnp.Length != 13)
-
-                return false;
-
-            const string a = "279146358279";
-
-            long j = 0;
-
-            if (!long.TryParse(cnp, out j))
-
-                return false;
-
-            long suma = 0;
-
-            for (int i = 0; i < 12; i++)
-
-                suma += long.Parse(cnp.Substring(i, 1)) * long.Parse(a.Substring(i, 1));
-
-            long rest = suma - 11 * (int)(suma / 11);
-
-            rest = rest == 10 ?
-
-           1 : rest;
-
-            if (long.Parse(cnp.Substring(12, 1)) != rest)
-
-                return false;
-
-            return true;
-
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("SELECT IdAngajat FROM AngajatiP WHERE '" + Nume + "' COLLATE Latin1_General_CI_AI like '%'+Nume+'%' AND '" + Nume + "' COLLATE Latin1_General_CI_AI like '%'+Prenume+'%'", conn))
+                {
+                    DataTable dt = new DataTable();
+                    dAd.Fill(dt);
+                    int value;
+                    if (int.TryParse(dt.Rows[0][0].ToString(), out value))
+                        return value;
+                    else return 0;
+                }
+            }
         }
 
     }

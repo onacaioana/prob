@@ -30,11 +30,24 @@ namespace ProbatiuneApp.BAL
         /// <param name="lastName"></param>
         /// <param name="age"></param>
         /// <returns></returns>
-        public int Insert(string Nume, string Prenume, int NrDosar, string startDate, string stopDate, string Observatii, string AngajatName, string PrenumeAng, string user)
+        public int Insert(string Nume, string Prenume, int NrDosar, string startDate, string stopDate, string Observatii, string Angajat, string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.Insert(Nume, Prenume, NrDosar, startDate, stopDate, Observatii, AngajatName, PrenumeAng, user);
+                return pDAL.Insert(Nume, Prenume, NrDosar, startDate, stopDate, Observatii, Angajat, user);
 
+        }
+
+        public int InsertCase(string Nume, string NrDosar, string consilier,string user)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            int nrDosar,idAng;
+            if (Int32.TryParse(NrDosar.Split('/')[0], out nrDosar))
+            {
+                idAng = pDAL.getIdAngajat(consilier);
+                pDAL.InsertCase(Nume.Split(' ')[0], Nume.Substring(Nume.IndexOf(' ') + 1), nrDosar, idAng, user);
+            }
+            return 0;
+        
         }
 
         public bool CheckAngajat(string Nume, string Prenume) {
@@ -80,7 +93,11 @@ namespace ProbatiuneApp.BAL
             return pDAL.LoadActiv();
         }
 
-
+        public DataTable LoadAngajatiListBox()
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            return pDAL.LoadAngajatiListBox();
+        }
         public DataSet LoadInactiv()
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
@@ -93,12 +110,20 @@ namespace ProbatiuneApp.BAL
             return pDAL.LoadOpis();
         }
 
-        public DataSet LoadPerAngajat(string Nume, string Prenume)
+        public DataSet LoadPerAngajatActiv(string Nume, string Prenume)
         {
               DAL.DataLayer pDAL = new DAL.DataLayer();
               int idAngajat = pDAL.getAngajatiId(Nume, Prenume);
 
-              return pDAL.LoadPerAngajat(idAngajat);
+              return pDAL.LoadPerAngajatActiv(idAngajat);
+        }
+
+        public DataSet LoadPerAngajatInactiv(string Nume, string Prenume)
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            int idAngajat = pDAL.getAngajatiId(Nume, Prenume);
+
+            return pDAL.LoadPerAngajatInactiv(idAngajat);
         }
 
         public DataSet LoadAngajati()

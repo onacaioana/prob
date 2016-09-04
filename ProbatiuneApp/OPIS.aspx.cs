@@ -16,11 +16,10 @@ namespace ProbatiuneApp
 {
     public partial class OPIS : System.Web.UI.Page
     {
-
         private BAL.BusinessLayer pBAL = new BAL.BusinessLayer();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+       
             if (!IsPostBack)
             {
 
@@ -28,6 +27,7 @@ namespace ProbatiuneApp
                 {
                     this.GridView1.Columns[8].Visible = false;
                 }
+              
                 BindGrid();
             }
                 //ClientScript.RegisterClientScriptBlock(this.GetType(), "blah", "YourJsFunction();", true);
@@ -37,6 +37,15 @@ namespace ProbatiuneApp
         /// </summary>
         private void BindGrid()
         {
+
+            DataTable dt = new DataTable();
+            dt = pBAL.LoadAngajatiListBox();
+            DropDownList1.DataTextField = "Num";
+            DropDownList1.DataValueField = "Num";
+            DropDownList1.DataSource = dt;
+            DropDownList1.DataBind();
+            DropDownList1.Items.Add("Alegeti Consilier");
+            DropDownList1.SelectedValue = "Alegeti Consilier";
             GridView1.DataSource = GridDataSource();
             GridView1.DataBind();
         }
@@ -50,6 +59,7 @@ namespace ProbatiuneApp
             dset = pBAL.LoadOpis();
             return dset;
         }
+
         protected void SearchButton_Click(object sender, EventArgs e)
         {
             if (SearchTextBox.Value.ToString() == "")
@@ -110,7 +120,7 @@ namespace ProbatiuneApp
             TextBox Caz_Supraveghere = GridView1.Rows[e.RowIndex].FindControl("txt_cazSuprav") as TextBox;
             TextBox Caz_Asistenta = GridView1.Rows[e.RowIndex].FindControl("txt_cazAsis") as TextBox;
             TextBox Consilier = GridView1.Rows[e.RowIndex].FindControl("txt_Consilier") as TextBox;
-            
+
             //updating the record  
             pBAL.UpdateOpis(Int32.Parse(id.Text.ToString()), Nume.Text, CNP.Text, Caz_Referat.Text, Caz_Supraveghere.Text, Caz_Asistenta.Text, Consilier.Text, Request.Cookies["UserName"].Value);
 
@@ -139,24 +149,30 @@ namespace ProbatiuneApp
         }
         protected void AddButon_Click(object sender, ImageClickEventArgs e)
         {
-            if (TextBox3.Text == "" || TextBox4.Text == ""){
-              LabelText.Text = "Trebuie completate campuri CazReferat si CazSupraveghere!";
-              Page.ClientScript.RegisterStartupScript(this.GetType(), "func", "myfcn();", true);
+            if (TextBox3.Text == "" && TextBox4.Text == "")
+            {
+                LabelText.Text = "Trebuie completat campul CazReferat SAU CazSupraveghere!";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "func", "myfcn();", true);
+            }
+            else if (DropDownList1.SelectedValue.Equals("Alegeti Consilier"))
+            {
+                LabelText.Text = "Va rog sa selectati un consilier!";
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "functie", "myfcn();", true);
             }
             else
-            {
-                pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), Request.Cookies["UserName"].Value);
-                TextBox2.Text = "";
-                TextBox1.Text = "";
-                TextBox3.Text = "";
-                TextBox4.Text = "";
-                TextBox5.Text = "";
-                TextBox6.Text = "";
-                BindGrid();
-            }
+                pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), TextBox5.Text.ToString(), DropDownList1.SelectedValue.ToString(), Request.Cookies["UserName"].Value);
             
-        }
+            //daca CazSuprav completat => inreg in Caz Suprav
+            if (TextBox4.Text != null)
+                pBAL.InsertCase(TextBox1.Text, TextBox4.Text, DropDownList1.SelectedValue, Request.Cookies["UserName"].Value);
 
+            TextBox2.Text = "";
+            TextBox1.Text = "";
+            TextBox3.Text = "";
+            TextBox4.Text = "";
+            TextBox5.Text = "";
+            BindGrid();
+        }
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 

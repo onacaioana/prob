@@ -26,16 +26,15 @@ namespace ProbatiuneApp
       
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.TextBox4.Text = DateTime.Now.ToString("dd/MM/yyyy");
-            this.TextBox5.Text = DateTime.Now.ToString("dd/MM/yyyy");
             if (!IsPostBack)
             {
-              
                 if (Request.Cookies["UserName"]!=null && !Request.Cookies["UserName"].Value.Contains("admin"))
                 {
                    this.GridView1.Columns[10].Visible = false;
                 }
                 BindGrid();
+                
+                
             }
            
         }
@@ -111,16 +110,25 @@ namespace ProbatiuneApp
         /// </summary>
         private void BindGrid()
         {
+            //dropDownlist
+            DataTable dt = new DataTable();
+            dt = pBAL.LoadAngajatiListBox();
+            AngDownList.DataTextField = "Num";
+            AngDownList.DataValueField = "Num";
+            AngDownList.DataSource = dt;
+            AngDownList.DataBind();
+            AngDownList.Items.Add("Alegeti Consilier");
+            AngDownList.SelectedValue = "Alegeti Consilier";
+
             //setari initiale
-            string[] n;
             TextBox4.Text = DateTime.Now.ToString("yyyy-MM-dd");
+
+
+            string n;
             if (Request.Cookies["UserName"] != null && !Request.Cookies["UserName"].Value.Contains("admin"))
             {
-                n = Request.Cookies["UserName"].Value.Split('.');
-                TextBox7.Text = n[0].ToUpper();
-                TextBox8.Text = n[1].ToUpper();
-                TextBox7.Enabled = false;
-                TextBox8.Enabled = false;
+                n = Request.Cookies["UserName"].Value.Replace('.', ' ');
+                AngDownList.SelectedValue = n.ToUpper();
             }
             else if (Request.Cookies["UserName"] != null && Request.Cookies["UserName"].Value.Contains("admin"))
             {
@@ -179,7 +187,7 @@ namespace ProbatiuneApp
         TextBox StartDate = GridView1.Rows[e.RowIndex].FindControl("txt_Start") as TextBox;
         TextBox TheEnd = GridView1.Rows[e.RowIndex].FindControl("txt_TheEnd") as TextBox;
         TextBox Observatii = GridView1.Rows[e.RowIndex].FindControl("txt_Observatii") as TextBox;
-      
+
         //updating the record  
         pBAL.UpdateActiv(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text, Request.Cookies["UserName"].Value);
 
@@ -188,6 +196,7 @@ namespace ProbatiuneApp
         //Call ShowData method for displaying updated data  */
         BindGrid();
     }
+
     protected void GridView1_RowCancelingEdit(object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
     {
         //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
@@ -208,7 +217,7 @@ namespace ProbatiuneApp
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
             System.Data.DataRow row = ((System.Data.DataRowView)e.Row.DataItem).Row;
-            if (row["DataFinal"].ToString().Contains("1/1/1900"))
+            if (row["DataFinal"].ToString().Contains("/1900"))
                 e.Row.ForeColor = System.Drawing.Color.Red;
             else if (row["NrDosar"].Equals(0))
                 e.Row.ForeColor = System.Drawing.Color.Green;
@@ -231,16 +240,10 @@ namespace ProbatiuneApp
             LabelText.Text = "Numarul dosarului nu poate contine litere!";
             Page.ClientScript.RegisterStartupScript(this.GetType(), "mycaca", "myfcn();", true);
         }
-        else if (!pBAL.CheckAngajat(TextBox8.Text.ToString(), TextBox7.Text.ToString()))
-        {
-            LabelText.Text = "Numele angajatului nu se regaseste in baza de date!";
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "func", "myfcn();", true);
-        }
         else
         {
-            pBAL.Insert(TextBox11.Text.ToString(), TextBox2.Text.ToString(), Int32.Parse(TextBox3.Text.ToString()), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), TextBox7.Text.ToString(), TextBox8.Text.ToString(), Request.Cookies["UserName"].Value);
-            TextBox8.Text = "";
-            TextBox7.Text = "";
+            pBAL.Insert(TextBox11.Text.ToString(), TextBox2.Text.ToString(), Int32.Parse(TextBox3.Text.ToString()), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), AngDownList.SelectedValue.ToString(), Request.Cookies["UserName"].Value);
+            
             TextBox6.Text = "";
             TextBox5.Text = "";
             TextBox4.Text = "";

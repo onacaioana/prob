@@ -18,8 +18,7 @@
             <asp:TextBox ID="TextBox4" runat="server" TextMode="Date" placeholder="Data inceperii" Width="14%"></asp:TextBox>
             <asp:TextBox ID="TextBox5" runat="server" TextMode="Date" placeholder="Data final" Width="14%"></asp:TextBox>
             <asp:TextBox ID="TextBox6" runat="server" placeholder="Observatii" Width="10%"></asp:TextBox>
-            <asp:TextBox ID="TextBox7" runat="server" placeholder="Nume Angajat" Width="10%"></asp:TextBox>
-            <asp:TextBox ID="TextBox8" runat="server" placeholder="Prenume Angajat" Width="10%"></asp:TextBox>
+            <asp:DropDownList ID="AngDownList" runat="server"></asp:DropDownList>
             <asp:ImageButton ID="BTN_aDD" ImageUrl="~/Images/add.png" style="max-height:50px; margin-bottom: 13px;" runat="server" OnClick="AddButon_Click" Width="50px" />
 
         </asp:Panel>

@@ -111,25 +111,37 @@ namespace ProbatiuneApp
         /// </summary>
         private void BindGrid()
         {
+            //dropDownlist
+            DataTable dt = new DataTable();
+            dt = pBAL.LoadAngajatiListBox();
+            AngDownList.DataTextField = "Num";
+            AngDownList.DataValueField = "Num";
+            AngDownList.DataSource = dt;
+            AngDownList.DataBind();
+            AngDownList.Items.Add("Alegeti Consilier");
+            AngDownList.SelectedValue = "Alegeti Consilier";
+
             //setari initiale
-            string[] n;
             TextBox4.Text = DateTime.Now.ToString("yyyy-MM-dd");
+
+
+            string n;
             if (Request.Cookies["UserName"] != null && !Request.Cookies["UserName"].Value.Contains("admin"))
             {
-                n = Request.Cookies["UserName"].Value.Split('.');
-                TextBox7.Text = n[0].ToUpper();
-                TextBox8.Text = n[1].ToUpper();
-                TextBox7.Enabled = false;
-                TextBox8.Enabled = false;
+                n = Request.Cookies["UserName"].Value.Replace('.', ' ');
+                AngDownList.SelectedValue = n.ToUpper();
             }
-            else if (Request.Cookies["UserName"]!=null && Request.Cookies["UserName"].Value.Contains("admin"))
+            else if (Request.Cookies["UserName"] != null && Request.Cookies["UserName"].Value.Contains("admin"))
             {
                 panel.Enabled = false;
             }
 
+            //format date columns
+
             //insert data in gridView
             GridView1.DataSource = GridDataSource();
             GridView1.DataBind();
+       
         }
 
         /// <summary>
@@ -210,23 +222,16 @@ namespace ProbatiuneApp
                     LabelText.Text = "Numarul dosarului nu poate contine litere!";
                     Page.ClientScript.RegisterStartupScript(this.GetType(), "mycaca", "myfcn();", true);
                 }
-                else if (!pBAL.CheckAngajat(TextBox8.Text.ToString(), TextBox7.Text.ToString()))
-                {
-                    LabelText.Text = "Numele angajatului nu se regaseste in baza de date!";
-                    Page.ClientScript.RegisterStartupScript(this.GetType(), "mycaca", "myfcn();", true);
-                }
                 else
                 {
-                    pBAL.Insert(TextBox11.Text.ToString(), TextBox2.Text.ToString(), Int32.Parse(TextBox3.Text.ToString()), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), TextBox7.Text.ToString(), TextBox8.Text.ToString(), Request.Cookies["UserName"].Value);
-                    TextBox8.Text = "";
-                    TextBox7.Text = "";
+                    pBAL.Insert(TextBox11.Text.ToString(), TextBox2.Text.ToString(), Int32.Parse(TextBox3.Text.ToString()), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), AngDownList.SelectedValue.ToString(), Request.Cookies["UserName"].Value);
+
                     TextBox6.Text = "";
                     TextBox5.Text = "";
                     TextBox4.Text = "";
                     TextBox3.Text = "";
                     TextBox2.Text = "";
                     TextBox11.Text = "";
-
                     BindGrid();
                 }
         }
