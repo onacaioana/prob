@@ -113,7 +113,7 @@ namespace ProbatiuneApp.BAL
         public DataSet LoadPerAngajatActiv(string Nume, string Prenume)
         {
               DAL.DataLayer pDAL = new DAL.DataLayer();
-              int idAngajat = pDAL.getAngajatiId(Nume, Prenume);
+              int idAngajat = pDAL.getIdAngajat(Nume+' '+Prenume);
 
               return pDAL.LoadPerAngajatActiv(idAngajat);
         }
@@ -121,7 +121,7 @@ namespace ProbatiuneApp.BAL
         public DataSet LoadPerAngajatInactiv(string Nume, string Prenume)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            int idAngajat = pDAL.getAngajatiId(Nume, Prenume);
+            int idAngajat = pDAL.getIdAngajat(Nume + ' ' + Prenume);
 
             return pDAL.LoadPerAngajatInactiv(idAngajat);
         }

@@ -759,23 +759,6 @@ namespace ProbatiuneApp.DAL
             
         }
 
-        public int getAngajatiId(string Nume, string Prenume)
-        {
-            using (SqlConnection conn = new SqlConnection(connStr))
-            {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("Select IdAngajat from AngajatiP where Nume='" + Nume.ToLower() + "' AND Prenume='" + Prenume.ToLower() + "'", conn))
-                {
-                    DataTable dt = new DataTable();
-                    dAd.Fill(dt);
-                    int value;
-                    if (int.TryParse(dt.Rows[0][0].ToString(), out value))
-                        return value;
-                    else return 0;
-                }
-            }
-
-        }
-
         public int changePassword(string username,string newpass)
         {
             SqlConnection conn = new SqlConnection(connStr);
