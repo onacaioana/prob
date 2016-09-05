@@ -25,7 +25,8 @@
             <div id="cssmenu" runat="server">
                 <ul>
                     <li><a href='Default.aspx'><span>Cazuri Curente</span></a></li>
-                     <li><a href='Iesite.aspx'><span>Cazuri Iesite</span></a></li>
+                    <li><a href='Iesite.aspx'><span>Cazuri Iesite</span></a></li>
+                    <li class='last'><a href='OPIS.aspx'><span>OPIS</span></a></li>
                     <li><a href='Angajati.aspx'><span>Angajati</span></a></li>
                     <li class='active has-sub'><a href='#'><span>Export</span></a>
                         <ul>
@@ -41,7 +42,6 @@
                              <li class='last'><asp:LinkButton ID="LinkButton5" runat="server" OnClick="ExportOpis"><span>Export OPIS</span></asp:LinkButton></li>
                         </ul>
                     </li>
-                    <li class='last'><a href='OPIS.aspx'><span>OPIS</span></a></li>
                     <li class='last'><a href='Audit.aspx'><span>Audit</span></a></li>
                     <li class='last'><a href='#'><span>Documentatie</span></a></li>
                     <li class='active has-sub'><a href='#'><span><%=Clients%></span></a>

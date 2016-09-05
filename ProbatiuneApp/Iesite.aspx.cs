@@ -77,12 +77,12 @@ namespace ProbatiuneApp
                 if (int.TryParse(myname, out tmp))
                 {
                     ds.Tables.Add(pBAL.Search_NrDosarInactiv(myname).Tables[0].Copy());
-                    searchtext1.Value = "";
+                    //searchtext1.Value = "";
                 }
                 else
                 {
                     ds.Tables.Add(pBAL.SearchQueryInactiv(myname).Tables[0].Copy());
-                    searchtext1.Value = "";
+                    //searchtext1.Value = "";
                 }
                 GridView1.DataSource = ds;
                 GridView1.DataBind();

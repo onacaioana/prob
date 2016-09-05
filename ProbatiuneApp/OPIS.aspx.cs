@@ -131,7 +131,7 @@ namespace ProbatiuneApp
             {
                 GridView1.DataSource = GridDataSource_Search(SearchTextBox.Value.ToString());
                 GridView1.DataBind();
-                SearchTextBox.Value = "";
+                //SearchTextBox.Value = "";
             }
             else BindGrid();
         }

@@ -33,7 +33,23 @@ namespace ProbatiuneApp.BAL
         public int Insert(string Nume, string Prenume, int NrDosar, string startDate, string stopDate, string Observatii, string Angajat, string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.Insert(Nume, Prenume, NrDosar, startDate, stopDate, Observatii, Angajat, user);
+            bool Activ;
+            int IdAng;
+
+            //check date
+            DateTime dt = Convert.ToDateTime(stopDate);
+            if (dt < DateTime.Now)
+                Activ = false;
+            else Activ = true;
+           
+            if (stopDate.Split('-')[2].Equals("1900"))
+                  Activ = true;
+            
+
+            //get IdAngajat
+            IdAng = pDAL.getIdAngajat(Angajat);
+
+            return pDAL.Insert(Nume, Prenume, NrDosar, startDate, stopDate, Observatii, IdAng, Activ, user);
 
         }
 
@@ -44,10 +60,10 @@ namespace ProbatiuneApp.BAL
             if (Int32.TryParse(NrDosar.Split('/')[0], out nrDosar))
             {
                 idAng = pDAL.getIdAngajat(consilier);
-                pDAL.InsertCase(Nume.Split(' ')[0], Nume.Substring(Nume.IndexOf(' ') + 1), nrDosar, idAng, user);
+
+                return pDAL.InsertCase(Nume.Split(' ')[0], Nume.Substring(Nume.IndexOf(' ') + 1), nrDosar, idAng,true, user); ;
             }
             return 0;
-        
         }
 
         public bool CheckAngajat(string Nume, string Prenume) {
@@ -165,14 +181,36 @@ namespace ProbatiuneApp.BAL
         }
         public int UpdateActiv(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs, string user)
         {
+            bool Activ;
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            return pDAL.UpdateActiv(IDCaz, nume, prenume, nrDosar, start, stop, obs,user);
+
+            //check date
+            DateTime dt = Convert.ToDateTime(stop);
+            if (dt < DateTime.Now)
+                Activ = false;
+            else Activ = true;
+
+            if (stop.Split('/')[2].Split(' ')[0].Equals("1900"))
+                Activ = true;
+            
+            return pDAL.UpdateActiv(IDCaz, nume, prenume, nrDosar, start, stop, obs,Activ,user);
         }
 
         public int UpdateInactiv(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs, string user)
         {
+            bool Activ;
             DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.UpdateInactiv(IDCaz, nume, prenume, nrDosar, start, stop, obs,user);
+
+            //check date
+            DateTime dt = Convert.ToDateTime(stop);
+            if (dt < DateTime.Now)
+                Activ = false;
+            else Activ = true;
+
+            if (stop.Split('/')[2].Split(' ')[0].Equals("1900"))
+                Activ = true;
+
+                return pDAL.UpdateInactiv(IDCaz, nume, prenume, nrDosar, start, stop, obs,Activ,user);
         }
 
 

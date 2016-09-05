@@ -28,6 +28,9 @@ namespace ProbatiuneApp
         {
             if (!IsPostBack)
             {
+                if (Request.Cookies["UserName"] == null)
+                    HttpContext.Current.Response.Redirect("LogIn.aspx");
+
                 if (Request.Cookies["UserName"]!=null && !Request.Cookies["UserName"].Value.Contains("admin"))
                 {
                    this.GridView1.Columns[10].Visible = false;
@@ -76,12 +79,12 @@ namespace ProbatiuneApp
                 if (int.TryParse(myname, out tmp))
                 {
                     ds.Tables.Add(pBAL.Search_NrDosarActiv(myname).Tables[0].Copy());
-                    searchtext1.Value = "";
+                   // searchtext1.Value = "";
                 }
                 else
                 {
                     ds.Tables.Add(pBAL.SearchQueryActiv(myname).Tables[0].Copy());
-                    searchtext1.Value = "";
+                    //searchtext1.Value = "";
                 }
                 GridView1.DataSource = ds;
                 GridView1.DataBind();
@@ -233,12 +236,12 @@ namespace ProbatiuneApp
         if (TextBox11.Text == "" || TextBox2.Text == "" || TextBox3.Text=="" || TextBox4.Text==""){
 
                 LabelText.Text = "Trebuie completate campuri Nume Caz, Prenume Caz, Nr.Dosar, Data Inceperii!";
-                Page.ClientScript.RegisterStartupScript(this.GetType(), "mycaca", "myfcn();", true);
+                Page.ClientScript.RegisterStartupScript(this.GetType(), "myfnc", "myfcn();", true);
         }
         else
         if (!Int32.TryParse(TextBox3.Text.ToString(), out nr)){
             LabelText.Text = "Numarul dosarului nu poate contine litere!";
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "mycaca", "myfcn();", true);
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "myfnc", "myfcn();", true);
         }
         else
         {

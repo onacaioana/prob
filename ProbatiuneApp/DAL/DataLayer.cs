@@ -34,11 +34,11 @@ namespace ProbatiuneApp.DAL
         /// <param name="StopDate"></param>
         /// <param name="Angajat"></param>
         /// <returns></returns>
-        public int Insert(string Nume, string Prenume, int NrDosar, string StartDate, string StopDate, string Observatii, string AngajatName,string user)
+        public int Insert(string Nume, string Prenume, int NrDosar, string StartDate, string StopDate, string Observatii, int IdAng,bool activ,string user)
         {
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,Observatii,IDAngajat,user_modif) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Observatii,(SELECT AngajatiP.IdAngajat from AngajatiP where @Angajat like '%'+Nume+'%' AND  @Angajat like '%'+Prenume+'%'),@user)";
+            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,Observatii,IDAngajat,Activ,user_modif) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Observatii,@Angajat,@activ,@user)";
             SqlCommand dCmd = new SqlCommand(sql, conn);
 
             try
@@ -49,7 +49,8 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.Add("@StartDate", SqlDbType.NVarChar, 255).Value = StartDate;
                 dCmd.Parameters.Add("@StopDate", SqlDbType.NVarChar, 255).Value = StopDate;
                 dCmd.Parameters.Add("@Observatii", SqlDbType.NVarChar, 255).Value = Observatii;
-                dCmd.Parameters.Add("@Angajat", SqlDbType.NVarChar, 255).Value = AngajatName;
+                dCmd.Parameters.Add("@Angajat", SqlDbType.Int).Value = IdAng;
+                dCmd.Parameters.Add("@activ", SqlDbType.Bit).Value = activ;
                 dCmd.Parameters.Add("@user", SqlDbType.NVarChar, 255).Value = user;
                 dCmd.CommandType = CommandType.Text;
                 return dCmd.ExecuteNonQuery();
@@ -67,11 +68,11 @@ namespace ProbatiuneApp.DAL
         }
 
         //Insert case if Opis record has CazSuprav 
-        public int InsertCase(string Nume,string Prenume, int NrDosar,int IdAng, string user)
+        public int InsertCase(string Nume,string Prenume, int NrDosar,int IdAng,bool activ ,string user)
         {
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,IDAngajat,user_modif) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Angajat,@user)";
+            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,IDAngajat,Activ,user_modif) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Angajat,@activ,@user)";
             SqlCommand dCmd = new SqlCommand(sql, conn);
 
             try
@@ -82,6 +83,7 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.Add("@StartDate", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
                 dCmd.Parameters.Add("@StopDate", SqlDbType.Date).Value = "01/01/1900";
                 dCmd.Parameters.Add("@Angajat", SqlDbType.Int).Value = IdAng;
+                dCmd.Parameters.Add("@activ", SqlDbType.Bit).Value = activ;
                 dCmd.Parameters.Add("@user", SqlDbType.NVarChar, 255).Value = user;
                 dCmd.CommandType = CommandType.Text;
                 return dCmd.ExecuteNonQuery();
@@ -543,14 +545,14 @@ namespace ProbatiuneApp.DAL
         }
 
 
-        public int UpdateActiv(int CazID, string Nume, string Prenume, int nrDosar, string Start, string TheEnd, string Observatii, string user)
+        public int UpdateActiv(int CazID, string Nume, string Prenume, int nrDosar, string Start, string TheEnd, string Observatii,bool Activ, string user)
         {
 
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
 
-            SqlCommand dCmd = new SqlCommand("UPDATE CazuriP SET Nume=@Nume, Prenume=@Prenume, NrDosar = @NrDosar, DataInceperii=@Start, DataFinal=@TheEnd, Observatii=@Observatii, user_modif = @user WHERE IDCaz=@IDCaz AND Activ=1;", conn);
+            SqlCommand dCmd = new SqlCommand("UPDATE CazuriP SET Nume=@Nume, Prenume=@Prenume, NrDosar = @NrDosar, DataInceperii=@Start, DataFinal=@TheEnd, Observatii=@Observatii,Activ=@Activ, user_modif = @user WHERE IDCaz=@IDCaz AND Activ=1;", conn);
 
             try
             {
@@ -562,6 +564,7 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.Add("@Start", SqlDbType.Date).Value = Start;
                 dCmd.Parameters.Add("@TheEnd", SqlDbType.Date).Value = TheEnd;
                 dCmd.Parameters.AddWithValue("@Observatii", Observatii);
+                dCmd.Parameters.AddWithValue("@Activ", Activ);
                 dCmd.Parameters.AddWithValue("@user", user);
                 return dCmd.ExecuteNonQuery();
 
@@ -587,14 +590,14 @@ namespace ProbatiuneApp.DAL
 
         }
 
-        public int UpdateInactiv(int CazID, string Nume, string Prenume, int nrDosar, string Start, string TheEnd, string Observatii, string user)
+        public int UpdateInactiv(int CazID, string Nume, string Prenume, int nrDosar, string Start, string TheEnd, string Observatii, bool Activ, string user)
         {
 
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
 
-            SqlCommand dCmd = new SqlCommand("UPDATE CazuriP SET Nume=@Nume, Prenume=@Prenume, NrDosar = @NrDosar, DataInceperii=@Start, DataFinal=@TheEnd, Observatii=@Observatii, user_modif = @user WHERE IDCaz=@IDCaz AND Activ=0;", conn);
+            SqlCommand dCmd = new SqlCommand("UPDATE CazuriP SET Nume=@Nume, Prenume=@Prenume, NrDosar = @NrDosar, DataInceperii=@Start, DataFinal=@TheEnd, Observatii=@Observatii,Activ=@Activ, user_modif = @user WHERE IDCaz=@IDCaz AND Activ=0;", conn);
 
             try
             {
@@ -606,6 +609,7 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.Add("@Start", SqlDbType.Date).Value = Start;
                 dCmd.Parameters.Add("@TheEnd", SqlDbType.Date).Value = TheEnd;
                 dCmd.Parameters.AddWithValue("@Observatii", Observatii);
+                dCmd.Parameters.AddWithValue("@Activ", Activ);
                 dCmd.Parameters.AddWithValue("@user", user);
                 return dCmd.ExecuteNonQuery();
 
