@@ -137,8 +137,6 @@ namespace ProbatiuneApp
             {
                 panel.Enabled = false;
             }
-            
-            //format date columns
    
             //insert data in gridView
             GridView1.DataSource = GridDataSource();
