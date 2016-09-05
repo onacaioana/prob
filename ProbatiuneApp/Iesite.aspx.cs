@@ -119,7 +119,7 @@ namespace ProbatiuneApp
             AngDownList.DataSource = dt;
             AngDownList.DataBind();
             AngDownList.Items.Add("Alegeti Consilier");
-            AngDownList.SelectedValue = "Alegeti Consilier";
+            AngDownList.SelectedValue = Request.Cookies["UserName"].Value;
 
             //setari initiale
             TextBox4.Text = DateTime.Now.ToString("yyyy-MM-dd");

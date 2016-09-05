@@ -113,7 +113,7 @@ namespace ProbatiuneApp
         /// </summary>
         private void BindGrid()
         {
-            //dropDownlist
+            //dropDownlist initializare cu valori 
             DataTable dt = new DataTable();
             dt = pBAL.LoadAngajatiListBox();
             AngDownList.DataTextField = "Num";
@@ -121,17 +121,17 @@ namespace ProbatiuneApp
             AngDownList.DataSource = dt;
             AngDownList.DataBind();
             AngDownList.Items.Add("Alegeti Consilier");
-            AngDownList.SelectedValue = "Alegeti Consilier";
 
-            //setari initiale
+            //data de start va fi pusa default data de azi 
             TextBox4.Text = DateTime.Now.ToString("yyyy-MM-dd");
 
-
-            string n;
+            //seteaza ca valoare default a listei de consilieri user-ul care este logat
+            string nume,prenume;
             if (Request.Cookies["UserName"] != null && !Request.Cookies["UserName"].Value.Contains("admin"))
             {
-                n = Request.Cookies["UserName"].Value.Replace('.', ' ');
-                AngDownList.SelectedValue = n.ToUpper();
+                nume = Request.Cookies["UserName"].Value.Split('.')[1].ToUpper();
+                prenume = Request.Cookies["UserName"].Value.Split('.')[0].ToUpper();
+                AngDownList.SelectedValue =nume+' '+prenume;
             }
             else if (Request.Cookies["UserName"] != null && Request.Cookies["UserName"].Value.Contains("admin"))
             {
