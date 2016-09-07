@@ -53,7 +53,7 @@ namespace ProbatiuneApp.BAL
 
         }
 
-        public int InsertCase(string Nume, string NrDosar, string consilier,string user)
+        public int InsertCase(string Nume, string NrDosar, string consilier,string user,DateTime date)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
             int nrDosar,idAng;
@@ -61,7 +61,7 @@ namespace ProbatiuneApp.BAL
             {
                 idAng = pDAL.getIdAngajat(consilier);
 
-                return pDAL.InsertCase(Nume.Split(' ')[0], Nume.Substring(Nume.IndexOf(' ') + 1), nrDosar, idAng,true, user); ;
+                return pDAL.InsertCase(Nume.Split(' ')[0], Nume.Substring(Nume.IndexOf(' ') + 1), nrDosar, idAng,true, user,date); ;
             }
             return 0;
         }

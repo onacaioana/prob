@@ -68,11 +68,11 @@ namespace ProbatiuneApp.DAL
         }
 
         //Insert case if Opis record has CazSuprav 
-        public int InsertCase(string Nume,string Prenume, int NrDosar,int IdAng,bool activ ,string user)
+        public int InsertCase(string Nume,string Prenume, int NrDosar,int IdAng,bool activ ,string user,DateTime date)
         {
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,IDAngajat,Activ,user_modif) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Angajat,@activ,@user)";
+            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,IDAngajat,Activ,user_modif,last_modif) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Angajat,@activ,@user,@date)";
             SqlCommand dCmd = new SqlCommand(sql, conn);
 
             try
@@ -85,6 +85,7 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.Add("@Angajat", SqlDbType.Int).Value = IdAng;
                 dCmd.Parameters.Add("@activ", SqlDbType.Bit).Value = activ;
                 dCmd.Parameters.Add("@user", SqlDbType.NVarChar, 255).Value = user;
+                dCmd.Parameters.Add("@date", SqlDbType.DateTime).Value = date;
                 dCmd.CommandType = CommandType.Text;
                 return dCmd.ExecuteNonQuery();
             }
@@ -224,7 +225,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = 1 order by c.Nume,c.Prenume;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = 1 order by c.last_modif DESC,a.nume;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);

@@ -149,6 +149,7 @@ namespace ProbatiuneApp
         }
         protected void AddButon_Click(object sender, ImageClickEventArgs e)
         {
+            DateTime date = DateTime.Now;
             if (TextBox3.Text == "" && TextBox4.Text == "")
             {
                 LabelText.Text = "Trebuie completat campul CazReferat SAU CazSupraveghere!";
@@ -164,7 +165,7 @@ namespace ProbatiuneApp
             
             //daca CazSuprav completat => inreg in Caz Suprav
             if (TextBox4.Text != null)
-                pBAL.InsertCase(TextBox1.Text, TextBox4.Text, DropDownList1.SelectedValue, Request.Cookies["UserName"].Value);
+                pBAL.InsertCase(TextBox1.Text, TextBox4.Text, DropDownList1.SelectedValue, Request.Cookies["UserName"].Value,date);
 
             TextBox2.Text = "";
             TextBox1.Text = "";
