@@ -43,7 +43,6 @@
                         </ul>
                     </li>
                     <li class='last'><a href='Audit.aspx'><span>Audit</span></a></li>
-                    <li class='last'><a href='#'><span>Documentatie</span></a></li>
                     <li class='active has-sub'><a href='#'><span><%=Clients%></span></a>
                         <ul>
                             <li class='last'>

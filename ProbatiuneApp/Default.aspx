@@ -2,8 +2,11 @@
 
 <asp:Content runat="server" ID="FeaturedContent" ContentPlaceHolderID="FeaturedContent">
     <section class="featured">
-      
-        <div class="form-wrapper cf">
+        <div class ="checkboxDiv">
+        <asp:CheckBox ID="allCheck" Text="Toate Cazurile" AutoPostBack="true" runat="server" OnCheckedChanged="allCheck_CheckedChanged" />
+        <asp:CheckBox ID="mineCheck" Text="Cazurile mele" AutoPostBack="true" runat="server" OnCheckedChanged="mineCheck_CheckedChanged" />
+        </div>
+            <div class="form-wrapper cf">
             <input runat="server" id="searchtext1" type="text" placeholder="Cauta caz / dosar" required>
             <button type="submit" runat="server" onserverclick="SearchButton_Click">Search</button>
         </div>

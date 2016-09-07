@@ -13,6 +13,24 @@ namespace ProbatiuneApp {
     public partial class _Default {
         
         /// <summary>
+        /// allCheck control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox allCheck;
+        
+        /// <summary>
+        /// mineCheck control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox mineCheck;
+        
+        /// <summary>
         /// searchtext1 control.
         /// </summary>
         /// <remarks>

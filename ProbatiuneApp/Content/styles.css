@@ -1,8 +1,3 @@
-
-
-
-
-
 @import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700);
 #cssmenu {
     background: #4cb6ea;
@@ -533,7 +528,10 @@
             color:#9C6500;
         }
 
-
+.checkboxDiv{
+display:table;
+margin:0 auto;
+}
 
 
 

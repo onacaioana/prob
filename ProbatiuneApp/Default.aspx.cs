@@ -35,6 +35,7 @@ namespace ProbatiuneApp
                 {
                    this.GridView1.Columns[10].Visible = false;
                 }
+                allCheck.Checked = true;
                 BindGrid();
                 
                 
@@ -139,6 +140,7 @@ namespace ProbatiuneApp
             }
    
             //insert data in gridView
+            
             GridView1.DataSource = GridDataSource();
             GridView1.DataBind();
        
@@ -151,7 +153,10 @@ namespace ProbatiuneApp
         public DataSet GridDataSource()
         {
             DataSet dset = new DataSet();
+            if (allCheck.Checked == true)
                 dset = pBAL.LoadActiv();
+            else if (mineCheck.Checked == true)
+                dset = pBAL.LoadPerAngajatActiv(Request.Cookies["UserName"].Value.Split('.')[1], Request.Cookies["UserName"].Value.Split('.')[0]);
             return dset;
         }
  
@@ -259,6 +264,30 @@ namespace ProbatiuneApp
     protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
     {
 
+    }
+
+    protected void mineCheck_CheckedChanged(object sender, EventArgs e)
+    {
+        if (mineCheck.Checked == true)
+        {
+            allCheck.Checked = false;
+            GridView1.DataSource = GridDataSource();
+            GridView1.DataBind();
+        }
+        else if ((allCheck.Checked == false) && (mineCheck.Checked == false))
+            allCheck.Checked = true;
+    }
+
+    protected void allCheck_CheckedChanged(object sender, EventArgs e)
+    {
+        if (allCheck.Checked == true)
+        {
+            mineCheck.Checked = false;
+            GridView1.DataSource = GridDataSource();
+            GridView1.DataBind();
+        }
+        else if ((allCheck.Checked == false) && (mineCheck.Checked == false))
+            mineCheck.Checked = true;
     }
 
 
