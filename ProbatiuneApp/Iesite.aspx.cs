@@ -193,19 +193,34 @@ namespace ProbatiuneApp
             //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
             GridView1.EditIndex = -1;
             //Call ShowData method for displaying updated data  */
-            BindGrid();
+            if (searchtext1.Value.ToString() != "")
+            {
+                GridView1.DataSource = GridDataSource_Search(searchtext1.Value.ToString());
+                GridView1.DataBind();
+            }
+            else BindGrid();
         }
         protected void GridView1_RowCancelingEdit(object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
         {
             //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
             GridView1.EditIndex = -1;
-            BindGrid();
+            if (searchtext1.Value.ToString() != "")
+            {
+                GridView1.DataSource = GridDataSource_Search(searchtext1.Value.ToString());
+                GridView1.DataBind();
+            }
+            else BindGrid();
         }
 
         protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             GridView1.PageIndex = e.NewPageIndex;
-            BindGrid();
+            if (searchtext1.Value.ToString() != "")
+            {
+                GridView1.DataSource = GridDataSource_Search(searchtext1.Value.ToString());
+                GridView1.DataBind();
+            }
+            else BindGrid();
         }
 
         protected void AddButon_Click(object sender, EventArgs e)

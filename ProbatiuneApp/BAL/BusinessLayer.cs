@@ -240,6 +240,10 @@ namespace ProbatiuneApp.BAL
                 return pDAL.SearchQueryActiv(text);
         }
 
+        public DataSet SearchQueryActivperAngajat(string text, string nume, string prenume) {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            return pDAL.SearchQueryActivperAngajat(text,nume,prenume);
+        }
         public DataSet SearchQueryInactiv(string text)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
@@ -271,6 +275,17 @@ namespace ProbatiuneApp.BAL
             else return null;
         }
 
+        public DataSet Search_NrDosarActivperAngajat(string text, string nume, string prenume)
+        {
+            int value;
+            if (int.TryParse(text, out value))
+            {
+                DAL.DataLayer pDAL = new DAL.DataLayer();
+                return pDAL.SearchDosarActivperAngajat(value, nume, prenume);
+            }
+            else return null;
+            
+        }
         public DataSet Search_NrDosarInactiv(string text)
         {
             int value;

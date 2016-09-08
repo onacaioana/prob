@@ -36,9 +36,7 @@ namespace ProbatiuneApp
                    this.GridView1.Columns[10].Visible = false;
                 }
                 allCheck.Checked = true;
-                BindGrid();
-                
-                
+                BindGrid(); 
             }
            
         }
@@ -79,39 +77,45 @@ namespace ProbatiuneApp
                 int tmp;
                 if (int.TryParse(myname, out tmp))
                 {
-                    ds.Tables.Add(pBAL.Search_NrDosarActiv(myname).Tables[0].Copy());
-                   // searchtext1.Value = "";
+                    if (allCheck.Checked == true)
+                        ds.Tables.Add(pBAL.Search_NrDosarActiv(myname).Tables[0].Copy());
+                    else if (mineCheck.Checked == true)
+                        ds.Tables.Add(pBAL.Search_NrDosarActivperAngajat(myname, Request.Cookies["UserName"].Value.Split('.')[1], Request.Cookies["UserName"].Value.Split('.')[0]).Tables[0].Copy());
                 }
                 else
                 {
-                    ds.Tables.Add(pBAL.SearchQueryActiv(myname).Tables[0].Copy());
-                    //searchtext1.Value = "";
+                    if (allCheck.Checked == true)
+                        ds.Tables.Add(pBAL.SearchQueryActiv(myname).Tables[0].Copy());
+                    else if (mineCheck.Checked == true)
+                        ds.Tables.Add(pBAL.SearchQueryActivperAngajat(myname, Request.Cookies["UserName"].Value.Split('.')[1], Request.Cookies["UserName"].Value.Split('.')[0]).Tables[0].Copy());
+             
                 }
                 GridView1.DataSource = ds;
                 GridView1.DataBind();
             }
         }
 
-        /// <summary>
-        /// Search refresh the gridview
-        /// </summary>
+       //actualizare date in tabel "seach nume" - folosit la edit
         private DataSet GridDataSource_Search(string text)
         { 
             DataSet dset = new DataSet();
-            dset = pBAL.SearchQueryActiv(text.ToString());
+            if (allCheck.Checked == true)
+                dset = pBAL.SearchQueryActiv(text.ToString());
+            else if (mineCheck.Checked == true)
+                dset = pBAL.SearchQueryActivperAngajat(text.ToString(), Request.Cookies["UserName"].Value.Split('.')[1], Request.Cookies["UserName"].Value.Split('.')[0]);
             return dset;
         }
-
+        //actualizare date in tabel "seach dosar"
         private DataSet GDSSearch_NrDosar(string text)
         {
             DataSet dset = new DataSet();
-            dset = pBAL.Search_NrDosarActiv(text.ToString());
+            if (allCheck.Checked == true)
+                dset = pBAL.Search_NrDosarActiv(text.ToString());
+            else if (mineCheck.Checked == true)
+                dset = pBAL.Search_NrDosarActivperAngajat(text.ToString(), Request.Cookies["UserName"].Value.Split('.')[1], Request.Cookies["UserName"].Value.Split('.')[0]);
             return dset;
         }
-
-        /// <summary>
-        /// Bind the gridview
-        /// </summary>
+        // Bind the gridview
         private void BindGrid()
         {
             //dropDownlist initializare cu valori 
@@ -171,18 +175,18 @@ namespace ProbatiuneApp
 
      
 
-          protected void GridView1_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)  
-    {  
-        //NewEditIndex property used to determine the index of the row being edited.  
-        GridView1.EditIndex = e.NewEditIndex;
+        protected void GridView1_RowEditing(object sender, System.Web.UI.WebControls.GridViewEditEventArgs e)  
+        {  
+            //NewEditIndex property used to determine the index of the row being edited.  
+            GridView1.EditIndex = e.NewEditIndex;
 
-        if (searchtext1.Value.ToString() != "")
-        {
-            GridView1.DataSource = GridDataSource_Search(searchtext1.Value.ToString());
-            GridView1.DataBind();
-        }
-        else BindGrid();
-    }  
+            if (searchtext1.Value.ToString() != "")
+            {
+                GridView1.DataSource = GridDataSource_Search(searchtext1.Value.ToString());
+                GridView1.DataBind();
+            }
+            else BindGrid();
+        }  
     protected void GridView1_RowUpdating(object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)  
     {  
         //Finding the controls from Gridview for the row which is going to update  
@@ -200,20 +204,35 @@ namespace ProbatiuneApp
         //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
         GridView1.EditIndex = -1;  
         //Call ShowData method for displaying updated data  */
-        BindGrid();
+        if (searchtext1.Value.ToString() != "")
+        {
+            GridView1.DataSource = GridDataSource_Search(searchtext1.Value.ToString());
+            GridView1.DataBind();
+        }
+        else BindGrid();
     }
 
     protected void GridView1_RowCancelingEdit(object sender, System.Web.UI.WebControls.GridViewCancelEditEventArgs e)
     {
         //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
         GridView1.EditIndex = -1;
-        BindGrid();
+        if (searchtext1.Value.ToString() != "")
+        {
+            GridView1.DataSource = GridDataSource_Search(searchtext1.Value.ToString());
+            GridView1.DataBind();
+        }
+        else BindGrid();
     }
 
     protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         GridView1.PageIndex = e.NewPageIndex;
-        BindGrid();
+        if (searchtext1.Value.ToString() != "")
+        {
+            GridView1.DataSource = GridDataSource_Search(searchtext1.Value.ToString());
+            GridView1.DataBind();
+        }
+        else BindGrid();
     }
 
         //actualizare
