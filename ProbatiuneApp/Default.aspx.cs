@@ -294,7 +294,10 @@ namespace ProbatiuneApp
             GridView1.DataBind();
         }
         else if ((allCheck.Checked == false) && (mineCheck.Checked == false))
+        {
             allCheck.Checked = true;
+            allCheck_CheckedChanged(sender, e);
+        }
     }
 
     protected void allCheck_CheckedChanged(object sender, EventArgs e)
@@ -306,7 +309,10 @@ namespace ProbatiuneApp
             GridView1.DataBind();
         }
         else if ((allCheck.Checked == false) && (mineCheck.Checked == false))
+        {
             mineCheck.Checked = true;
+            mineCheck_CheckedChanged(sender, e);
+        }
     }
 
 
