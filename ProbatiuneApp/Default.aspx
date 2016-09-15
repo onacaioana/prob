@@ -110,7 +110,7 @@
                     <asp:Label ID="lbl_TheEnd" runat="server"  Text='<%#DataBinder.Eval(Container.DataItem,"DataFinal","{0:dd/MM/yyyy}")%>'> </asp:Label>
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <asp:TextBox ID="txt_TheEnd" Width="90%" runat="server" Text='<%#Eval("DataFinal") %>'></asp:TextBox>
+                    <asp:TextBox ID="txt_TheEnd" Width="90%" runat="server" Text='<%#DataBinder.Eval(Container.DataItem,"DataFinal","{0:dd/MM/yyyy}")%>'></asp:TextBox>
                 </EditItemTemplate>
             </asp:TemplateField>
 

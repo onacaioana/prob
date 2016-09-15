@@ -76,12 +76,12 @@ namespace ProbatiuneApp
                 int tmp;
                 if (int.TryParse(myname, out tmp))
                 {
-                    ds.Tables.Add(pBAL.Search_NrDosarInactiv(myname).Tables[0].Copy());
+                    ds.Tables.Add(pBAL.Search_NrDosar(myname,0).Tables[0].Copy());
                     //searchtext1.Value = "";
                 }
                 else
                 {
-                    ds.Tables.Add(pBAL.SearchQueryInactiv(myname).Tables[0].Copy());
+                    ds.Tables.Add(pBAL.SearchCaz(myname,0).Tables[0].Copy());
                     //searchtext1.Value = "";
                 }
                 GridView1.DataSource = ds;
@@ -95,14 +95,14 @@ namespace ProbatiuneApp
         private DataSet GridDataSource_Search(string text)
         {
             DataSet dset = new DataSet();
-            dset = pBAL.SearchQueryInactiv(text.ToString());
+            dset = pBAL.SearchCaz(text,0);
             return dset;
         }
 
         private DataSet GDSSearch_NrDosar(string text)
         {
             DataSet dset = new DataSet();
-            dset = pBAL.Search_NrDosarInactiv(text.ToString());
+            dset = pBAL.Search_NrDosar(text,0);
             return dset;
         }
 
@@ -151,7 +151,7 @@ namespace ProbatiuneApp
         public DataSet GridDataSource()
         {
             DataSet dset = new DataSet();
-            dset = pBAL.LoadInactiv();
+            dset = pBAL.Load(0);
             return dset;
         }
 
@@ -188,7 +188,7 @@ namespace ProbatiuneApp
             TextBox Observatii = GridView1.Rows[e.RowIndex].FindControl("txt_Observatii") as TextBox;
 
             //updating the record  
-            pBAL.UpdateInactiv(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text, Request.Cookies["UserName"].Value);
+            pBAL.Update(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text, Request.Cookies["UserName"].Value,0);
 
             //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
             GridView1.EditIndex = -1;

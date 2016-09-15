@@ -61,7 +61,7 @@ namespace ProbatiuneApp.BAL
             {
                 idAng = pDAL.getIdAngajat(consilier);
 
-                return pDAL.InsertCase(Nume.Split(' ')[0], Nume.Substring(Nume.IndexOf(' ') + 1), nrDosar, idAng,true, user,date); ;
+                return pDAL.InsertCase(Nume.Split(' ')[0], Nume.Substring(Nume.IndexOf(' ') + 1), nrDosar, idAng, user,date); ;
             }
             return 0;
         }
@@ -103,21 +103,15 @@ namespace ProbatiuneApp.BAL
             return pDAL.changePassword(username, newpass);
         }
 
-        public DataSet LoadActiv()
-        {
-            DAL.DataLayer pDAL = new DAL.DataLayer();
-            return pDAL.LoadActiv();
-        }
-
         public DataTable LoadAngajatiListBox()
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
             return pDAL.LoadAngajatiListBox();
         }
-        public DataSet LoadInactiv()
+        public DataSet Load(int activ)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-           return pDAL.LoadInactiv();
+           return pDAL.Load(activ);
 
         }
         public DataSet LoadOpis()
@@ -131,7 +125,7 @@ namespace ProbatiuneApp.BAL
               DAL.DataLayer pDAL = new DAL.DataLayer();
               int idAngajat = pDAL.getIdAngajat(Nume+' '+Prenume);
 
-              return pDAL.LoadPerAngajatActiv(idAngajat);
+              return pDAL.LoadPerAngajat(idAngajat,1);
         }
 
         public DataSet LoadPerAngajatInactiv(string Nume, string Prenume)
@@ -139,7 +133,7 @@ namespace ProbatiuneApp.BAL
             DAL.DataLayer pDAL = new DAL.DataLayer();
             int idAngajat = pDAL.getIdAngajat(Nume + ' ' + Prenume);
 
-            return pDAL.LoadPerAngajatInactiv(idAngajat);
+            return pDAL.LoadPerAngajat(idAngajat,0);
         }
 
         public DataSet LoadAngajati()
@@ -179,7 +173,7 @@ namespace ProbatiuneApp.BAL
             DAL.DataLayer pDAL = new DAL.DataLayer();
                 return pDAL.UpdateOpis(IdOpis,Nume,CNP,CazReferat,CazSuprav,CazAsist,Consilier,user);
         }
-        public int UpdateActiv(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs, string user)
+        public int Update(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs, string user,int activ)
         {
             bool Activ;
             DAL.DataLayer pDAL = new DAL.DataLayer();
@@ -193,27 +187,8 @@ namespace ProbatiuneApp.BAL
             if (stop.Split('/')[2].Split(' ')[0].Equals("1900"))
                 Activ = true;
             
-            return pDAL.UpdateActiv(IDCaz, nume, prenume, nrDosar, start, stop, obs,Activ,user);
+            return pDAL.Update(IDCaz, nume, prenume, nrDosar, start, stop, obs,Activ,user,activ);
         }
-
-        public int UpdateInactiv(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs, string user)
-        {
-            bool Activ;
-            DAL.DataLayer pDAL = new DAL.DataLayer();
-
-            //check date
-            DateTime dt = Convert.ToDateTime(stop);
-            if (dt < DateTime.Now)
-                Activ = false;
-            else Activ = true;
-
-            if (stop.Split('/')[2].Split(' ')[0].Equals("1900"))
-                Activ = true;
-
-                return pDAL.UpdateInactiv(IDCaz, nume, prenume, nrDosar, start, stop, obs,Activ,user);
-        }
-
-
 
         public int UpdateAngajat(int AngID, string nume, string prenume, string user)
         {
@@ -234,20 +209,15 @@ namespace ProbatiuneApp.BAL
             return pDAL.UpdateIP(username);
           
         }*/
-        public DataSet SearchQueryActiv(string text)
+        public DataSet SearchCaz(string text,int activ)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.SearchQueryActiv(text);
+                return pDAL.SearchCaz(text,activ);
         }
 
-        public DataSet SearchQueryActivperAngajat(string text, string nume, string prenume) {
+        public DataSet SearchCazperAngajat(string text, string nume, string prenume,int activ) {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-            return pDAL.SearchQueryActivperAngajat(text,nume,prenume);
-        }
-        public DataSet SearchQueryInactiv(string text)
-        {
-            DAL.DataLayer pDAL = new DAL.DataLayer();
-            return pDAL.SearchQueryInactiv(text);
+            return pDAL.SearchCazperAngajat(text,nume,prenume,activ);
         }
 
         public DataSet SearchAngajat(string text)
@@ -263,39 +233,28 @@ namespace ProbatiuneApp.BAL
                 return pDAL.SearchAudit(text);
         }
 
-        public DataSet Search_NrDosarActiv(string text)
+        public DataSet Search_NrDosar(string text,int activ)
         {
             int value;
             
             if (int.TryParse(text, out value))
             {
                 DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.SearchDosarActiv(value);
+                return pDAL.SearchDosar(value,activ);
             }
             else return null;
         }
 
-        public DataSet Search_NrDosarActivperAngajat(string text, string nume, string prenume)
+        public DataSet Search_NrDosarperAngajat(string text, string nume, string prenume,int activ)
         {
             int value;
             if (int.TryParse(text, out value))
             {
                 DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.SearchDosarActivperAngajat(value, nume, prenume);
+                return pDAL.SearchDosarperAngajat(value, nume, prenume, activ);
             }
             else return null;
             
-        }
-        public DataSet Search_NrDosarInactiv(string text)
-        {
-            int value;
-
-            if (int.TryParse(text, out value))
-            {
-                DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.SearchDosarInactiv(value);
-            }
-            else return null;
         }
 
         public DataSet SearchOpis(string text)

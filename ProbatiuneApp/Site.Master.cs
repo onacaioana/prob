@@ -100,7 +100,7 @@ namespace ProbatiuneApp
 
         protected void ExportCazuriCurente(object sender, EventArgs e) {
             DataTable tbl = new DataTable();
-            tbl = pBAL.LoadActiv().Tables[0];
+            tbl = pBAL.Load(1).Tables[0];
             ExportToExcel(tbl, "export");
         }
 
@@ -108,7 +108,7 @@ namespace ProbatiuneApp
         protected void ExportCazuriIesite(object sender, EventArgs e)
         {
             DataTable tbl = new DataTable();
-            tbl = pBAL.LoadInactiv().Tables[0];
+            tbl = pBAL.Load(0).Tables[0];
             ExportToExcel(tbl, "export");
         }
 

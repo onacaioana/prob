@@ -78,16 +78,16 @@ namespace ProbatiuneApp
                 if (int.TryParse(myname, out tmp))
                 {
                     if (allCheck.Checked == true)
-                        ds.Tables.Add(pBAL.Search_NrDosarActiv(myname).Tables[0].Copy());
+                        ds.Tables.Add(pBAL.Search_NrDosar(myname,1).Tables[0].Copy());
                     else if (mineCheck.Checked == true)
-                        ds.Tables.Add(pBAL.Search_NrDosarActivperAngajat(myname, Request.Cookies["UserName"].Value.Split('.')[1], Request.Cookies["UserName"].Value.Split('.')[0]).Tables[0].Copy());
+                        ds.Tables.Add(pBAL.Search_NrDosarperAngajat(myname, Request.Cookies["UserName"].Value.Split('.')[1], Request.Cookies["UserName"].Value.Split('.')[0],1).Tables[0].Copy());
                 }
                 else
                 {
                     if (allCheck.Checked == true)
-                        ds.Tables.Add(pBAL.SearchQueryActiv(myname).Tables[0].Copy());
+                        ds.Tables.Add(pBAL.SearchCaz(myname,1).Tables[0].Copy());
                     else if (mineCheck.Checked == true)
-                        ds.Tables.Add(pBAL.SearchQueryActivperAngajat(myname, Request.Cookies["UserName"].Value.Split('.')[1], Request.Cookies["UserName"].Value.Split('.')[0]).Tables[0].Copy());
+                        ds.Tables.Add(pBAL.SearchCazperAngajat(myname, Request.Cookies["UserName"].Value.Split('.')[1], Request.Cookies["UserName"].Value.Split('.')[0],1).Tables[0].Copy());
              
                 }
                 GridView1.DataSource = ds;
@@ -100,9 +100,9 @@ namespace ProbatiuneApp
         { 
             DataSet dset = new DataSet();
             if (allCheck.Checked == true)
-                dset = pBAL.SearchQueryActiv(text.ToString());
+                dset = pBAL.SearchCaz(text,1);
             else if (mineCheck.Checked == true)
-                dset = pBAL.SearchQueryActivperAngajat(text.ToString(), Request.Cookies["UserName"].Value.Split('.')[1], Request.Cookies["UserName"].Value.Split('.')[0]);
+                dset = pBAL.SearchCazperAngajat(text.ToString(), Request.Cookies["UserName"].Value.Split('.')[1], Request.Cookies["UserName"].Value.Split('.')[0],1);
             return dset;
         }
         //actualizare date in tabel "seach dosar"
@@ -110,9 +110,9 @@ namespace ProbatiuneApp
         {
             DataSet dset = new DataSet();
             if (allCheck.Checked == true)
-                dset = pBAL.Search_NrDosarActiv(text.ToString());
+                dset = pBAL.Search_NrDosar(text.ToString(),1);
             else if (mineCheck.Checked == true)
-                dset = pBAL.Search_NrDosarActivperAngajat(text.ToString(), Request.Cookies["UserName"].Value.Split('.')[1], Request.Cookies["UserName"].Value.Split('.')[0]);
+                dset = pBAL.Search_NrDosarperAngajat(text.ToString(), Request.Cookies["UserName"].Value.Split('.')[1], Request.Cookies["UserName"].Value.Split('.')[0],1);
             return dset;
         }
         // Bind the gridview
@@ -158,7 +158,7 @@ namespace ProbatiuneApp
         {
             DataSet dset = new DataSet();
             if (allCheck.Checked == true)
-                dset = pBAL.LoadActiv();
+                dset = pBAL.Load(1);
             else if (mineCheck.Checked == true)
                 dset = pBAL.LoadPerAngajatActiv(Request.Cookies["UserName"].Value.Split('.')[1], Request.Cookies["UserName"].Value.Split('.')[0]);
             return dset;
@@ -199,7 +199,7 @@ namespace ProbatiuneApp
         TextBox Observatii = GridView1.Rows[e.RowIndex].FindControl("txt_Observatii") as TextBox;
 
         //updating the record  
-        pBAL.UpdateActiv(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text, Request.Cookies["UserName"].Value);
+        pBAL.Update(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text, Request.Cookies["UserName"].Value,1);
 
         //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
         GridView1.EditIndex = -1;  
@@ -235,14 +235,14 @@ namespace ProbatiuneApp
         else BindGrid();
     }
 
-        //actualizare
+    //actualizare
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
 
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
             System.Data.DataRow row = ((System.Data.DataRowView)e.Row.DataItem).Row;
-            if (row["DataFinal"].ToString().Contains("/1900"))
+            if (row["DataFinal"].ToString().Contains("1900"))
                 e.Row.ForeColor = System.Drawing.Color.Red;
             else if (row["NrDosar"].Equals(0))
                 e.Row.ForeColor = System.Drawing.Color.Green;
