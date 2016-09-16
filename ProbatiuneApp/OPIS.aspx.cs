@@ -23,14 +23,14 @@ namespace ProbatiuneApp
             if (!IsPostBack)
             {
 
-                if (Request.Cookies["UserName"]!=null && !Request.Cookies["UserName"].Value.Contains("admin"))
+                if (Request.Cookies["UserName"] != null && !Request.Cookies["UserName"].Value.Contains("admin"))
                 {
                     this.GridView1.Columns[8].Visible = false;
+                    TextBox4.Text = pBAL.returneazaUltimulDosar() + "/" + DateTime.Now.Year.ToString();
                 }
               
                 BindGrid();
             }
-                //ClientScript.RegisterClientScriptBlock(this.GetType(), "blah", "YourJsFunction();", true);
         }
         /// <summary>
         /// Bind the gridview

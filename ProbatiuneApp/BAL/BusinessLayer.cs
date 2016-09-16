@@ -298,5 +298,11 @@ namespace ProbatiuneApp.BAL
             return pDAL.getLast6Months(angajat);
         }
 
+        public int returneazaUltimulDosar()
+        {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            return pDAL.returneazaUltimulDosar();
+        }
+
     }
 }
