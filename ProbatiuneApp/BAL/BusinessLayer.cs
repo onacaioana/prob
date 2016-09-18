@@ -49,11 +49,12 @@ namespace ProbatiuneApp.BAL
             //get IdAngajat
             IdAng = pDAL.getIdAngajat(Angajat);
 
-            return pDAL.Insert(Nume, Prenume, NrDosar, startDate, stopDate, Observatii, IdAng, Activ, user);
+            //DateTime.Now - este data curenta si va reprezenta in tabel ultima actualizare a cazului (last_modif) 
+            return pDAL.Insert(Nume, Prenume, NrDosar, startDate, stopDate, Observatii, IdAng, Activ, user,DateTime.Now);
 
         }
 
-        public int InsertCase(string Nume, string NrDosar, string consilier,string user,DateTime date)
+        public int InsertCase(string Nume, string NrDosar, string consilier,string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
             int nrDosar,idAng;
@@ -61,7 +62,7 @@ namespace ProbatiuneApp.BAL
             {
                 idAng = pDAL.getIdAngajat(consilier);
 
-                return pDAL.InsertCase(Nume.Split(' ')[0], Nume.Substring(Nume.IndexOf(' ') + 1), nrDosar, idAng, user,date); ;
+                return pDAL.InsertCase(Nume.Split(' ')[0], Nume.Substring(Nume.IndexOf(' ') + 1), nrDosar, idAng, user,DateTime.Now); ;
             }
             return 0;
         }
@@ -173,21 +174,27 @@ namespace ProbatiuneApp.BAL
             DAL.DataLayer pDAL = new DAL.DataLayer();
                 return pDAL.UpdateOpis(IdOpis,Nume,CNP,CazReferat,CazSuprav,CazAsist,Consilier,user);
         }
-        public int Update(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs, string user,int activ)
+        public int Update(int IDCaz, string nume, string prenume, int nrDosar, string start, string stop, string obs,string consilier, string user)
         {
             bool Activ;
             DAL.DataLayer pDAL = new DAL.DataLayer();
 
-            //check date
+            //convertim string-ul primit "stop" in DateTime
             DateTime dt = Convert.ToDateTime(stop);
+            //Incercam sa setem campul Activ in functie de valoarea datei de final, daca e mai mare sau nu decat data curenta
             if (dt < DateTime.Now)
                 Activ = false;
             else Activ = true;
-
+            //cazul in care data decimal final este 1900 (considerat caz activ) 
             if (stop.Split('/')[2].Split(' ')[0].Equals("1900"))
                 Activ = true;
             
-            return pDAL.Update(IDCaz, nume, prenume, nrDosar, start, stop, obs,Activ,user,activ);
+
+            //in cazul update consilier folosim campul "consilier" pentru a gasi id angajat din CazuriP
+            int id = pDAL.getIdAngajat(consilier);
+
+            //modifica CazuriP cu noile valori
+            return pDAL.Update(IDCaz, nume, prenume, nrDosar, start, stop, obs,id,Activ,user);
         }
 
         public int UpdateAngajat(int AngID, string nume, string prenume, string user)

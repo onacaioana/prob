@@ -123,18 +123,15 @@
                 </EditItemTemplate>
             </asp:TemplateField>
 
-
-            <asp:TemplateField HeaderText="Nume Angajat">
+            <asp:TemplateField HeaderText="Consilier">
                 <ItemTemplate>
-                    <asp:Label ID="lbl_angNume" runat="server" Text='<%#Eval("NumeAng") %>'></asp:Label>
+                    <asp:Label ID="lbl_angPrenume" runat="server" Text='<%#Eval("Consilier") %>'></asp:Label>
                 </ItemTemplate>
-            </asp:TemplateField>
-
-            <asp:TemplateField HeaderText="Prenume Angajat">
-                <ItemTemplate>
-                    <asp:Label ID="lbl_angPrenume" runat="server" Text='<%#Eval("PrenumeAng") %>'></asp:Label>
-                </ItemTemplate>
-
+                <EditItemTemplate>
+                  <asp:Label ID="lbl_angPrenume" runat="server" Text='<%#Eval("Consilier") %>' Visible="false" ></asp:Label>
+                   <asp:DropDownList ID = "ddlAng" runat = "server"></asp:DropDownList>
+                </EditItemTemplate>
+                
             </asp:TemplateField>
             <asp:TemplateField  >
                 <ItemTemplate>

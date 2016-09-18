@@ -32,7 +32,7 @@ namespace ProbatiuneApp
                 if (Request.Cookies["UserName"]!=null && !Request.Cookies["UserName"].Value.Contains("admin"))
                 {
 
-                    this.GridView1.Columns[10].Visible = false;
+                    this.GridView1.Columns[9].Visible = false;
                 }
                 BindGrid();
             }
@@ -176,6 +176,28 @@ namespace ProbatiuneApp
             }
             else BindGrid();
         }
+
+        //actualizare
+        protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow && GridView1.EditIndex == e.Row.RowIndex)
+            {
+
+                DataTable dt = new DataTable();
+                dt = pBAL.LoadAngajatiListBox();
+                Label s = e.Row.FindControl("lbl_angPrenume") as Label;
+
+                DropDownList ddlAng = (DropDownList)e.Row.FindControl("ddlAng");
+
+                ddlAng.DataTextField = "Num";
+                ddlAng.DataValueField = "Num";
+                ddlAng.DataSource = dt;
+                ddlAng.DataBind();
+                ddlAng.SelectedValue = s.Text;
+
+            }
+        }
+
         protected void GridView1_RowUpdating(object sender, System.Web.UI.WebControls.GridViewUpdateEventArgs e)
         {
             //Finding the controls from Gridview for the row which is going to update  
@@ -186,9 +208,10 @@ namespace ProbatiuneApp
             TextBox StartDate = GridView1.Rows[e.RowIndex].FindControl("txt_Start") as TextBox;
             TextBox TheEnd = GridView1.Rows[e.RowIndex].FindControl("txt_TheEnd") as TextBox;
             TextBox Observatii = GridView1.Rows[e.RowIndex].FindControl("txt_Observatii") as TextBox;
+            string Consilier = (GridView1.Rows[e.RowIndex].FindControl("ddlAng") as DropDownList).SelectedItem.Value;
 
             //updating the record  
-            pBAL.Update(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text, Request.Cookies["UserName"].Value,0);
+            pBAL.Update(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text,Consilier, Request.Cookies["UserName"].Value);
 
             //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
             GridView1.EditIndex = -1;

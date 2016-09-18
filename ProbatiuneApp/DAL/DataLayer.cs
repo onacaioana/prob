@@ -24,11 +24,11 @@ namespace ProbatiuneApp.DAL
         }
 
         // Used to insert records into database
-        public int Insert(string Nume, string Prenume, int NrDosar, string StartDate, string StopDate, string Observatii, int IdAng,bool activ,string user)
+        public int Insert(string Nume, string Prenume, int NrDosar, string StartDate, string StopDate, string Observatii, int IdAng,bool activ,string user,DateTime date)
         {
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,Observatii,IDAngajat,Activ,user_modif) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Observatii,@Angajat,@activ,@user)";
+            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,Observatii,IDAngajat,Activ,user_modif,last_modif) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Observatii,@Angajat,@activ,@user,@date)";
             SqlCommand dCmd = new SqlCommand(sql, conn);
 
             try
@@ -42,6 +42,7 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.Add("@Angajat", SqlDbType.Int).Value = IdAng;
                 dCmd.Parameters.Add("@activ", SqlDbType.Bit).Value = activ;
                 dCmd.Parameters.Add("@user", SqlDbType.NVarChar, 255).Value = user;
+                dCmd.Parameters.Add("@date", SqlDbType.Date).Value = date;
                 dCmd.CommandType = CommandType.Text;
                 return dCmd.ExecuteNonQuery();
             }
@@ -165,7 +166,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = "+activ+" order by c.last_modif DESC,a.nume;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume +' '+a.Prenume as Consilier from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = "+activ+" order by c.DataFinal ASC,c.last_modif DESC;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -178,7 +179,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where a.IdAngajat = " + idAngajat + " AND Activ="+ activ +" order by c.last_modif DESC;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume +' '+a.Prenume as Consilier from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where a.IdAngajat = " + idAngajat + " AND Activ="+ activ +" order by c.DataFinal ASC, c.last_modif DESC;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -293,7 +294,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ="+activ+" AND (c.Nume COLLATE Latin1_General_CI_AI like '" + text + "%' OR c.Prenume COLLATE Latin1_General_CI_AI like '" + text + "%')  order by c.Nume,c.Prenume;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume +' '+a.Prenume as Consilier from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ="+activ+" AND (c.Nume COLLATE Latin1_General_CI_AI like '" + text + "%' OR c.Prenume COLLATE Latin1_General_CI_AI like '" + text + "%')  order by c.Nume,c.Prenume;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -306,7 +307,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ="+activ+" AND a.nume like '%" + nume + "%' AND a.prenume like '%" + prenume + "%' AND (c.Nume COLLATE Latin1_General_CI_AI like '" + text + "%' OR c.Prenume COLLATE Latin1_General_CI_AI like '" + text + "%');", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume +' '+a.Prenume as Consilier from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ="+activ+" AND a.nume like '%" + nume + "%' AND a.prenume like '%" + prenume + "%' AND (c.Nume COLLATE Latin1_General_CI_AI like '" + text + "%' OR c.Prenume COLLATE Latin1_General_CI_AI like '" + text + "%');", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -320,7 +321,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where  Activ=0 AND (c.Nume COLLATE Latin1_General_CI_AI like '" + text + "%' OR c.Prenume COLLATE Latin1_General_CI_AI like '" + text + "%')  order by c.Nume,c.Prenume;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume +' '+a.Prenume as Consilier from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where  Activ=0 AND (c.Nume COLLATE Latin1_General_CI_AI like '" + text + "%' OR c.Prenume COLLATE Latin1_General_CI_AI like '" + text + "%')  order by c.Nume,c.Prenume;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -365,7 +366,7 @@ namespace ProbatiuneApp.DAL
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = "+ activ +" AND c.NrDosar = " + nr + " order by c.IDCaz;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume +' '+a.Prenume as Consilier from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = " + activ + " AND c.NrDosar = " + nr + " order by c.IDCaz;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -379,7 +380,7 @@ namespace ProbatiuneApp.DAL
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume as NumeAng,a.Prenume as PrenumeAng from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = 1 AND c.NrDosar = " + nr + " AND a.Nume like '%" + nume + "%' AND a.Prenume like '%" + prenume + "%' order by c.IDCaz;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume +' '+a.Prenume as Consilier from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = 1 AND c.NrDosar = " + nr + " AND a.Nume like '%" + nume + "%' AND a.Prenume like '%" + prenume + "%' order by c.IDCaz;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -460,14 +461,14 @@ namespace ProbatiuneApp.DAL
 
         }
 
-        public int Update(int CazID, string Nume, string Prenume, int nrDosar, string Start, string TheEnd, string Observatii,bool Activ, string user,int activ)
+        public int Update(int CazID, string Nume, string Prenume, int nrDosar, string Start, string TheEnd, string Observatii,int id,bool Activ, string user)
         {
 
             SqlConnection conn = new SqlConnection(connStr);
 
             conn.Open();
 
-            SqlCommand dCmd = new SqlCommand("UPDATE CazuriP SET Nume=@Nume, Prenume=@Prenume, NrDosar = @NrDosar, DataInceperii=@Start, DataFinal=@TheEnd, Observatii=@Observatii,Activ=@Activ, user_modif = @user WHERE IDCaz=@IDCaz AND Activ=1;", conn);
+            SqlCommand dCmd = new SqlCommand("UPDATE CazuriP SET Nume=@Nume, Prenume=@Prenume, NrDosar = @NrDosar, DataInceperii=@Start, DataFinal=@TheEnd, Observatii=@Observatii, IdAngajat = @id,Activ=@Activ, user_modif = @user WHERE IDCaz=@IDCaz", conn);
 
             try
             {
@@ -479,6 +480,7 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.Add("@Start", SqlDbType.Date).Value = Start;
                 dCmd.Parameters.Add("@TheEnd", SqlDbType.Date).Value = TheEnd;
                 dCmd.Parameters.AddWithValue("@Observatii", Observatii);
+                dCmd.Parameters.AddWithValue("@id", id);
                 dCmd.Parameters.AddWithValue("@Activ", Activ);
                 dCmd.Parameters.AddWithValue("@user", user);
                 return dCmd.ExecuteNonQuery();

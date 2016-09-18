@@ -33,7 +33,7 @@ namespace ProbatiuneApp
 
                 if (Request.Cookies["UserName"]!=null && !Request.Cookies["UserName"].Value.Contains("admin"))
                 {
-                   this.GridView1.Columns[10].Visible = false;
+                   this.GridView1.Columns[9].Visible = false;
                 }
                 allCheck.Checked = true;
                 BindGrid(); 
@@ -197,9 +197,10 @@ namespace ProbatiuneApp
         TextBox StartDate = GridView1.Rows[e.RowIndex].FindControl("txt_Start") as TextBox;
         TextBox TheEnd = GridView1.Rows[e.RowIndex].FindControl("txt_TheEnd") as TextBox;
         TextBox Observatii = GridView1.Rows[e.RowIndex].FindControl("txt_Observatii") as TextBox;
+        string Consilier = (GridView1.Rows[e.RowIndex].FindControl("ddlAng") as DropDownList).SelectedItem.Value;
 
         //updating the record  
-        pBAL.Update(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text, Request.Cookies["UserName"].Value,1);
+        pBAL.Update(Int32.Parse(id.Text), Nume.Text, Prenume.Text, Int32.Parse(NrDosar.Text), StartDate.Text, TheEnd.Text, Observatii.Text,Consilier, Request.Cookies["UserName"].Value);
 
         //Setting the EditIndex property to -1 to cancel the Edit mode in Gridview  
         GridView1.EditIndex = -1;  
@@ -246,7 +247,23 @@ namespace ProbatiuneApp
                 e.Row.ForeColor = System.Drawing.Color.Red;
             else if (row["NrDosar"].Equals(0))
                 e.Row.ForeColor = System.Drawing.Color.Green;
+
         }
+         if (e.Row.RowType == DataControlRowType.DataRow &&  GridView1.EditIndex == e.Row.RowIndex){
+
+             DataTable dt = new DataTable();
+             dt = pBAL.LoadAngajatiListBox();
+             Label s = e.Row.FindControl("lbl_angPrenume") as Label;
+
+             DropDownList ddlAng = (DropDownList)e.Row.FindControl("ddlAng");
+            
+             ddlAng.DataTextField = "Num";
+             ddlAng.DataValueField = "Num";
+             ddlAng.DataSource = dt;
+             ddlAng.DataBind();
+             ddlAng.SelectedValue = s.Text;
+
+         }
     }
 
 
