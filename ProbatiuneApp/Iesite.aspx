@@ -50,7 +50,7 @@
     <asp:GridView runat="server" ID="GridView1" ContentPlaceHolderID="Grid_Angajati" 
         OnSelectedIndexChanged="GridView1_SelectedIndexChanged" OnRowDeleted="GridView1_Delete" OnRowDeleting="GridView1_Deleting" 
         OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowEditing="GridView1_RowEditing" OnRowUpdating="GridView1_RowUpdating" OnRowDataBound="GridView1_RowDataBound" 
-        AutoGenerateColumns="False" AllowPaging="True" PageSize="25" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" 
+        AutoGenerateColumns="False" AllowPaging="True" PageSize="20" OnPageIndexChanging="OnPageIndexChanging" ForeColor="#333333" 
         GridLines="None" style="text-align:left; margin:0 auto; width: 80%; font-size: 14px;">
 
         <EditRowStyle BackColor="#999999" />
@@ -103,7 +103,8 @@
                     <asp:Label ID="lbl_Start" runat="server" Text='<%#DataBinder.Eval(Container.DataItem,"DataInceperii","{0:dd/MM/yyyy}")%>'></asp:Label>
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <asp:TextBox ID="txt_Start" Width="90%" runat="server" Text='<%#DataBinder.Eval(Container.DataItem,"DataInceperii","{0:dd/MM/yyyy}")%>'></asp:TextBox>
+                     <asp:Label ID="lbl_Start" runat="server" Visible="false" Text='<%#DataBinder.Eval(Container.DataItem,"DataInceperii","{0:dd/MM/yyyy}")%>'></asp:Label>
+                    <asp:TextBox ID="txt_Start" Width="90%" runat="server" TextMode="Date"></asp:TextBox>
                 </EditItemTemplate>
             </asp:TemplateField>
             <asp:TemplateField HeaderText="Data Sfarsit">
@@ -111,7 +112,8 @@
                     <asp:Label ID="lbl_TheEnd" runat="server"  Text='<%#DataBinder.Eval(Container.DataItem,"DataFinal","{0:dd/MM/yyyy}")%>'> </asp:Label>
                 </ItemTemplate>
                 <EditItemTemplate>
-                    <asp:TextBox ID="txt_TheEnd" Width="90%" runat="server" Text='<%#DataBinder.Eval(Container.DataItem,"DataFinal","{0:dd/MM/yyyy}")%>'></asp:TextBox>
+                    <asp:Label ID="lbl_TheEnd" runat="server" Visible="false" Text='<%#DataBinder.Eval(Container.DataItem,"DataFinal","{0:dd/MM/yyyy}")%>'> </asp:Label>
+                    <asp:TextBox ID="txt_TheEnd" Width="90%" runat="server" TextMode="Date" Text='<%#DataBinder.Eval(Container.DataItem,"DataFinal","{0:dd/MM/yyyy}")%>'></asp:TextBox>
                 </EditItemTemplate>
             </asp:TemplateField>
 

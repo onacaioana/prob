@@ -186,7 +186,7 @@ namespace ProbatiuneApp.BAL
                 Activ = false;
             else Activ = true;
             //cazul in care data decimal final este 1900 (considerat caz activ) 
-            if (stop.Split('/')[2].Split(' ')[0].Equals("1900"))
+            if (stop.Split('-')[0].Equals("1900"))
                 Activ = true;
             
 
@@ -309,6 +309,11 @@ namespace ProbatiuneApp.BAL
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
             return pDAL.returneazaUltimulDosar();
+        }
+
+        public int getNrTotalCazuri() {
+            DAL.DataLayer pDAL = new DAL.DataLayer();
+            return pDAL.getNrTotalCazuri();
         }
 
     }

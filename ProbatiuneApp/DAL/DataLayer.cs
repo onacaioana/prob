@@ -166,7 +166,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume +' '+a.Prenume as Consilier from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = "+activ+" order by c.DataFinal ASC,c.last_modif DESC;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume +' '+a.Prenume as Consilier from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where Activ = "+activ+" order by c.last_modif DESC;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -179,7 +179,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume +' '+a.Prenume as Consilier from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where a.IdAngajat = " + idAngajat + " AND Activ="+ activ +" order by c.DataFinal ASC, c.last_modif DESC;", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select c.IDCaz,c.Nume,c.Prenume,c.NrDosar,c.DataInceperii,c.DataFinal,c.Observatii,a.Nume +' '+a.Prenume as Consilier from CazuriP as c inner join AngajatiP as a on a.IdAngajat = c.IDAngajat where a.IdAngajat = " + idAngajat + " AND Activ="+ activ +" order by c.last_modif DESC;", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -660,6 +660,22 @@ namespace ProbatiuneApp.DAL
              using (SqlConnection conn = new SqlConnection(connStr))
             {
                 using (SqlDataAdapter dAd = new SqlDataAdapter("select NrDosar+1 from CazuriP where CazuriP.last_modif = (select MAX(CazuriP.last_modif) from CazuriP)", conn))
+                {
+                    DataTable dt = new DataTable();
+                    dAd.Fill(dt);
+                    int value;
+                    if (int.TryParse(dt.Rows[0][0].ToString(), out value))
+                        return value;
+                    else return 0;
+                }
+            }
+        }
+
+        public int getNrTotalCazuri()
+        {
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select count(IdCaz) from CazuriP where Activ = 1", conn))
                 {
                     DataTable dt = new DataTable();
                     dAd.Fill(dt);

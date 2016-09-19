@@ -533,6 +533,13 @@ display:table;
 margin:0 auto;
 }
 
+#FeaturedContent_Label1{
+float:left;
+font-size:22px;
+color:red;
+margin:10px;
+}
+
 
 
 

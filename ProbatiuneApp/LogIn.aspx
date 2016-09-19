@@ -1,5 +1,4 @@
-﻿
-<%@ Page Title="LOG IN" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" EnableEventValidation="false"  CodeBehind="LogIn.aspx.cs" Inherits="ProbatiuneApp.LogIn" %>
+﻿<%@ Page Title="LOG IN" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" EnableEventValidation="false"  CodeBehind="LogIn.aspx.cs" Inherits="ProbatiuneApp.LogIn" %>
 
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="MainContent">
     
