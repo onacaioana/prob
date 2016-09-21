@@ -308,6 +308,8 @@ namespace ProbatiuneApp
         }
         else
         {
+            if (TextBox5.Text == "")
+                TextBox5.Text = "01-01-1900";
             pBAL.Insert(TextBox11.Text.ToString(), TextBox2.Text.ToString(), Int32.Parse(TextBox3.Text.ToString()), TextBox4.Text.ToString(), TextBox5.Text.ToString(), TextBox6.Text.ToString(), AngDownList.SelectedValue.ToString(), Request.Cookies["UserName"].Value);
             
             TextBox6.Text = "";

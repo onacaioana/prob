@@ -22,11 +22,11 @@ namespace ProbatiuneApp
        
             if (!IsPostBack)
             {
-
+                
                 if (Request.Cookies["UserName"] != null && !Request.Cookies["UserName"].Value.Contains("admin"))
                 {
                     this.GridView1.Columns[8].Visible = false;
-                    TextBox4.Text = pBAL.returneazaUltimulDosar() + "/" + DateTime.Now.Year.ToString();
+                    
                 }
               
                 BindGrid();
@@ -37,6 +37,9 @@ namespace ProbatiuneApp
         /// </summary>
         private void BindGrid()
         {
+            //autocompletare campul "Caz supraveghere" cu uultimul caz + 1
+            TextBox4.Text = pBAL.returneazaUltimulDosar() + "/" + DateTime.Now.Year.ToString();
+
             //actualizare lista angajati DropDwonList
             DataTable dt = new DataTable();
             dt = pBAL.LoadAngajatiListBox();
