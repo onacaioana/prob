@@ -54,15 +54,26 @@ namespace ProbatiuneApp.BAL
 
         }
 
-        public int InsertCase(string Nume, string NrDosar, string consilier,string user)
+        public int InsertCase(string Nume, string NrDosar,DateTime dataStart, DateTime dataFinal, string consilier,string user)
         {
+            //verificam daca este caz activ sau caz inactiv sau cu data de final nestiuta
+            bool activ;
+            //daca data de sfarsit > data de azi
+            if (dataFinal > DateTime.Now)
+                activ = true;
+            else if (dataFinal.Year == 1900)
+            {
+                activ = true;
+            }
+            else activ = false;
+                
             DAL.DataLayer pDAL = new DAL.DataLayer();
             int nrDosar,idAng;
             if (Int32.TryParse(NrDosar.Split('/')[0], out nrDosar))
             {
                 idAng = pDAL.getIdAngajat(consilier);
 
-                return pDAL.InsertCase(Nume.Split(' ')[0], Nume.Substring(Nume.IndexOf(' ') + 1), nrDosar, idAng, user,DateTime.Now); ;
+                return pDAL.InsertCase(Nume.Split(' ')[0], Nume.Substring(Nume.IndexOf(' ') + 1), nrDosar,dataStart,dataFinal,idAng,activ, user,DateTime.Now); ;
             }
             return 0;
         }
@@ -316,5 +327,19 @@ namespace ProbatiuneApp.BAL
             return pDAL.getNrTotalCazuri();
         }
 
+        public DateTime getFinalDate(DateTime StartDate,int years, int months, int days) {
+            int year, month, day;
+            DateTime result;
+            if (years == 0 && months == 0 && days == 0)
+                result = new DateTime(1900, 01, 01);
+            else
+            {
+                year = StartDate.Year + years;
+                month = StartDate.Month + months;
+                day = StartDate.Day + days - 1;
+                result = new DateTime(year, month, day);
+            }
+            return result;
+        }
     }
 }

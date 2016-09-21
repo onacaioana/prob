@@ -37,7 +37,7 @@ namespace ProbatiuneApp
         /// </summary>
         private void BindGrid()
         {
-
+            //actualizare lista angajati DropDwonList
             DataTable dt = new DataTable();
             dt = pBAL.LoadAngajatiListBox();
             DropDownList1.DataTextField = "Num";
@@ -159,6 +159,8 @@ namespace ProbatiuneApp
         }
         protected void AddButon_Click(object sender, ImageClickEventArgs e)
         {
+            
+           
             if (TextBox3.Text == "" && TextBox4.Text == "")
             {
                 LabelText.Text = "Trebuie completat campul CazReferat SAU CazSupraveghere!";
@@ -169,18 +171,42 @@ namespace ProbatiuneApp
                 LabelText.Text = "Va rog sa selectati un consilier!";
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "functie", "myfcn();", true);
             }
-            else
-                pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), TextBox5.Text.ToString(), DropDownList1.SelectedValue.ToString(), Request.Cookies["UserName"].Value);
-            
-            //daca CazSuprav completat => inreg in Caz Suprav
-            if (TextBox4.Text != null)
-                pBAL.InsertCase(TextBox1.Text, TextBox4.Text, DropDownList1.SelectedValue, Request.Cookies["UserName"].Value);
+                //daca CazSuprav completat => inreg in Caz Suprav
+            else if (TextBox4.Text != "")
+                {
+                    DateTime start = new DateTime();
+                    DateTime stop = new DateTime();
 
+                    //daca data de inceput a fost setata atunci "start" va avea valoarea corecta
+                    if (TextBoxInceput.Text != "")
+                    {
+                        start = Convert.ToDateTime(TextBoxInceput.Text);
+                        stop = pBAL.getFinalDate(start, Convert.ToInt32(TextBoxAN.Text), Convert.ToInt32(TextBoxLUNA.Text), Convert.ToInt32(TextBoxZILE.Text));
+                    }
+                    //altfel se va afisa un mesaj pentru introducerea acestei date
+                    else
+                    {
+                        LabelText.Text = "Va rog sa completati data de inceput a cazului de supraveghere!";
+                        Page.ClientScript.RegisterStartupScript(this.GetType(), "MesajDataInceput", "myfcn();", true);
+                    }
+                    pBAL.InsertCase(TextBox1.Text, TextBox4.Text, start, stop, DropDownList1.SelectedValue, Request.Cookies["UserName"].Value);
+
+                }
+            else
+            {
+                 pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), TextBox5.Text.ToString(), DropDownList1.SelectedValue.ToString(), Request.Cookies["UserName"].Value);
+            }
+
+        
             TextBox2.Text = "";
             TextBox1.Text = "";
             TextBox3.Text = "";
             TextBox4.Text = "";
             TextBox5.Text = "";
+            TextBoxAN.Text = "";
+            TextBoxLUNA.Text = "";
+            TextBoxZILE.Text = "";
+            TextBoxInceput.Text = "";
             BindGrid();
         }
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)

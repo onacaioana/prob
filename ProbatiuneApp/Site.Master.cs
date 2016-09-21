@@ -101,7 +101,8 @@ namespace ProbatiuneApp
         protected void ExportCazuriCurente(object sender, EventArgs e) {
             DataTable tbl = new DataTable();
             tbl = pBAL.Load(1).Tables[0];
-            ExportToExcel(tbl, "export");
+            string export = "ExportCazuriCurente " + DateTime.Now.ToString("dd/MM/yyyy");
+            ExportToExcel(tbl, export);
         }
 
 
@@ -109,7 +110,8 @@ namespace ProbatiuneApp
         {
             DataTable tbl = new DataTable();
             tbl = pBAL.Load(0).Tables[0];
-            ExportToExcel(tbl, "export");
+            string export = "ExportCazuriIesite " + DateTime.Now.ToString("dd/MM/yyyy");
+            ExportToExcel(tbl, export);
         }
 
 
@@ -117,7 +119,8 @@ namespace ProbatiuneApp
         {
             DataTable tbl = new DataTable();
             tbl = pBAL.LoadAngajati().Tables[0];
-            ExportToExcel(tbl, "export");
+            string export = "ExportAngajati " + DateTime.Now.ToString("dd/MM/yyyy");
+            ExportToExcel(tbl, export);
         }
 
         protected void LogOut(object sender, EventArgs e) {
@@ -138,7 +141,8 @@ namespace ProbatiuneApp
         {
             DataTable tbl = new DataTable();
             tbl = pBAL.LoadOpis().Tables[0];
-            ExportToExcel(tbl, "export");
+            string export = "ExportOpis " + DateTime.Now.ToString("dd/MM/yyyy");
+            ExportToExcel(tbl, export);
         }
 
         void ExportToExcel(DataTable dt, string FileName)

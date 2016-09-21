@@ -42,7 +42,7 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.Add("@Angajat", SqlDbType.Int).Value = IdAng;
                 dCmd.Parameters.Add("@activ", SqlDbType.Bit).Value = activ;
                 dCmd.Parameters.Add("@user", SqlDbType.NVarChar, 255).Value = user;
-                dCmd.Parameters.Add("@date", SqlDbType.Date).Value = date;
+                dCmd.Parameters.Add("@date", SqlDbType.DateTime).Value = date;
                 dCmd.CommandType = CommandType.Text;
                 return dCmd.ExecuteNonQuery();
             }
@@ -59,11 +59,11 @@ namespace ProbatiuneApp.DAL
         }
 
         //Insert case if Opis record has CazSuprav 
-        public int InsertCase(string Nume,string Prenume, int NrDosar,int IdAng,string user,DateTime date)
+        public int InsertCase(string Nume,string Prenume, int NrDosar,DateTime dataStart, DateTime dataFinal, int IdAng, bool activ,string user,DateTime date)
         {
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,IDAngajat,Activ,user_modif,last_modif) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Angajat,1,@user,@date)";
+            string sql = "Insert INTO CazuriP(Nume,Prenume,NrDosar,DataInceperii,DataFinal,IDAngajat,Activ,user_modif,last_modif) VALUES(@Nume,@Prenume,@NrDosar,@StartDate,@StopDate,@Angajat,@Activ,@user,@date)";
             SqlCommand dCmd = new SqlCommand(sql, conn);
 
             try
@@ -71,9 +71,10 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.Add("@Nume", SqlDbType.NVarChar, 255).Value = Nume;
                 dCmd.Parameters.Add("@Prenume", SqlDbType.NVarChar, 255).Value = Prenume;
                 dCmd.Parameters.Add("@NrDosar", SqlDbType.Int).Value = NrDosar;
-                dCmd.Parameters.Add("@StartDate", SqlDbType.Date).Value = DateTime.Now.ToString("yyyy-MM-dd");
-                dCmd.Parameters.Add("@StopDate", SqlDbType.Date).Value = "01/01/1900";
+                dCmd.Parameters.Add("@StartDate", SqlDbType.Date).Value = dataStart;
+                dCmd.Parameters.Add("@StopDate", SqlDbType.Date).Value = dataFinal;
                 dCmd.Parameters.Add("@Angajat", SqlDbType.Int).Value = IdAng;
+                dCmd.Parameters.Add("@Activ", SqlDbType.Bit).Value = activ;
                 dCmd.Parameters.Add("@user", SqlDbType.NVarChar, 255).Value = user;
                 dCmd.Parameters.Add("@date", SqlDbType.DateTime).Value = date;
                 dCmd.CommandType = CommandType.Text;

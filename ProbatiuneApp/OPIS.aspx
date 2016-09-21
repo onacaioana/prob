@@ -12,28 +12,30 @@
 <asp:Content runat="server" ID="BodyContent1" ContentPlaceHolderID="MainContent">
     <div class="searchDiv">
           <asp:Panel ID="panel1" runat="server" HorizontalAlign="Center" style="margin-bottom:10px">
-            <asp:TextBox ID="TextBox1" runat="server" placeholder="Nume" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBox1" runat="server" placeholder="Nume Prenume " Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox2" runat="server" placeholder="CNP" Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox3" runat="server" placeholder="CazReferat" Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox4" runat="server" placeholder="CazSupraveghere" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBoxInceput" runat="server" TextMode="date" placeholder="Data Inceperii" Width="10%" ></asp:TextBox>
+            <asp:TextBox ID="TextBoxAN" runat="server" placeholder="ANI" Width="3%" ></asp:TextBox>
+            <asp:TextBox ID="TextBoxLUNA" runat="server" placeholder="LUNI" Width="3%" ></asp:TextBox>
+            <asp:TextBox ID="TextBoxZILE" runat="server" placeholder="ZILE" Width="3%" ></asp:TextBox>
             <asp:TextBox ID="TextBox5" runat="server" placeholder="CazAsistenta" Width="10%" ></asp:TextBox>
             <asp:DropDownList ID="DropDownList1" runat="server"></asp:DropDownList>
             <asp:ImageButton  ID="ImageButton1" ImageUrl="~/Images/add.png" Height="50px" runat="server" OnClick="AddButon_Click"   /> 
-
         </asp:Panel>
-
-            <script type="text/javascript">
-                function myfcn() {
-                    $("#dialog").dialog({
-                        title: "Atentie!",
-                        buttons: {
-                            AmInteles: function () {
-                                $(this).dialog('close');
-                            }
-                        }
-                    });
-                };
-    </script>
+         <script type="text/javascript">
+             function myfcn() {
+                 $("#dialog").dialog({
+                     title: "Atentie!",
+                     buttons: {
+                         AmInteles: function () {
+                             $(this).dialog('close');
+                         }
+                     }
+                 });
+             };
+         </script>
     <div id="dialog" style="display: none">
          <asp:Label ID="LabelText" Text="" runat="server" > </asp:Label><br>
     </div>
