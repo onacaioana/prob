@@ -174,8 +174,11 @@ namespace ProbatiuneApp
                 LabelText.Text = "Va rog sa selectati un consilier!";
                 Page.ClientScript.RegisterStartupScript(this.GetType(), "functie", "myfcn();", true);
             }
-                //daca CazSuprav completat => inreg in Caz Suprav
-            else if (TextBox4.Text != "")
+            //daca CazSuprav completat => inreg in Caz Suprav
+            else
+            {
+                pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), TextBox5.Text.ToString(), DropDownList1.SelectedValue.ToString(), Request.Cookies["UserName"].Value);
+                if (TextBox4.Text != "")
                 {
                     DateTime start = new DateTime();
                     DateTime stop = new DateTime();
@@ -193,11 +196,7 @@ namespace ProbatiuneApp
                         Page.ClientScript.RegisterStartupScript(this.GetType(), "MesajDataInceput", "myfcn();", true);
                     }
                     pBAL.InsertCase(TextBox1.Text, TextBox4.Text, start, stop, DropDownList1.SelectedValue, Request.Cookies["UserName"].Value);
-
                 }
-            else
-            {
-                 pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), TextBox5.Text.ToString(), DropDownList1.SelectedValue.ToString(), Request.Cookies["UserName"].Value);
             }
 
         

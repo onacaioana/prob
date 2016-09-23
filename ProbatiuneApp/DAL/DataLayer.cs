@@ -660,7 +660,7 @@ namespace ProbatiuneApp.DAL
         public int returneazaUltimulDosar() { 
              using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select NrDosar+1 from CazuriP where CazuriP.last_modif = (select MAX(CazuriP.last_modif) from CazuriP)", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select MAX(NrDosar+1) from CazuriP where CazuriP.last_modif = (select MAX(CazuriP.last_modif) from CazuriP)", conn))
                 {
                     DataTable dt = new DataTable();
                     dAd.Fill(dt);
