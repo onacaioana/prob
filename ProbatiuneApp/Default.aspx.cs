@@ -242,7 +242,6 @@ namespace ProbatiuneApp
     //actualizare
     protected void GridView1_RowDataBound(object sender, GridViewRowEventArgs e)
     {
-
         if (e.Row.RowType == DataControlRowType.DataRow)
         {
             System.Data.DataRow row = ((System.Data.DataRowView)e.Row.DataItem).Row;
@@ -252,44 +251,44 @@ namespace ProbatiuneApp
                 e.Row.ForeColor = System.Drawing.Color.Green;
 
         }
-         if (e.Row.RowType == DataControlRowType.DataRow &&  GridView1.EditIndex == e.Row.RowIndex){
-             ////////////////////////////////// LISTA DE ANGAJATI ///////////////////////////////
-             //incarca in dt lista de angajati
-             DataTable dt = new DataTable();
-             dt = pBAL.LoadAngajatiListBox();
-             
-             //luam angajatul actual din label
-             Label consilier = e.Row.FindControl("lbl_angPrenume") as Label;
-             
-             //incarc lista de angajati in dropDownList
-             DropDownList ddlAng = (DropDownList)e.Row.FindControl("ddlAng");
-             ddlAng.DataTextField = "Num";
-             ddlAng.DataValueField = "Num";
-             ddlAng.DataSource = dt;
-             ddlAng.DataBind();
-             ddlAng.SelectedValue = consilier.Text;
-             ////////////////////////////////////// START DATE //////////////////////////////////
-             //luam data de incaput din label
-             Label datastart = e.Row.FindControl("lbl_Start") as Label;
-             //o convertim ca DateTime
-             DateTime d = Convert.ToDateTime(datastart.Text);
+        if (e.Row.RowType == DataControlRowType.DataRow && GridView1.EditIndex == e.Row.RowIndex)
+        {
+            ////////////////////////////////// LISTA DE ANGAJATI ///////////////////////////////
+            //incarca in dt lista de angajati
+            DataTable dt = new DataTable();
+            dt = pBAL.LoadAngajatiListBox();
 
-             //iar in textbox-ul de tip Date com introduce valoarea veche
-             TextBox data = e.Row.FindControl("txt_Start") as TextBox;
-             data.Text = d.ToString("yyyy-MM-dd");
-             data.TextMode = TextBoxMode.Date;
+            //luam angajatul actual din label
+            Label consilier = e.Row.FindControl("lbl_angPrenume") as Label;
 
-             ////////////////////////////////////// STOP DATE //////////////////////////////////
-             //luam data de incaput din label
-             Label datastop = e.Row.FindControl("lbl_TheEnd") as Label;
-             //o convertim ca DateTime
-             DateTime d1 = Convert.ToDateTime(datastop.Text);
+            //incarc lista de angajati in dropDownList
+            DropDownList ddlAng = (DropDownList)e.Row.FindControl("ddlAng");
+            ddlAng.DataTextField = "Num";
+            ddlAng.DataValueField = "Num";
+            ddlAng.DataSource = dt;
+            ddlAng.DataBind();
+            ddlAng.SelectedValue = consilier.Text;
+            ////////////////////////////////////// START DATE //////////////////////////////////
+            //luam data de incaput din label
+            Label datastart = e.Row.FindControl("lbl_Start") as Label;
+            //o convertim ca DateTime
+            DateTime d = DateTime.ParseExact(datastart.Text, "dd/MM/yyyy", null);
 
-             //iar in textbox-ul de tip Date com introduce valoarea veche
-             TextBox data1 = e.Row.FindControl("txt_TheEnd") as TextBox;
-             data1.Text = d1.ToString("yyyy-MM-dd");
-             data1.TextMode = TextBoxMode.Date;
-         }
+            //iar in textbox-ul de tip Date com introduce valoarea veche
+            TextBox data = e.Row.FindControl("txt_Start") as TextBox;
+            data.Text = d.ToString();
+            data.TextMode = TextBoxMode.Date;
+
+            ////////////////////////////////////// STOP DATE //////////////////////////////////
+            //luam data de incaput din label
+            Label datastop = e.Row.FindControl("lbl_TheEnd") as Label;
+            //o convertim ca DateTime
+            DateTime d1 = DateTime.ParseExact(datastop.Text, "dd/MM/yyyy", null);
+            //iar in textbox-ul de tip Date com introduce valoarea veche
+            TextBox data1 = e.Row.FindControl("txt_TheEnd") as TextBox;
+            data1.Text = d1.ToString();
+            data1.TextMode = TextBoxMode.Date;
+        }
     }
 
 
