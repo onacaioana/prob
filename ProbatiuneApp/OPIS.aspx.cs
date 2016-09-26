@@ -26,7 +26,8 @@ namespace ProbatiuneApp
                 if (Request.Cookies["UserName"] != null && !Request.Cookies["UserName"].Value.Contains("admin"))
                 {
                     this.GridView1.Columns[8].Visible = false;
-                    
+                    if (!Request.Cookies["UserName"].Value.Contains("docolina"))
+                        this.GridView1.Columns[7].Visible = false;
                 }
               
                 BindGrid();
