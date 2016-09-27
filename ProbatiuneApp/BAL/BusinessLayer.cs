@@ -83,10 +83,10 @@ namespace ProbatiuneApp.BAL
             return pDAL.CheckAngajat(Nume, Prenume);
         }
 
-        public int InsertOpis(string Nume, string CNP, string cazR, string cazS, string cazA, string consilier, string user)
+        public int InsertOpis(string Nume, string CNP, string cazR, string cazS, string consilier, string user)
         {
             DAL.DataLayer pDAL = new DAL.DataLayer();
-                return pDAL.InsertOpis(Nume, CNP, cazR, cazS, cazA, consilier, user);
+                return pDAL.InsertOpis(Nume, CNP, cazR, cazS, consilier, user);
      
 
         }

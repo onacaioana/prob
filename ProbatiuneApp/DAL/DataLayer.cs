@@ -92,11 +92,11 @@ namespace ProbatiuneApp.DAL
             }
         }
 
-        public int InsertOpis(string Nume, string CNP,string CazRef,string CazSuprav,string CazAsis,string Consilier,string user)
+        public int InsertOpis(string Nume, string CNP,string CazRef,string CazSuprav,string Consilier,string user)
         {
             SqlConnection conn = new SqlConnection(connStr);
             conn.Open();
-            string sql = "Insert INTO Opis(Nume,CNP,CazReferat,CazSupraveghere,CazAsistenta,Consilier,user_modif) VALUES(@Nume,@CNP,@CazRef,@CazSuprav,@CazAsis,@Consilier,@user)";
+            string sql = "Insert INTO Opis(Nume,CNP,CazReferat,CazSupraveghere,Consilier,user_modif,last_modif) VALUES(@Nume,@CNP,@CazRef,@CazSuprav,@Consilier,@user,@lastModif)";
             SqlCommand dCmd = new SqlCommand(sql, conn);
 
             try
@@ -105,9 +105,9 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.Add("@CNP", SqlDbType.NVarChar, 255).Value = CNP;
                 dCmd.Parameters.Add("@CazRef", SqlDbType.NVarChar, 255).Value = CazRef;
                 dCmd.Parameters.Add("@CazSuprav", SqlDbType.NVarChar, 255).Value = CazSuprav;
-                dCmd.Parameters.Add("@CazAsis", SqlDbType.NVarChar, 255).Value = CazAsis;
                 dCmd.Parameters.Add("@Consilier", SqlDbType.NVarChar, 255).Value = Consilier;
                 dCmd.Parameters.Add("@user", SqlDbType.NVarChar, 255).Value = user;
+                dCmd.Parameters.Add("@lastModif", SqlDbType.DateTime, 255).Value = DateTime.Now;
                 dCmd.CommandType = CommandType.Text;
                 return dCmd.ExecuteNonQuery();
             }
@@ -194,7 +194,7 @@ namespace ProbatiuneApp.DAL
         {
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                using (SqlDataAdapter dAd = new SqlDataAdapter("select IdOpis,Nume,CNP,CazReferat,CazSupraveghere,CazAsistenta,Consilier from Opis order by Nume ASC", conn))
+                using (SqlDataAdapter dAd = new SqlDataAdapter("select IdOpis,Nume,CNP,CazReferat,CazSupraveghere,Consilier from Opis order by last_modif desc,Nume ASC", conn))
                 {
                     DataSet dset = new DataSet();
                     dAd.Fill(dset);
@@ -425,7 +425,7 @@ namespace ProbatiuneApp.DAL
 
             conn.Open();
 
-            SqlCommand dCmd = new SqlCommand("UPDATE Opis SET Nume=@Nume, CNP=@CNP, CazReferat = @CazReferat, CazSupraveghere=@CazSuprav, CazAsistenta=@CazAsist, Consilier=@Consilier, user_modif=@user WHERE IdOpis=@Id;", conn);
+            SqlCommand dCmd = new SqlCommand("UPDATE Opis SET Nume=@Nume, CNP=@CNP, CazReferat = @CazReferat, CazSupraveghere=@CazSuprav, Consilier=@Consilier, user_modif=@user WHERE IdOpis=@Id;", conn);
 
             try
             {
@@ -435,7 +435,6 @@ namespace ProbatiuneApp.DAL
                 dCmd.Parameters.AddWithValue("@CNP", CNP);
                 dCmd.Parameters.AddWithValue("@CazReferat", CazReferat);
                 dCmd.Parameters.AddWithValue("@CazSuprav", CazSuprav);
-                dCmd.Parameters.AddWithValue("@CazAsist", CazAsist);
                 dCmd.Parameters.AddWithValue("@Consilier", Consilier);
                 dCmd.Parameters.AddWithValue("@user", user);
                 return dCmd.ExecuteNonQuery();

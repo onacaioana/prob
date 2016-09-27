@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="OPIS" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" EnableEventValidation="false"  CodeBehind="OPIS.aspx.cs" Inherits="ProbatiuneApp.OPIS" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
 
 <asp:Content runat="server" ID="Content1" ContentPlaceHolderID="FeaturedContent">
     <section class="featured">
@@ -11,6 +13,7 @@
 
 <asp:Content runat="server" ID="BodyContent1" ContentPlaceHolderID="MainContent">
     <div class="searchDiv">
+
           <asp:Panel ID="panel1" runat="server" HorizontalAlign="Center" style="margin-bottom:10px">
             <asp:TextBox ID="TextBox1" runat="server" placeholder="Nume Prenume " Width="10%" ></asp:TextBox>
             <asp:TextBox ID="TextBox2" runat="server" placeholder="CNP" Width="10%" ></asp:TextBox>
@@ -20,7 +23,6 @@
             <asp:TextBox ID="TextBoxAN" runat="server" placeholder="ANI" Width="3%" ></asp:TextBox>
             <asp:TextBox ID="TextBoxLUNA" runat="server" placeholder="LUNI" Width="3%" ></asp:TextBox>
             <asp:TextBox ID="TextBoxZILE" runat="server" placeholder="ZILE" Width="3%" ></asp:TextBox>
-            <asp:TextBox ID="TextBox5" runat="server" placeholder="CazAsistenta" Width="10%" ></asp:TextBox>
             <asp:DropDownList ID="DropDownList1" runat="server"></asp:DropDownList>
             <asp:ImageButton  ID="ImageButton1" ImageUrl="~/Images/add.png" Height="50px" runat="server" OnClick="AddButon_Click"   /> 
         </asp:Panel>
@@ -38,6 +40,80 @@
          </script>
     <div id="dialog" style="display: none">
          <asp:Label ID="LabelText" Text="" runat="server" > </asp:Label><br>
+    </div>
+
+   
+    <script type="text/javascript">
+        function addfuntion() {
+            $("#Contain").dialog({
+                title: "Adaugare Opis",
+                buttons: {
+                    Adauga: function () {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+        };
+    </script>
+    <div id="Contain" style="display: none">
+    <table>
+        <tr>
+        <td>
+        <asp:Label ID="Label4" runat="server" CssClass="lbl" Text="First Name"></asp:Label>
+        </td>
+        <td>
+        <asp:TextBox ID="TextBox5" runat="server" Font-Size="14px" ></asp:TextBox>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <asp:Label ID="Label5" runat="server" CssClass="lbl" Text="Middle Name"></asp:Label>
+        </td>
+        <td>
+        <asp:TextBox ID="TextBox6" runat="server" Font-Size="14px" ></asp:TextBox>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <asp:Label ID="Label6" runat="server" CssClass="lbl" Text="Last Name"></asp:Label>
+        </td>
+        <td>
+        <asp:TextBox ID="TextBox7" runat="server" Font-Size="14px" ></asp:TextBox>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <asp:Label ID="Label7" runat="server" CssClass="lbl" Text="Gender"></asp:Label>
+        </td>
+        <td>
+        <asp:TextBox ID="TextBox8" runat="server" Font-Size="14px" ></asp:TextBox>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <asp:Label ID="Label8" runat="server" CssClass="lbl" Text="Age"></asp:Label>
+        </td>
+        <td>
+        <asp:TextBox ID="TextBox9" runat="server" Font-Size="14px" ></asp:TextBox>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <asp:Label ID="Label9" runat="server" CssClass="lbl" Text="City"></asp:Label>
+        </td>
+        <td>
+        <asp:TextBox ID="TextBox10" runat="server" Font-Size="14px" ></asp:TextBox>
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <asp:Label ID="Label10" runat="server" CssClass="lbl" Text="State"></asp:Label>
+        </td>
+        <td>
+        <asp:TextBox ID="TextBox11" runat="server" Font-Size="14px" ></asp:TextBox>
+        </td>
+        </tr>
+    </table>
     </div>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
@@ -98,14 +174,6 @@
                     </ItemTemplate>  
                     <EditItemTemplate>  
                         <asp:TextBox ID="txt_cazSuprav" Width="90%" runat="server" Text='<%#Eval("CazSupraveghere") %>'></asp:TextBox>  
-                    </EditItemTemplate>  
-                </asp:TemplateField> 
-                  <asp:TemplateField HeaderText="Caz Asistenta">  
-                    <ItemTemplate>  
-                        <asp:Label ID="lbl_cazAsis" runat="server" Text='<%#Eval("CazAsistenta") %>'></asp:Label>  
-                    </ItemTemplate>  
-                    <EditItemTemplate>  
-                        <asp:TextBox ID="txt_cazAsis" Width="90%" runat="server" Text='<%#Eval("CazAsistenta") %>'></asp:TextBox>  
                     </EditItemTemplate>  
                 </asp:TemplateField>  
 

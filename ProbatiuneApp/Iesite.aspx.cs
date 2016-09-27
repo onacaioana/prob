@@ -33,8 +33,6 @@ namespace ProbatiuneApp
                 {
 
                     this.GridView1.Columns[9].Visible = false;
-                    if (!Request.Cookies["UserName"].Value.Contains("docolina"))
-                        this.GridView1.Columns[8].Visible = false;
                 }
                 BindGrid();
             }

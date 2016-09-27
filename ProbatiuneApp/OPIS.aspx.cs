@@ -25,9 +25,9 @@ namespace ProbatiuneApp
                 
                 if (Request.Cookies["UserName"] != null && !Request.Cookies["UserName"].Value.Contains("admin"))
                 {
-                    this.GridView1.Columns[8].Visible = false;
+                    this.GridView1.Columns[7].Visible = false;
                     if (!Request.Cookies["UserName"].Value.Contains("docolina"))
-                        this.GridView1.Columns[7].Visible = false;
+                        this.GridView1.Columns[6].Visible = false;
                 }
               
                 BindGrid();
@@ -163,8 +163,13 @@ namespace ProbatiuneApp
         }
         protected void AddButon_Click(object sender, ImageClickEventArgs e)
         {
-            
-           
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "FormAdaugare", "addfuntion();", true);
+        }
+    
+ 
+        protected void AddButonOpis_Click(object sender, ImageClickEventArgs e)
+        {
+
             if (TextBox3.Text == "" && TextBox4.Text == "")
             {
                 LabelText.Text = "Trebuie completat campul CazReferat SAU CazSupraveghere!";
@@ -178,7 +183,7 @@ namespace ProbatiuneApp
             //daca CazSuprav completat => inreg in Caz Suprav
             else
             {
-                pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), TextBox5.Text.ToString(), DropDownList1.SelectedValue.ToString(), Request.Cookies["UserName"].Value);
+                pBAL.InsertOpis(TextBox1.Text.ToString(), TextBox2.Text.ToString(), TextBox3.Text.ToString(), TextBox4.Text.ToString(), DropDownList1.SelectedValue.ToString(), Request.Cookies["UserName"].Value);
                 if (TextBox4.Text != "")
                 {
                     DateTime start = new DateTime();
@@ -205,7 +210,6 @@ namespace ProbatiuneApp
             TextBox1.Text = "";
             TextBox3.Text = "";
             TextBox4.Text = "";
-            TextBox5.Text = "";
             TextBoxAN.Text = "";
             TextBoxLUNA.Text = "";
             TextBoxZILE.Text = "";
